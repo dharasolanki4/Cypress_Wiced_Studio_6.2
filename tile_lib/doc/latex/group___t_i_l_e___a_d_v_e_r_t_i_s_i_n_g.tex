@@ -1,0 +1,19 @@
+\hypertarget{group___t_i_l_e___a_d_v_e_r_t_i_s_i_n_g}{}\section{T\+I\+L\+E\+\_\+\+A\+D\+V\+E\+R\+T\+I\+S\+I\+NG}
+\label{group___t_i_l_e___a_d_v_e_r_t_i_s_i_n_g}\index{T\+I\+L\+E\+\_\+\+A\+D\+V\+E\+R\+T\+I\+S\+I\+NG@{T\+I\+L\+E\+\_\+\+A\+D\+V\+E\+R\+T\+I\+S\+I\+NG}}
+Support for Tile Service is advertised through the List of Supported 16-\/bit U\+U\+ID in the advertising packet.
+
+The 2 following U\+U\+I\+Ds are supported\+:
+
+
+\begin{DoxyItemize}
+\item 0x\+F\+E\+EC\+: Shipping Mode\+: ~\newline
+ This is the mode the Tile is in when in the packaging.~\newline
+ In this mode, the Tile is ready to be Activated and associated to a Tile customer account.~\newline
+ For Applications that don\textquotesingle{}t support Activating a Tile, there is usually no need to detect these Tiles.~\newline
+
+\item 0x\+F\+E\+ED\+: Activated Mode\+: ~\newline
+ This is the mode the Tile will be in most of its active life.~\newline
+ A Tile is in its mode after it has been Activated and Associated with a Tile Customer account.~\newline
+ It will then stay in this mode till its death.~\newline
+ 
+\end{DoxyItemize}

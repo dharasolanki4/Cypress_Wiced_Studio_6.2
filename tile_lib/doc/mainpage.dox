@@ -1,0 +1,46 @@
+/*! \mainpage Tile Firmware Documentation
+
+This manual is divided in the following sections:
+
+- @ref TILE_ADVERTISING
+<br>
+- @ref TILE_SERVICE: UUID 0xFEED
+  - @ref Tile_TileIdChar_char (on its way to obsolescence, use @ref TDI instead when supported)
+  - @ref Tile_MepToaCmdChar_char: 
+	UUID: 0x9D41001835D6F4DDBA60E7BD8DC491C0
+  - @ref Tile_MepToaRspChar_char
+	UUID: 0x9D41001935D6F4DDBA60E7BD8DC491C0
+  - @ref LEGACY_CHARACTERISTICS
+  - @ref OBSOLETE_CHARACTERISTICS
+<br>
+- @ref TOA (Tile Over_the_air Api) Features :
+  - @ref TOFU    : Tile Over the air Firmware Upgrade
+  - @ref TKA     : Tile Keep Alive
+  - @ref TDG     : Tile Diagnostic
+  - @ref TDT     : Tile Double Tap
+  - @ref TMD     : Tile Mode
+  - @ref TCU     : Tile Connection Update
+  - @ref SONG    : Tile Player Control
+  - @ref ADV_INT : Tile Advertising Interval
+  - @ref TEST    : Tile Testing Tools
+  - @ref TIME    : Tile Time-keeping
+  - @ref TDI     : Tile Device Information
+  - @ref TPS     : Tile Programmable Songs
+  - @ref TMF     : Tile Manufacturing
+  - @ref TLIL    : Tile Lock-If-Lost
+  - @ref TEF     : Tile Experimental Framework
+  - @ref TRM     : Tile RSSI Monitoring
+  - @ref TPC     : Tile Power Control
+<br>
+- @ref TILE_SECURITY
+<br>
+- @ref TILE_COMMISSIONING
+<br>
+- @ref DIAGNOSTIC_VERSIONS
+<br>
+- Compatibility:
+  - @ref COMPATIBILITY_REQUIREMENTS
+  - @ref VERSIONS_MATRIX
+  - @ref TILELIB3_PLATFORMSUPPORT
+
+*/

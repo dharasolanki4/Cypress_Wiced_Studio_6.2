@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<iarUserArgVars>
+  <group active="true" name="Nordic SDK">
+    <variable>
+      <name>SDK_DIR</name>
+      <value>$PROJ_DIR$\..\..\..\..\..\..\..\SDKS\nordic_12_3</value>
+    </variable>
+  </group>
+  <group active="true" name="Tile Lib">
+    <variable>
+      <name>TILE_LIB_DIR</name>
+      <value>$PROJ_DIR$\..\..\..\..\..\..\tile_lib</value>
+    </variable>
+  </group>
+</iarUserArgVars>
+
+

@@ -72,9 +72,14 @@
 #include "wiced_bt_stack.h"
 #include "wiced_hal_puart.h"
 
+#include "tile_lib.h"
+
 #ifdef  WICED_BT_TRACE_ENABLE
 #include "wiced_bt_trace.h"
 #endif
+
+#include "tile_service.h"
+#include "tile_lib/src/toa/toa.h"
 
 /******************************************************************************
  *                                Constants
@@ -85,18 +90,6 @@
 /******************************************************************************
  *                                Structures
  ******************************************************************************/
-typedef struct
-{
-    BD_ADDR   remote_addr;              // remote peer device address
-    uint32_t  timer_count;              // timer count
-    uint32_t  fine_timer_count;         // fine timer count
-    uint16_t  conn_id;                  // connection ID referenced by the stack
-    uint16_t  peer_mtu;                 // peer MTU
-    uint8_t   num_to_write;             // num msgs to send, incr on each button intr
-    uint8_t   flag_indication_sent;     // indicates waiting for ack/cfm
-    uint8_t   flag_stay_connected;      // stay connected or disconnect after all messages are sent
-    uint8_t   battery_level;            // dummy battery level
-} hello_sensor_state_t;
 
 #pragma pack(1)
 /* Host information saved in  NVRAM */
@@ -164,8 +157,8 @@ const uint8_t hello_sensor_gatt_database[]=
             // for bonded devices.  Setting value to 1 tells this application to send notification
             // when value of the characteristic changes.  Value 2 is to allow indications.
             CHAR_DESCRIPTOR_UUID16_WRITABLE( HANDLE_HSENS_SERVICE_CHAR_CFG_DESC, UUID_DESCRIPTOR_CLIENT_CHARACTERISTIC_CONFIGURATION,
-            LEGATTDB_PERM_READABLE | LEGATTDB_PERM_WRITE_REQ | LEGATTDB_PERM_AUTH_READABLE | LEGATTDB_PERM_AUTH_WRITABLE),
-
+            //LEGATTDB_PERM_READABLE | LEGATTDB_PERM_WRITE_REQ | LEGATTDB_PERM_AUTH_READABLE | LEGATTDB_PERM_AUTH_WRITABLE),
+            LEGATTDB_PERM_READABLE | LEGATTDB_PERM_WRITE_REQ),
         // Declare characteristic Hello Configuration
         // The configuration consists of 1 bytes which indicates how many times to
         // blink the LED when user pushes the button.
@@ -194,10 +187,23 @@ const uint8_t hello_sensor_gatt_database[]=
         // Handle 0x62: characteristic Battery Level, handle 0x63 characteristic value
         CHARACTERISTIC_UUID16( HANDLE_HSENS_BATTERY_SERVICE_CHAR_LEVEL, HANDLE_HSENS_BATTERY_SERVICE_CHAR_LEVEL_VAL,
             UUID_CHARACTERISTIC_BATTERY_LEVEL, LEGATTDB_CHAR_PROP_READ, LEGATTDB_PERM_READABLE),
+
+    // Declare Tile service
+    //PRIMARY_SERVICE_UUID16( HANDLE_HSENS_TILE_SERVICE, TILE_SERVICE_UUID ),
+    PRIMARY_SERVICE_UUID16( HANDLE_HSENS_TILE_SERVICE, 0xFEED ),
+
+        CHARACTERISTIC_UUID128_WRITABLE( HANDLE_HSENS_TILE_SERVICE_CHAR_MEP_TOA_CMD, HANDLE_HSENS_TILE_SERVICE_CHAR_MEP_TOA_CMD_VAL,
+            TILE_TOA_CMD_UUID,   LEGATTDB_CHAR_PROP_WRITE_NO_RESPONSE, LEGATTDB_PERM_WRITE_CMD),
+
+        CHARACTERISTIC_UUID128( HANDLE_HSENS_TILE_SERVICE_CHAR_MEP_TOA_RSP, HANDLE_HSENS_TILE_SERVICE_CHAR_MEP_TOA_RSP_VAL,
+            TILE_TOA_RSP_UUID, LEGATTDB_CHAR_PROP_INDICATE, LEGATTDB_PERM_READABLE),
+
+        CHAR_DESCRIPTOR_UUID16_WRITABLE( HANDLE_HSENS_TILE_SERVICE_CHAR_MEP_TOA_RSP_CFG_DESC, UUID_DESCRIPTOR_CLIENT_CHARACTERISTIC_CONFIGURATION,
+            LEGATTDB_PERM_READABLE | LEGATTDB_PERM_WRITE_REQ),
 };
 
 
-uint8_t hello_sensor_device_name[]          = "Hello";												//GAP Service characteristic Device Name
+uint8_t hello_sensor_device_name[]          = "CypressTile";												//GAP Service characteristic Device Name
 uint8_t hello_sensor_appearance_name[2]     = { BIT16_TO_8(APPEARANCE_GENERIC_TAG) };
 char    hello_sensor_char_notify_value[]    = "Hello 0"; 											//Notification Name
 char    hello_sensor_char_mfr_name_value[]  = { 'C', 'y', 'p', 'r', 'e', 's', 's', 0, };
@@ -222,6 +228,8 @@ attribute_t gauAttributes[] =
     { HANDLE_HSENS_DEV_INFO_SERVICE_CHAR_MODEL_NUM_VAL, sizeof(hello_sensor_char_model_num_value),  hello_sensor_char_model_num_value },
     { HANDLE_HSENS_DEV_INFO_SERVICE_CHAR_SYSTEM_ID_VAL, sizeof(hello_sensor_char_system_id_value),  hello_sensor_char_system_id_value },
     { HANDLE_HSENS_BATTERY_SERVICE_CHAR_LEVEL_VAL,      1,                                          &hello_sensor_state.battery_level },
+ // { HANDLE_HSENS_TILE_SERVICE_CHAR_MEP_TOA_RSP_CFG_DESC,   2,                                     (void*)&hello_sensor_hostinfo.characteristic_client_configuration},
+
 };
 
 /* transport configuration */
@@ -241,7 +249,8 @@ static wiced_bt_gatt_status_t   hello_sensor_gatts_callback( wiced_bt_gatt_evt_t
 static void                     hello_sensor_hci_trace_cback( wiced_bt_hci_trace_type_t type, uint16_t length, uint8_t* p_data );
 #endif
 static void                     hello_sensor_set_advertisement_data( void );
-static void                     hello_sensor_send_message( void );
+       void                     hello_sensor_send_message( void );
+       void                     tile_send_message( uint8_t *data, uint16_t datalen );
 static void                     hello_sensor_gatts_increment_notify_value( void );
 static void                     hello_sensor_timeout( uint32_t count );
 static void                     hello_sensor_fine_timeout( uint32_t finecount );
@@ -314,17 +323,20 @@ void hello_sensor_application_init( void )
 
     WICED_BT_TRACE("wiced_bt_gatt_db_init %d\n", gatt_status);
 
+    tile_service_init();
+
 #ifdef ENABLE_HCI_TRACE
     /* Register callback for receiving hci traces */
     wiced_bt_dev_register_hci_trace( hello_sensor_hci_trace_cback );
 #endif
+
 
     /* Starting the app timers , seconds timer and the ms timer  */
     wiced_bt_app_start_timer( HELLO_SENSOR_APP_TIMEOUT_IN_SECONDS, HELLO_SENSOR_APP_FINE_TIMEOUT_IN_MS,
         hello_sensor_timeout, hello_sensor_fine_timeout );
 
     /* Enable privacy to advertise with RPA */
-    wiced_bt_ble_enable_privacy ( WICED_TRUE );
+    //wiced_bt_ble_enable_privacy ( WICED_TRUE );
 
     /* Load the address resolution DB with the keys stored in the NVRAM */
     hello_sensor_load_keys_for_address_resolution();
@@ -366,17 +378,17 @@ void hello_sensor_set_advertisement_data(void)
      * hci_control_le_local_name - Advertising Complete Name
      * Note : Max Length is 8 bytes for the Advertisement Name, rest of 21 bytes are used for BTM_BLE_ADVERT_TYPE_FLAG,BTM_BLE_ADVERT_TYPE_128SRV_COMPLETE
      */
-    uint8_t  hci_control_le_local_name[]      =   "Hello" ; //Alternate way to declare {'h', 'e', 'l', 'l', 'o', 0x00, 0x00};
-    uint8_t hello_service_uuid[LEN_UUID_128] = { UUID_HELLO_SERVICE };
+    uint8_t  hci_control_le_local_name[]   = "CypressTile" ; //Alternate way to declare {'h', 'e', 'l', 'l', 'o', 0x00, 0x00};
+    uint8_t tile_service_uuid[LEN_UUID_16] = { 0xED, 0xFE };
 
     adv_elem[num_elem].advert_type  = BTM_BLE_ADVERT_TYPE_FLAG;
     adv_elem[num_elem].len          = sizeof(uint8_t);
     adv_elem[num_elem].p_data       = &flag;
     num_elem++;
 
-    adv_elem[num_elem].advert_type  = BTM_BLE_ADVERT_TYPE_128SRV_COMPLETE;
-    adv_elem[num_elem].len          = sizeof(hello_service_uuid);
-    adv_elem[num_elem].p_data       = ( uint8_t* )hello_service_uuid;
+    adv_elem[num_elem].advert_type  = BTM_BLE_ADVERT_TYPE_16SRV_COMPLETE;
+    adv_elem[num_elem].len          = sizeof(tile_service_uuid);
+    adv_elem[num_elem].p_data       = ( uint8_t* )tile_service_uuid;
     num_elem++;
 
     adv_elem[num_elem].advert_type  = BTM_BLE_ADVERT_TYPE_NAME_COMPLETE;
@@ -415,7 +427,9 @@ void hello_sensor_timeout( uint32_t count )
     hello_sensor_state.timer_count++;
     // print for first 10 seconds, then once every 10 seconds thereafter
     if ((hello_sensor_state.timer_count <= 10) || (hello_sensor_state.timer_count % 10 == 0))
-        WICED_BT_TRACE("hello_sensor_timeout: %d\n", hello_sensor_state.timer_count);
+    {
+      //  WICED_BT_TRACE("hello_sensor_timeout: %d\n", hello_sensor_state.timer_count);
+    }
 }
 
 /* 
@@ -426,7 +440,7 @@ void hello_sensor_fine_timeout( uint32_t finecount )
     hello_sensor_state.fine_timer_count++;
     if(0 == (hello_sensor_state.fine_timer_count & 0x1f))
     {
-        WICED_BT_TRACE("hello_sensor_fine_timeout: %d\n", hello_sensor_state.fine_timer_count);
+      //  WICED_BT_TRACE("hello_sensor_fine_timeout: %d\n", hello_sensor_state.fine_timer_count);
     }
 }
 
@@ -545,6 +559,8 @@ void hello_sensor_conn_idle_timeout ( uint32_t arg )
 
     /* Initiating the gatt disconnect */
     wiced_bt_gatt_disconnect( hello_sensor_state.conn_id );
+
+    WICED_BT_TRACE( "hello_sensor DISCONNECT\n" );
 }
 
 /*
@@ -564,6 +580,7 @@ wiced_result_t hello_sensor_management_cback( wiced_bt_management_evt_t event, w
     {
     /* Bluetooth  stack enabled */
     case BTM_ENABLED_EVT:
+        WICED_BT_TRACE("hello_sensor_application_init\n");
         hello_sensor_application_init();
         break;
 
@@ -640,6 +657,7 @@ wiced_result_t hello_sensor_management_cback( wiced_bt_management_evt_t event, w
         if ( *p_mode == BTM_BLE_ADVERT_OFF )
         {
             hello_sensor_advertisement_stopped();
+            WICED_BT_TRACE( "hello_sensor_advertisement_stopped\n");
         }
         break;
 
@@ -679,6 +697,37 @@ void hello_sensor_send_message( void )
             hello_sensor_state.flag_indication_sent = TRUE;
 
             wiced_bt_gatt_send_indication( hello_sensor_state.conn_id, HANDLE_HSENS_SERVICE_CHAR_NOTIFY_VAL, sizeof(hello_sensor_char_notify_value), p_attr );
+        }
+    }
+}
+
+void tile_send_message( uint8_t *data, uint16_t datalen )
+{
+    WICED_BT_TRACE( "tile_send_message: CCC:%d\n", hello_sensor_hostinfo.characteristic_client_configuration );
+
+    /* If client has not registered for indication or notification, no action */
+    if ( hello_sensor_hostinfo.characteristic_client_configuration == 0 )
+    {
+        WICED_BT_TRACE("is 0\n ");
+        return;
+    }
+    else if ( hello_sensor_hostinfo.characteristic_client_configuration & GATT_CLIENT_CONFIG_NOTIFICATION )
+    {
+
+        WICED_BT_TRACE("else if\n ");
+
+        wiced_bt_gatt_send_notification( hello_sensor_state.conn_id, HANDLE_HSENS_TILE_SERVICE_CHAR_MEP_TOA_RSP_VAL, datalen,data );
+    }
+    else
+    {
+        WICED_BT_TRACE("els\n ");
+        if ( !hello_sensor_state.flag_indication_sent )
+        {
+            WICED_BT_TRACE("els2\n ");
+
+            hello_sensor_state.flag_indication_sent = TRUE;
+
+            wiced_bt_gatt_send_indication( hello_sensor_state.conn_id, HANDLE_HSENS_TILE_SERVICE_CHAR_MEP_TOA_RSP_VAL, datalen, data );
         }
     }
 }
@@ -791,7 +840,6 @@ wiced_bt_gatt_status_t hello_sensor_gatts_req_write_handler( uint16_t conn_id, w
             nv_update = WICED_TRUE;
         }
         break;
-
     default:
         result = WICED_BT_GATT_INVALID_HANDLE;
         break;
@@ -846,13 +894,15 @@ wiced_bt_gatt_status_t hello_sensor_gatts_req_conf_handler( uint16_t conn_id, ui
     }
 
     hello_sensor_state.flag_indication_sent = 0;
-
+    tile_toa_response_sent_ok();
     /* We might need to send more indications */
+#if 0
     if ( hello_sensor_state.num_to_write )
     {
         hello_sensor_state.num_to_write--;
         hello_sensor_send_message();
     }
+#endif
     /* if we sent all messages, start connection idle timer to disconnect */
     if ( !hello_sensor_state.flag_stay_connected && !hello_sensor_state.flag_indication_sent )
     {
@@ -983,10 +1033,12 @@ wiced_bt_gatt_status_t hello_sensor_gatts_callback( wiced_bt_gatt_evt_t event, w
     switch(event)
     {
     case GATT_CONNECTION_STATUS_EVT:
+        WICED_BT_TRACE("hello_sensor: GATT_CONNECTION_STATUS_EVT\n");
         result = hello_sensor_gatts_conn_status_cb( &p_data->connection_status );
         break;
 
     case GATT_ATTRIBUTE_REQUEST_EVT:
+        WICED_BT_TRACE("hello_sensor: GATT_ATTRIBUTE_REQUEST_EVT\n");
         result = hello_sensor_gatts_req_cb( &p_data->attribute_request );
         break;
 

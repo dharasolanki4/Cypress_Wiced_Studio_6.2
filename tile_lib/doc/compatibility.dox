@@ -1,0 +1,15 @@
+/*!
+\defgroup COMPATIBILITY_REQUIREMENTS
+
+General Compatibility Requirements:
+
+1: TILE Clients shall support that any additional information is contained in the advertising data beyond the Tile service ID.<br>
+For example TILE Clients shall support that the Heart Rate Service be part of the 16-bit UUID list together with Tile 0xFEEC Service.
+
+2: TILE Clients shall support that no Device Information Service is supported on the Tile.<br>
+For instance, TILE Clients shall still work properly if the "Tile enabled" device does not provide a FW Version information.
+
+
+TOA Compatibility Requirements: @ref TOA_COMPATIBILITY
+
+*/

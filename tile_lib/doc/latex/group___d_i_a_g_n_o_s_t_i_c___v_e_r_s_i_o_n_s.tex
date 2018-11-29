@@ -1,0 +1,902 @@
+\hypertarget{group___d_i_a_g_n_o_s_t_i_c___v_e_r_s_i_o_n_s}{}\section{D\+I\+A\+G\+N\+O\+S\+T\+I\+C\+\_\+\+V\+E\+R\+S\+I\+O\+NS}
+\label{group___d_i_a_g_n_o_s_t_i_c___v_e_r_s_i_o_n_s}\index{D\+I\+A\+G\+N\+O\+S\+T\+I\+C\+\_\+\+V\+E\+R\+S\+I\+O\+NS@{D\+I\+A\+G\+N\+O\+S\+T\+I\+C\+\_\+\+V\+E\+R\+S\+I\+O\+NS}}
+\hypertarget{group___d_i_a_g_n_o_s_t_i_c___v_e_r_s_i_o_n_s_DIAG_FORMAT_VERSION_16}{}\subsection{D\+I\+A\+G\+\_\+\+F\+O\+R\+M\+A\+T\+\_\+\+V\+E\+R\+S\+I\+O\+N\+\_\+16}\label{group___d_i_a_g_n_o_s_t_i_c___v_e_r_s_i_o_n_s_DIAG_FORMAT_VERSION_16}
+\tabulinesep=1mm
+\begin{longtabu} spread 0pt [c]{*{3}{|X[-1]}|}
+\hline
+\rowcolor{\tableheadbgcolor}\textbf{ Name  }&\textbf{ Size  }&\textbf{ Description -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/---   }\\\cline{1-3}
+\endfirsthead
+\hline
+\endfoot
+\hline
+\rowcolor{\tableheadbgcolor}\textbf{ Name  }&\textbf{ Size  }&\textbf{ Description -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/---   }\\\cline{1-3}
+\endhead
+diag\+Version  &1  &Version of the diagnostic structure   \\\cline{1-3}
+mode  &1  &Current mode of the Tile   \\\cline{1-3}
+adv\+Int  &2  &The advertising interval, in milliseconds   \\\cline{1-3}
+reset\+Count  &1  &Number of resets   \\\cline{1-3}
+reset\+Umb\+Count  &1  &Number of times U\+MB was lost at boot   \\\cline{1-3}
+piezo\+Milliseconds  &4  &Number of milliseconds the piezo has been active   \\\cline{1-3}
+reset\+Reason  &2  &Reason for last reset   \\\cline{1-3}
+reset\+Hf\+Count  &1  &Number of resets due to hard faults   \\\cline{1-3}
+reset\+Nmi\+Count  &1  &Number of resets due to Non Maskable Interrupts (like watchdog)   \\\cline{1-3}
+lr  &4  &The Link Register value at the last H\+F/\+N\+MI reboot   \\\cline{1-3}
+pc  &4  &The Program Counter register value at the last H\+F/\+N\+MI reboot   \\\cline{1-3}
+ipsr  &1  &The Interrupt Program Status Register (Exception Number) value at the last H\+F/\+N\+MI reboot   \\\cline{1-3}
+reset\+Wanted\+Count  &1  &Number of requested resets   \\\cline{1-3}
+con\+Evt\+Count  &4  &Number of connection events   \\\cline{1-3}
+adv\+Evt\+Count  &4  &Number of advertising events   \\\cline{1-3}
+conn\+Count  &3  &Number of connections   \\\cline{1-3}
+battery\+Level  &1  &Unloaded battery level taken at connection   \\\cline{1-3}
+advertising\+Time  &4  &Seconds spent advertising   \\\cline{1-3}
+reset\+Song\+Count  &1  &Number of resets that happened while playing a song   \\\cline{1-3}
+reset\+Flash\+Count  &1  &Counter of number of reboots during flash operations   \\\cline{1-3}
+auth\+Fail\+Count  &1  &Number of authentication failures   \\\cline{1-3}
+mic\+Fail\+Count  &1  &Number of M\+IC failures   \\\cline{1-3}
+double\+Tap\+Detect\+Count  &2  &Number of double taps detected   \\\cline{1-3}
+double\+Tap\+Notification\+Count  &2  &Number of double tap notifications sent   \\\cline{1-3}
+single\+Tap\+Count  &2  &Number of single taps   \\\cline{1-3}
+reset\+Button\+Count  &1  &Number of times a reset has occurred with the button pressed down   \\\cline{1-3}
+seconds\+Hdc  &4  &Seconds spent in high duty cycle   \\\cline{1-3}
+seconds\+Ldc  &4  &Seconds spent in low duty cycle   \\\cline{1-3}
+double\+Tap\+Failed\+Count2  &2  &Number of double tap failures   \\\cline{1-3}
+long\+Tap\+Count  &1  &Number of long taps detected   \\\cline{1-3}
+reset\+Assert\+Count  &1  &Number of times an assert triggered a reboot   \\\cline{1-3}
+cnx\+Evt\+Count\+P\+A\+Off  &4  &Number of connection events with the F\+EM disabled   \\\cline{1-3}
+seconds\+Hdc\+P\+A\+Off  &4  &Seconds spent connected in high duty cycle with the F\+EM disabled   \\\cline{1-3}
+seconds\+Ldc\+P\+A\+Off  &4  &Seconds spent connected in low duty cycle with the F\+EM disabled   \\\cline{1-3}
+packet\+Error\+Count  &3  &Number of packet errors   \\\cline{1-3}
+packet\+Error\+Count\+P\+A\+Off  &3  &Number of packet errors with the F\+EM disabled   \\\cline{1-3}
+disconnect\+Count  &3  &Number of disconnections   \\\cline{1-3}
+disconnect\+Count\+P\+A\+Off  &2  &Number of disconnections with the F\+EM disabled   \\\cline{1-3}
+loaded\+Battery\+Level  &1  &Loaded battery level taken during the find song   \\\cline{1-3}
+low\+Volt\+Skip\+Write\+Count  &1  &Number of times flash write was skipped due to low voltage   \\\cline{1-3}
+amp\+On\+A\+DC  &2  &Battery A\+DC reading while audio amplifier is on, but no sound   \\\cline{1-3}
+note\+On\+A\+DC  &2  &Battery A\+DC reading while playing a note   \\\cline{1-3}
+piezo\+Test\+Hour  &2  &Time of piezo test (amp\+On\+A\+DC and note\+On\+A\+DC readings) in hours since the Tile epoch   \\\cline{1-3}
+packet\+Error\+Count\+Hdc  &3  &Number of packet errors while in H\+DC   \\\cline{1-3}
+packet\+Error\+Count\+Hdc\+P\+A\+Off  &3  &Number of packets errors while in H\+DC with PA off   \\\cline{1-3}
+toa\+\_\+channel\+\_\+open\+\_\+count  &3  &Number of times toa\+\_\+channel\+\_\+open cmd was received   \\\cline{1-3}
+toa\+\_\+authenticate\+\_\+count  &3  &Number of times toa\+\_\+authenticate cmd was received   \\\cline{1-3}
+tka\+\_\+closed\+\_\+channel\+\_\+count  &2  &Number of times a channel was closed due to app not sending tka   \\\cline{1-3}
+auth\+\_\+disconnect\+\_\+count  &2  &Number of auth timer triggered disconnections   \\\cline{1-3}
+tcu\+\_\+disconnect\+\_\+count  &2  &Number of disconnects caused by central not implementing requested connection parameters   \\\cline{1-3}
+daa\+\_\+final\+\_\+duty\+\_\+cycle  &1  &The discrete audio amplifier\textquotesingle{}s final duty cycle after playing the last song   \\\cline{1-3}
+daa\+\_\+peak\+\_\+duty\+\_\+cycle  &1  &The discrete audio amplifier\textquotesingle{}s peak duty cycle during the last song   \\\cline{1-3}
+\end{longtabu}
+\hypertarget{group___d_i_a_g_n_o_s_t_i_c___v_e_r_s_i_o_n_s_DIAG_FORMAT_VERSION_15}{}\subsection{D\+I\+A\+G\+\_\+\+F\+O\+R\+M\+A\+T\+\_\+\+V\+E\+R\+S\+I\+O\+N\+\_\+15}\label{group___d_i_a_g_n_o_s_t_i_c___v_e_r_s_i_o_n_s_DIAG_FORMAT_VERSION_15}
+\tabulinesep=1mm
+\begin{longtabu} spread 0pt [c]{*{3}{|X[-1]}|}
+\hline
+\rowcolor{\tableheadbgcolor}\textbf{ Name  }&\textbf{ Size  }&\textbf{ Description -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/---   }\\\cline{1-3}
+\endfirsthead
+\hline
+\endfoot
+\hline
+\rowcolor{\tableheadbgcolor}\textbf{ Name  }&\textbf{ Size  }&\textbf{ Description -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/---   }\\\cline{1-3}
+\endhead
+diag\+Version  &1  &Version of the diagnostic structure   \\\cline{1-3}
+mode  &1  &Current mode of the Tile   \\\cline{1-3}
+adv\+Int  &2  &The advertising interval, in milliseconds   \\\cline{1-3}
+reset\+Count  &1  &Number of resets   \\\cline{1-3}
+reset\+Umb\+Count  &1  &Number of times U\+MB was lost at boot   \\\cline{1-3}
+piezo\+Milliseconds  &4  &Number of milliseconds the piezo has been active   \\\cline{1-3}
+reset\+Reason  &2  &Reason for last reset   \\\cline{1-3}
+reset\+Hf\+Count  &1  &Number of resets due to hard faults   \\\cline{1-3}
+reset\+Nmi\+Count  &1  &Number of resets due to Non Maskable Interrupts (like watchdog)   \\\cline{1-3}
+lr  &4  &The Link Register value at the last H\+F/\+N\+MI reboot   \\\cline{1-3}
+pc  &4  &The Program Counter register value at the last H\+F/\+N\+MI reboot   \\\cline{1-3}
+ipsr  &1  &The Interrupt Program Status Register (Exception Number) value at the last H\+F/\+N\+MI reboot   \\\cline{1-3}
+reset\+Wanted\+Count  &1  &Number of requested resets   \\\cline{1-3}
+con\+Evt\+Count  &4  &Number of connection events   \\\cline{1-3}
+adv\+Evt\+Count  &4  &Number of advertising events   \\\cline{1-3}
+conn\+Count  &3  &Number of connections   \\\cline{1-3}
+battery\+Level  &1  &Unloaded battery level taken at connection   \\\cline{1-3}
+advertising\+Time  &4  &Seconds spent advertising   \\\cline{1-3}
+reset\+Song\+Count  &1  &Number of resets that happened while playing a song   \\\cline{1-3}
+reset\+Flash\+Count  &1  &Counter of number of reboots during flash operations   \\\cline{1-3}
+auth\+Fail\+Count  &1  &Number of authentication failures   \\\cline{1-3}
+mic\+Fail\+Count  &1  &Number of M\+IC failures   \\\cline{1-3}
+double\+Tap\+Detect\+Count  &2  &Number of double taps detected   \\\cline{1-3}
+double\+Tap\+Notification\+Count  &2  &Number of double tap notifications sent   \\\cline{1-3}
+single\+Tap\+Count  &2  &Number of single taps   \\\cline{1-3}
+reset\+Button\+Count  &1  &Number of times a reset has occurred with the button pressed down   \\\cline{1-3}
+seconds\+Hdc  &4  &Seconds spent in high duty cycle   \\\cline{1-3}
+seconds\+Ldc  &4  &Seconds spent in low duty cycle   \\\cline{1-3}
+double\+Tap\+Failed\+Count2  &2  &Number of double tap failures   \\\cline{1-3}
+long\+Tap\+Count  &1  &Number of long taps detected   \\\cline{1-3}
+reset\+Assert\+Count  &1  &Number of times an assert triggered a reboot   \\\cline{1-3}
+cnx\+Evt\+Count\+P\+A\+Off  &4  &Number of connection events with the F\+EM disabled   \\\cline{1-3}
+seconds\+Hdc\+P\+A\+Off  &4  &Seconds spent connected in high duty cycle with the F\+EM disabled   \\\cline{1-3}
+seconds\+Ldc\+P\+A\+Off  &4  &Seconds spent connected in low duty cycle with the F\+EM disabled   \\\cline{1-3}
+packet\+Error\+Count  &3  &Number of packet errors   \\\cline{1-3}
+packet\+Error\+Count\+P\+A\+Off  &3  &Number of packet errors with the F\+EM disabled   \\\cline{1-3}
+disconnect\+Count  &3  &Number of disconnections   \\\cline{1-3}
+disconnect\+Count\+P\+A\+Off  &2  &Number of disconnections with the F\+EM disabled   \\\cline{1-3}
+loaded\+Battery\+Level  &1  &Loaded battery level taken during the find song   \\\cline{1-3}
+low\+Volt\+Skip\+Write\+Count  &1  &Number of times flash write was skipped due to low voltage   \\\cline{1-3}
+amp\+On\+A\+DC  &2  &Battery A\+DC reading while audio amplifier is on, but no sound   \\\cline{1-3}
+note\+On\+A\+DC  &2  &Battery A\+DC reading while playing a note   \\\cline{1-3}
+piezo\+Test\+Hour  &2  &Time of piezo test (amp\+On\+A\+DC and note\+On\+A\+DC readings) in hours since the Tile epoch   \\\cline{1-3}
+packet\+Error\+Count\+Hdc  &3  &Number of packet errors while in H\+DC   \\\cline{1-3}
+packet\+Error\+Count\+Hdc\+P\+A\+Off  &3  &Number of packets errors while in H\+DC with PA off   \\\cline{1-3}
+toa\+\_\+channel\+\_\+open\+\_\+count  &3  &Number of times toa\+\_\+channel\+\_\+open cmd was received   \\\cline{1-3}
+toa\+\_\+authenticate\+\_\+count  &3  &Number of times toa\+\_\+authenticate cmd was received   \\\cline{1-3}
+tka\+\_\+closed\+\_\+channel\+\_\+count  &2  &Number of times a channel was closed due to app not sending tka   \\\cline{1-3}
+auth\+\_\+disconnect\+\_\+count  &2  &Number of auth timer triggered disconnections   \\\cline{1-3}
+tcu\+\_\+disconnect\+\_\+count  &2  &Number of disconnects caused by central not implementing requested connection parameters   \\\cline{1-3}
+\end{longtabu}
+\hypertarget{group___d_i_a_g_n_o_s_t_i_c___v_e_r_s_i_o_n_s_DIAG_FORMAT_VERSION_14}{}\subsection{D\+I\+A\+G\+\_\+\+F\+O\+R\+M\+A\+T\+\_\+\+V\+E\+R\+S\+I\+O\+N\+\_\+14}\label{group___d_i_a_g_n_o_s_t_i_c___v_e_r_s_i_o_n_s_DIAG_FORMAT_VERSION_14}
+\tabulinesep=1mm
+\begin{longtabu} spread 0pt [c]{*{3}{|X[-1]}|}
+\hline
+\rowcolor{\tableheadbgcolor}\textbf{ Name  }&\textbf{ Size  }&\textbf{ Description -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/---   }\\\cline{1-3}
+\endfirsthead
+\hline
+\endfoot
+\hline
+\rowcolor{\tableheadbgcolor}\textbf{ Name  }&\textbf{ Size  }&\textbf{ Description -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/---   }\\\cline{1-3}
+\endhead
+diag\+Version  &1  &Version of the diagnostic structure   \\\cline{1-3}
+mode  &1  &Current mode of the Tile   \\\cline{1-3}
+adv\+Int  &2  &The advertising interval, in milliseconds   \\\cline{1-3}
+reset\+Count  &1  &Number of resets   \\\cline{1-3}
+reset\+Umb\+Count  &1  &Number of times U\+MB was lost at boot   \\\cline{1-3}
+piezo\+Milliseconds  &4  &Number of milliseconds the piezo has been active   \\\cline{1-3}
+reset\+Reason  &2  &Reason for last reset   \\\cline{1-3}
+reset\+Hf\+Count  &1  &Number of resets due to hard faults   \\\cline{1-3}
+reset\+Nmi\+Count  &1  &Number of resets due to Non Maskable Interrupts (like watchdog)   \\\cline{1-3}
+lr  &4  &The Link Register value at the last H\+F/\+N\+MI reboot   \\\cline{1-3}
+pc  &4  &The Program Counter register value at the last H\+F/\+N\+MI reboot   \\\cline{1-3}
+ipsr  &1  &The Interrupt Program Status Register (Exception Number) value at the last H\+F/\+N\+MI reboot   \\\cline{1-3}
+reset\+Wanted\+Count  &1  &Number of requested resets   \\\cline{1-3}
+con\+Evt\+Count  &4  &Number of connection events   \\\cline{1-3}
+adv\+Evt\+Count  &4  &Number of advertising events   \\\cline{1-3}
+conn\+Count  &3  &Number of connections   \\\cline{1-3}
+battery\+Level  &1  &Unloaded battery level taken at connection   \\\cline{1-3}
+advertising\+Time  &4  &Seconds spent advertising   \\\cline{1-3}
+reset\+Song\+Count  &1  &Number of resets that happened while playing a song   \\\cline{1-3}
+reset\+Flash\+Count  &1  &Counter of number of reboots during flash operations   \\\cline{1-3}
+auth\+Fail\+Count  &1  &Number of authentication failures   \\\cline{1-3}
+mic\+Fail\+Count  &1  &Number of M\+IC failures   \\\cline{1-3}
+double\+Tap\+Detect\+Count  &2  &Number of double taps detected   \\\cline{1-3}
+double\+Tap\+Notification\+Count  &2  &Number of double tap notifications sent   \\\cline{1-3}
+single\+Tap\+Count  &2  &Number of single taps   \\\cline{1-3}
+reset\+Button\+Count  &1  &Number of times a reset has occurred with the button pressed down   \\\cline{1-3}
+seconds\+Hdc  &4  &Seconds spent in high duty cycle   \\\cline{1-3}
+seconds\+Ldc  &4  &Seconds spent in low duty cycle   \\\cline{1-3}
+double\+Tap\+Failed\+Count2  &2  &Number of double tap failures   \\\cline{1-3}
+long\+Tap\+Count  &1  &Number of long taps detected   \\\cline{1-3}
+reset\+Assert\+Count  &1  &Number of times an assert triggered a reboot   \\\cline{1-3}
+packet\+Error\+Count  &3  &Number of packet errors   \\\cline{1-3}
+disconnect\+Count  &3  &Number of disconnections   \\\cline{1-3}
+loaded\+Battery\+Level  &1  &Loaded battery level taken during the find song   \\\cline{1-3}
+low\+Volt\+Skip\+Write\+Count  &1  &Number of times flash write was skipped due to low voltage   \\\cline{1-3}
+amp\+On\+A\+DC  &2  &Battery A\+DC reading while audio amplifier is on, but no sound   \\\cline{1-3}
+note\+On\+A\+DC  &2  &Battery A\+DC reading while playing a note   \\\cline{1-3}
+packet\+Error\+Count\+Hdc  &3  &Number of packet errors while in H\+DC   \\\cline{1-3}
+Seconds\+Since\+Last\+App\+Save  &3  &Seconds since the last time statistics in R\+AM were committed to flash   \\\cline{1-3}
+Loaded\+Battery\+Heavy\+Load  &1  &Average battery level during flash erase   \\\cline{1-3}
+Loaded\+Battery\+Min  &1  &Lowest battery level during flash erase   \\\cline{1-3}
+Loaded\+Battery\+Max  &1  &Highest battery level during flash erase   \\\cline{1-3}
+Loaded\+Battery\+Cnt  &2  &Number of battery level measurements taken during a flash erase   \\\cline{1-3}
+Loaded\+Battery\+Window0  &1  &The average battery level of the first 50 samples   \\\cline{1-3}
+Loaded\+Battery\+Window1  &1  &The average battery level of the samples from \mbox{[}50, 100)   \\\cline{1-3}
+Loaded\+Battery\+Window2  &1  &The average battery level of the samples from \mbox{[}100, 150)   \\\cline{1-3}
+Loaded\+Battery\+Window3  &1  &The average battery level of the samples from \mbox{[}150, 200)   \\\cline{1-3}
+Loaded\+Battery\+Window4  &1  &The average battery level of the samples from \mbox{[}200, 250)   \\\cline{1-3}
+Loaded\+Battery\+Window5  &1  &The average battery level of the samples from \mbox{[}250, 300)   \\\cline{1-3}
+toa\+\_\+channel\+\_\+open\+\_\+count  &3  &Number of times toa\+\_\+channel\+\_\+open cmd was received   \\\cline{1-3}
+toa\+\_\+authenticate\+\_\+count  &3  &Number of times toa\+\_\+authenticate cmd was received   \\\cline{1-3}
+tka\+\_\+closed\+\_\+channel\+\_\+count  &2  &Number of times a channel was closed due to app not sending tka   \\\cline{1-3}
+auth\+\_\+disconnect\+\_\+count  &2  &Number of auth timer triggered disconnections   \\\cline{1-3}
+tcu\+\_\+disconnect\+\_\+count  &2  &Number of disconnects caused by central not implementing requested connection parameters   \\\cline{1-3}
+\end{longtabu}
+\hypertarget{group___d_i_a_g_n_o_s_t_i_c___v_e_r_s_i_o_n_s_DIAG_FORMAT_VERSION_13}{}\subsection{D\+I\+A\+G\+\_\+\+F\+O\+R\+M\+A\+T\+\_\+\+V\+E\+R\+S\+I\+O\+N\+\_\+13}\label{group___d_i_a_g_n_o_s_t_i_c___v_e_r_s_i_o_n_s_DIAG_FORMAT_VERSION_13}
+\tabulinesep=1mm
+\begin{longtabu} spread 0pt [c]{*{3}{|X[-1]}|}
+\hline
+\rowcolor{\tableheadbgcolor}\textbf{ Param  }&\textbf{ Size  }&\textbf{ Description -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/---   }\\\cline{1-3}
+\endfirsthead
+\hline
+\endfoot
+\hline
+\rowcolor{\tableheadbgcolor}\textbf{ Param  }&\textbf{ Size  }&\textbf{ Description -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/---   }\\\cline{1-3}
+\endhead
+version  &1  &Version of the diagnostic structure   \\\cline{1-3}
+mode  &1  &Current mode of the Tile   \\\cline{1-3}
+adv\+\_\+int  &2  &The advertising interval, in units of 625 us   \\\cline{1-3}
+reset\+\_\+count  &1  &Number of resets   \\\cline{1-3}
+reset\+\_\+umb\+\_\+count  &1  &Number of times U\+MB was lost at boot   \\\cline{1-3}
+piezo\+\_\+milliseconds  &4  &Number of milliseconds the piezo has been active   \\\cline{1-3}
+last\+\_\+reset\+\_\+reason  &2  &Reason for last reset   \\\cline{1-3}
+reset\+\_\+hf\+\_\+count  &1  &Number of resets due to hard faults   \\\cline{1-3}
+reset\+\_\+nmi\+\_\+count  &1  &Number of resets due to Non Maskable Interrupts (like watchdog)   \\\cline{1-3}
+stacked\+\_\+lr  &4  &The Link Register value at the last H\+F/\+N\+MI reboot   \\\cline{1-3}
+stacked\+\_\+pc  &4  &The Program Counter register value at the last H\+F/\+N\+MI reboot   \\\cline{1-3}
+stacked\+\_\+psr  &1  &The Interrupt Program Status Register (Exception Number) value at the last H\+F/\+N\+MI reboot   \\\cline{1-3}
+reset\+\_\+wanted\+\_\+count  &1  &Number of Wanted resets   \\\cline{1-3}
+conevtcount  &4  &Number of connection events   \\\cline{1-3}
+advevtcount  &4  &Number of advertising events   \\\cline{1-3}
+connection\+\_\+count  &3  &Number of connections   \\\cline{1-3}
+battery\+\_\+level  &1  &Unloaded battery level taken before the delivery of this diagnostic   \\\cline{1-3}
+time\+\_\+adv\+\_\+s  &4  &Seconds spent advertising   \\\cline{1-3}
+reset\+\_\+song\+\_\+count  &1  &Number of resets that happened while playing a song   \\\cline{1-3}
+reset\+\_\+flash\+\_\+count  &1  &Number of resets that happened during a flash operation   \\\cline{1-3}
+auth\+\_\+fail\+\_\+count  &1  &Number of authentication failures   \\\cline{1-3}
+mic\+Failures  &1  &Number of M\+IC failures   \\\cline{1-3}
+double\+\_\+tap\+\_\+detect  &2  &Number of double taps detected   \\\cline{1-3}
+double\+\_\+tap\+\_\+notify  &2  &Number of double tap notifications sent   \\\cline{1-3}
+single\+\_\+tap\+\_\+count  &2  &Number of single taps   \\\cline{1-3}
+reset\+\_\+button\+\_\+count  &1  &Number of times a reset has occurred with the button pressed down   \\\cline{1-3}
+time\+\_\+hdc\+\_\+s  &4  &Seconds spent in high duty cycle   \\\cline{1-3}
+time\+\_\+ldc\+\_\+s  &4  &Seconds spent in low duty cycle   \\\cline{1-3}
+double\+\_\+tap\+\_\+failure2  &2  &Number of double tap failures   \\\cline{1-3}
+long\+\_\+tap\+\_\+count  &1  &Number of long taps detected   \\\cline{1-3}
+reset\+\_\+assert\+\_\+count  &1  &Number of resets due to T\+I\+L\+E\+\_\+\+A\+S\+S\+E\+R\+TS   \\\cline{1-3}
+packet\+\_\+error\+\_\+count  &3  &Number of packet errors   \\\cline{1-3}
+disconnect\+\_\+count  &3  &Number of disconnections   \\\cline{1-3}
+loaded\+\_\+battery\+\_\+level  &1  &Loaded battery level taken during a flash operation   \\\cline{1-3}
+low\+\_\+volt\+\_\+skipped\+\_\+writes  &1  &Number of times flash write was skipped due to low voltage   \\\cline{1-3}
+amp\+\_\+on\+\_\+adc  &2  &Battery A\+DC reading while audio amplifier is on, but no sound   \\\cline{1-3}
+note\+\_\+on\+\_\+adc  &2  &Battery A\+DC reading while playing a note   \\\cline{1-3}
+pt\+\_\+timestamp\+\_\+hours  &2  &Time of piezo test (amp\+On\+A\+DC and note\+On\+A\+DC readings) in hours since the Tile epoch   \\\cline{1-3}
+packet\+\_\+error\+\_\+count\+\_\+hdc  &3  &Number of packet errors while in H\+DC   \\\cline{1-3}
+seconds\+\_\+since\+\_\+last\+\_\+app\+\_\+save  &3  &Seconds since app data has been saved to flash   \\\cline{1-3}
+\end{longtabu}
+\hypertarget{group___d_i_a_g_n_o_s_t_i_c___v_e_r_s_i_o_n_s_DIAG_FORMAT_VERSION_12}{}\subsection{D\+I\+A\+G\+\_\+\+F\+O\+R\+M\+A\+T\+\_\+\+V\+E\+R\+S\+I\+O\+N\+\_\+12}\label{group___d_i_a_g_n_o_s_t_i_c___v_e_r_s_i_o_n_s_DIAG_FORMAT_VERSION_12}
+\tabulinesep=1mm
+\begin{longtabu} spread 0pt [c]{*{3}{|X[-1]}|}
+\hline
+\rowcolor{\tableheadbgcolor}\textbf{ Param  }&\textbf{ Size  }&\textbf{ Description -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/---   }\\\cline{1-3}
+\endfirsthead
+\hline
+\endfoot
+\hline
+\rowcolor{\tableheadbgcolor}\textbf{ Param  }&\textbf{ Size  }&\textbf{ Description -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/---   }\\\cline{1-3}
+\endhead
+diag\+Version  &1  &Version of the diagnostic structure   \\\cline{1-3}
+mode  &1  &Current mode of the Tile   \\\cline{1-3}
+adv\+Int  &2  &The advertising interval, in milliseconds   \\\cline{1-3}
+reset\+Count  &1  &Number of resets   \\\cline{1-3}
+reset\+Umb\+Count  &1  &Number of times U\+MB was lost at boot   \\\cline{1-3}
+piezo\+Milliseconds  &4  &Number of milliseconds the piezo has been active   \\\cline{1-3}
+reset\+Reason  &2  &Reason for last reset   \\\cline{1-3}
+reset\+Hf\+Count  &1  &Number of resets due to hard faults   \\\cline{1-3}
+reset\+Nmi\+Count  &1  &Number of resets due to Non Maskable Interrupts (like watchdog)   \\\cline{1-3}
+lr  &4  &The Link Register value at the last H\+F/\+N\+MI reboot   \\\cline{1-3}
+pc  &4  &The Program Counter register value at the last H\+F/\+N\+MI reboot   \\\cline{1-3}
+ipsr  &1  &The Interrupt Program Status Register (Exception Number) value at the last H\+F/\+N\+MI reboot   \\\cline{1-3}
+reset\+Wanted\+Count  &1  &Number of requested resets   \\\cline{1-3}
+con\+Evt\+Count  &4  &Number of connection events   \\\cline{1-3}
+adv\+Evt\+Count  &4  &Number of advertising events   \\\cline{1-3}
+conn\+Count  &3  &Number of connections   \\\cline{1-3}
+battery\+Level  &1  &Unloaded battery level taken at connection   \\\cline{1-3}
+advertising\+Time  &4  &Seconds spent advertising   \\\cline{1-3}
+reset\+Song\+Count  &1  &Number of resets that happened while playing a song   \\\cline{1-3}
+reset\+Flash\+Count  &1  &Counter of number of reboots during flash operations   \\\cline{1-3}
+auth\+Fail\+Count  &1  &Number of authentication failures   \\\cline{1-3}
+mic\+Fail\+Count  &1  &Number of M\+IC failures   \\\cline{1-3}
+double\+Tap\+Detect\+Count  &2  &Number of double taps detected   \\\cline{1-3}
+double\+Tap\+Notification\+Count  &2  &Number of double tap notifications sent   \\\cline{1-3}
+single\+Tap\+Count  &2  &Number of single taps   \\\cline{1-3}
+reset\+Button\+Count  &1  &Number of times a reset has occurred with the button pressed down   \\\cline{1-3}
+seconds\+Hdc  &4  &Seconds spent in high duty cycle   \\\cline{1-3}
+seconds\+Ldc  &4  &Seconds spent in low duty cycle   \\\cline{1-3}
+double\+Tap\+Failed\+Count2  &2  &Number of double tap failures   \\\cline{1-3}
+long\+Tap\+Count  &1  &Number of long taps detected   \\\cline{1-3}
+reset\+Assert\+Count  &1  &Number of times an assert triggered a reboot   \\\cline{1-3}
+cnx\+Evt\+Count\+P\+A\+Off  &4  &Number of connection events with the F\+EM disabled   \\\cline{1-3}
+seconds\+Hdc\+P\+A\+Off  &4  &Seconds spent connected in high duty cycle with the F\+EM disabled   \\\cline{1-3}
+seconds\+Ldc\+P\+A\+Off  &4  &Seconds spent connected in low duty cycle with the F\+EM disabled   \\\cline{1-3}
+packet\+Error\+Count  &3  &Number of packet errors   \\\cline{1-3}
+packet\+Error\+Count\+P\+A\+Off  &3  &Number of packet errors with the F\+EM disabled   \\\cline{1-3}
+disconnect\+Count  &3  &Number of disconnections   \\\cline{1-3}
+disconnect\+Count\+P\+A\+Off  &2  &Number of disconnections with the F\+EM disabled   \\\cline{1-3}
+loaded\+Battery\+Level  &1  &Loaded battery level taken during the find song   \\\cline{1-3}
+low\+Volt\+Skip\+Write\+Count  &1  &Number of times flash write was skipped due to low voltage   \\\cline{1-3}
+amp\+On\+A\+DC  &2  &Battery A\+DC reading while audio amplifier is on, but no sound   \\\cline{1-3}
+note\+On\+A\+DC  &2  &Battery A\+DC reading while playing a note   \\\cline{1-3}
+piezo\+Test\+Hour  &2  &Time of piezo test (amp\+On\+A\+DC and note\+On\+A\+DC readings) in hours since the Tile epoch   \\\cline{1-3}
+packet\+Error\+Count\+Hdc  &3  &Number of packet errors while in H\+DC   \\\cline{1-3}
+packet\+Error\+Count\+Hdc\+P\+A\+Off  &3  &Number of packets errors while in H\+DC with PA off   \\\cline{1-3}
+\end{longtabu}
+\hypertarget{group___d_i_a_g_n_o_s_t_i_c___v_e_r_s_i_o_n_s_DIAG_FORMAT_VERSION_11}{}\subsection{D\+I\+A\+G\+\_\+\+F\+O\+R\+M\+A\+T\+\_\+\+V\+E\+R\+S\+I\+O\+N\+\_\+11}\label{group___d_i_a_g_n_o_s_t_i_c___v_e_r_s_i_o_n_s_DIAG_FORMAT_VERSION_11}
+\tabulinesep=1mm
+\begin{longtabu} spread 0pt [c]{*{3}{|X[-1]}|}
+\hline
+\rowcolor{\tableheadbgcolor}\textbf{ Param  }&\textbf{ Size  }&\textbf{ Description   }\\\cline{1-3}
+\endfirsthead
+\hline
+\endfoot
+\hline
+\rowcolor{\tableheadbgcolor}\textbf{ Param  }&\textbf{ Size  }&\textbf{ Description   }\\\cline{1-3}
+\endhead
+Diag\+Version  &1 Byte  &Version of the Diagnostic.   \\\cline{1-3}
+P\+P\+M/\+Mode  &1 Byte  &Aggregation of P\+PM and Mode\+: Mode\mbox{[}0\+:1\mbox{]} / P\+PM\mbox{[}2\+:5\mbox{]} / R\+FU\mbox{[}6\+:7\mbox{]}   \\\cline{1-3}
+Reset\+Reason  &1 Byte  &Reason for Last Reset.   \\\cline{1-3}
+Reset\+Cpt  &1 Byte  &Counts the Resets.   \\\cline{1-3}
+Adv\+Int  &2 Bytes  &Advertising Interval in 0.\+625 ms increments   \\\cline{1-3}
+Battery  &1 Byte  &Unloaded Battery Level taken at connection   \\\cline{1-3}
+Tile\+Time  &4 Bytes  &Tile time in seconds since T\+I\+L\+E\+\_\+\+E\+P\+O\+CH (01/01/2016 00\+:00\+:00 U\+TC)   \\\cline{1-3}
+Con\+Cpt  &2 Bytes  &Number of connections   \\\cline{1-3}
+Reset\+Song\+Count  &1 Byte  &Number of resets that happened while playing a song   \\\cline{1-3}
+Advertising\+Time  &4 Bytes  &Seconds spent advertising   \\\cline{1-3}
+Seconds\+L\+DC  &4 Bytes  &Seconds in low duty cycle   \\\cline{1-3}
+Seconds\+H\+DC  &4 Bytes  &Seconds in high duty cycle   \\\cline{1-3}
+Time\+Inaccuracy  &1 Byte  &Inaccuracy of the Tile time in 4 second increments. Will be 0x\+FF when inaccuracy exceeds range.   \\\cline{1-3}
+Reset\+Nmi\+Count  &1 Byte  &Number of resets due to Non Maskable Interrupts (like watchdog)   \\\cline{1-3}
+Cnx\+Evt\+Time  &4 Bytes  &Milliseconds spent within connection events   \\\cline{1-3}
+Adv\+Evt\+Time  &4 Bytes  &Milliseconds spent within advertising events   \\\cline{1-3}
+Loaded\+Battery  &1 Byte  &Loaded Battery Level taken during the Find Song   \\\cline{1-3}
+Battery\+Meas\+Hours  &2 Bytes  &Timestamp of the loaded battery measurement (hours since T\+I\+L\+E\+\_\+\+E\+P\+O\+CH)   \\\cline{1-3}
+Battery\+Meas\+Hours\+Accuracy  &1 Byte  &Accuracy of the timestamp of the Loaded Battery measurement.   \\\cline{1-3}
+Reset\+Hf\+Count  &1 Byte  &Number of resets due to Hard Faults.   \\\cline{1-3}
+Reset\+Wanted\+Count  &1 Byte  &Number of Wanted resets.   \\\cline{1-3}
+Piezo10\+MS  &3 Bytes  &Piezo\+MS per 10 ms Increments.   \\\cline{1-3}
+Auth\+Fail\+Cpt  &1 Byte  &Counts the Authentication Failures.   \\\cline{1-3}
+Auth\+Miss\+Cpt  &1 Byte  &Counts the Nonauthenticated Access attempts.   \\\cline{1-3}
+Mic\+Fail\+Cpt  &1 Byte  &Counts the M\+IC failures.   \\\cline{1-3}
+Adv\+Evt\+Cpt  &4 Bytes  &Advertising event count   \\\cline{1-3}
+Con\+Evt\+Cpt  &4 Bytes  &Connection event count   \\\cline{1-3}
+reset\+U\+M\+Bcount  &1 Byte  &Counts the number of times U\+MB buffer was lost at boot.   \\\cline{1-3}
+reset\+Assert\+Count  &1 Byte  &Counts the number of times an Assert triggered a reboot.   \\\cline{1-3}
+L\+R\+\_\+24  &3 Bytes  &Contains Link Register value at last H\+F/\+N\+MI reboot.   \\\cline{1-3}
+P\+C\+\_\+24  &3 Bytes  &Contains Program Counter Register value at last H\+F/\+N\+MI reboot.   \\\cline{1-3}
+Double\+Tap\+Failed\+Count2  &2 Bytes  &Number of times a Double\+Tap failure happened   \\\cline{1-3}
+I\+P\+SR  &1 Byte  &Contains Interrupt Program Status Register (Exception Number) value at last H\+F/\+N\+MI reboot.   \\\cline{1-3}
+Single\+Tap\+Count16  &2 Bytes  &Counts the number of times a double tap was detected, using 2 Bytes.   \\\cline{1-3}
+Long\+Tap\+Count  &1 Byte  &Counts the number of times a long tap was detected.   \\\cline{1-3}
+temperature\+Counter  &2 Bytes  &Counter returned by get\+\_\+rc16m\+\_\+count(). Can be used to detect temperature changes.   \\\cline{1-3}
+Reset\+Flash\+Count  &1 Byte  &Counter of number of reboots during flash operations.   \\\cline{1-3}
+Reset\+Reason2  &1 Byte  &Second Reset\+Reason field.   \\\cline{1-3}
+R\+F\+Cal\+Success\+Count  &2 Bytes  &Number of successful RF calibrations   \\\cline{1-3}
+R\+F\+Cal\+Failure\+Count  &2 Bytes  &Number of unsuccessful RF calibrations   \\\cline{1-3}
+R\+F\+Cal\+Low\+Volt\+Count  &2 Bytes  &Number of RF calibrations skipped due to low voltage   \\\cline{1-3}
+Double\+Tap\+Notification\+Count  &2 Bytes  &Number of times a Double\+Tap notification was sent   \\\cline{1-3}
+Double\+Tap\+Detect\+Count  &2 Bytes  &Number of times a Double\+Tap was detected   \\\cline{1-3}
+P\+T\+\_\+amp\+\_\+on\+\_\+\+A\+DC  &2 Bytes  &Piezo Test\+: A\+DC reading with amp on and NO note playing.   \\\cline{1-3}
+P\+T\+\_\+note\+\_\+on\+\_\+\+A\+DC  &2 Bytes  &Piezo Test\+: A\+DC reading with amp on and note playing.   \\\cline{1-3}
+P\+T\+\_\+hour  &2 Bytes  &Piezo Test timestamp (hours since T\+I\+L\+E\+\_\+\+E\+P\+O\+CH).   \\\cline{1-3}
+connection\+\_\+count\+\_\+carry  &1 Bytes  &Counter that increments when Connection\+Count rolls over.   \\\cline{1-3}
+tka\+\_\+count  &2 Bytes  &Number of T\+KA disconnections since last reboot.   \\\cline{1-3}
+\end{longtabu}
+\hypertarget{group___d_i_a_g_n_o_s_t_i_c___v_e_r_s_i_o_n_s_DIAG_FORMAT_VERSION_10}{}\subsection{D\+I\+A\+G\+\_\+\+F\+O\+R\+M\+A\+T\+\_\+\+V\+E\+R\+S\+I\+O\+N\+\_\+10}\label{group___d_i_a_g_n_o_s_t_i_c___v_e_r_s_i_o_n_s_DIAG_FORMAT_VERSION_10}
+\tabulinesep=1mm
+\begin{longtabu} spread 0pt [c]{*{3}{|X[-1]}|}
+\hline
+\rowcolor{\tableheadbgcolor}\textbf{ Param  }&\textbf{ Size  }&\textbf{ Description   }\\\cline{1-3}
+\endfirsthead
+\hline
+\endfoot
+\hline
+\rowcolor{\tableheadbgcolor}\textbf{ Param  }&\textbf{ Size  }&\textbf{ Description   }\\\cline{1-3}
+\endhead
+Diag\+Version  &1 Byte  &Version of the Diagnostic.   \\\cline{1-3}
+P\+P\+M/\+Mode  &1 Byte  &Aggregation of P\+PM and Mode\+: Mode\mbox{[}0\+:1\mbox{]} / P\+PM\mbox{[}2\+:5\mbox{]} / R\+FU\mbox{[}6\+:7\mbox{]}   \\\cline{1-3}
+Reset\+Reason  &1 Byte  &Reason for Last Reset.   \\\cline{1-3}
+Reset\+Cpt  &1 Byte  &Counts the Resets.   \\\cline{1-3}
+Adv\+Int  &2 Bytes  &Advertising Interval in 0.\+625 ms increments   \\\cline{1-3}
+Battery  &1 Byte  &Unloaded Battery Level taken at connection   \\\cline{1-3}
+Tile\+Time  &4 Bytes  &Tile time in seconds since T\+I\+L\+E\+\_\+\+E\+P\+O\+CH (01/01/2016 00\+:00\+:00 U\+TC)   \\\cline{1-3}
+Con\+Cpt  &2 Bytes  &Number of connections   \\\cline{1-3}
+Reset\+Song\+Count  &1 Byte  &Number of resets that happened while playing a song   \\\cline{1-3}
+Advertising\+Time  &4 Bytes  &Seconds spent advertising   \\\cline{1-3}
+Seconds\+L\+DC  &4 Bytes  &Seconds in low duty cycle   \\\cline{1-3}
+Seconds\+H\+DC  &4 Bytes  &Seconds in high duty cycle   \\\cline{1-3}
+Time\+Inaccuracy  &1 Byte  &Inaccuracy of the Tile time in 4 second increments. Will be 0x\+FF when inaccuracy exceeds range.   \\\cline{1-3}
+Reset\+Nmi\+Count  &1 Byte  &Number of resets due to Non Maskable Interrupts (like watchdog)   \\\cline{1-3}
+Cnx\+Evt\+Time  &4 Bytes  &Milliseconds spent within connection events   \\\cline{1-3}
+Adv\+Evt\+Time  &4 Bytes  &Milliseconds spent within advertising events   \\\cline{1-3}
+Loaded\+Battery  &1 Byte  &Loaded Battery Level taken during the Find Song   \\\cline{1-3}
+Battery\+Meas\+Hours  &2 Bytes  &Timestamp of the loaded battery measurement (hours since T\+I\+L\+E\+\_\+\+E\+P\+O\+CH)   \\\cline{1-3}
+Battery\+Meas\+Hours\+Accuracy  &1 Byte  &Accuracy of the timestamp of the Loaded Battery measurement.   \\\cline{1-3}
+Reset\+Hf\+Count  &1 Byte  &Number of resets due to Hard Faults.   \\\cline{1-3}
+Reset\+Wanted\+Count  &1 Byte  &Number of Wanted resets.   \\\cline{1-3}
+Piezo10\+MS  &3 Bytes  &Piezo\+MS per 10 ms Increments.   \\\cline{1-3}
+Auth\+Fail\+Cpt  &1 Byte  &Counts the Authentication Failures.   \\\cline{1-3}
+Auth\+Miss\+Cpt  &1 Byte  &Counts the Nonauthenticated Access attempts.   \\\cline{1-3}
+Mic\+Fail\+Cpt  &1 Byte  &Counts the M\+IC failures.   \\\cline{1-3}
+Adv\+Evt\+Cpt  &4 Bytes  &Advertising event count   \\\cline{1-3}
+Con\+Evt\+Cpt  &4 Bytes  &Connection event count   \\\cline{1-3}
+reset\+U\+M\+Bcount  &1 Byte  &Counts the number of times U\+MB buffer was lost at boot.   \\\cline{1-3}
+reset\+Assert\+Count  &1 Byte  &Counts the number of times an Assert triggered a reboot.   \\\cline{1-3}
+L\+R\+\_\+24  &3 Bytes  &Contains Link Register value at last H\+F/\+N\+MI reboot.   \\\cline{1-3}
+P\+C\+\_\+24  &3 Bytes  &Contains Program Counter Register value at last H\+F/\+N\+MI reboot.   \\\cline{1-3}
+Double\+Tap\+Failed\+Count2  &2 Bytes  &Number of times a Double\+Tap failure happened   \\\cline{1-3}
+I\+P\+SR  &1 Byte  &Contains Interrupt Program Status Register (Exception Number) value at last H\+F/\+N\+MI reboot.   \\\cline{1-3}
+Single\+Tap\+Count16  &2 Bytes  &Counts the number of times a double tap was detected, using 2 Bytes.   \\\cline{1-3}
+Long\+Tap\+Count  &1 Byte  &Counts the number of times a long tap was detected.   \\\cline{1-3}
+temperature\+Counter  &2 Bytes  &Counter returned by get\+\_\+rc16m\+\_\+count(). Can be used to detect temperature changes.   \\\cline{1-3}
+Reset\+Flash\+Count  &1 Byte  &Counter of number of reboots during flash operations.   \\\cline{1-3}
+Reset\+Reason2  &1 Byte  &Second Reset\+Reason field.   \\\cline{1-3}
+R\+F\+Cal\+Success\+Count  &2 Bytes  &Number of successful RF calibrations   \\\cline{1-3}
+R\+F\+Cal\+Failure\+Count  &2 Bytes  &Number of unsuccessful RF calibrations   \\\cline{1-3}
+R\+F\+Cal\+Low\+Volt\+Count  &2 Bytes  &Number of RF calibrations skipped due to low voltage   \\\cline{1-3}
+Double\+Tap\+Notification\+Count  &2 Bytes  &Number of times a Double\+Tap notification was sent   \\\cline{1-3}
+Double\+Tap\+Detect\+Count  &2 Bytes  &Number of times a Double\+Tap was detected   \\\cline{1-3}
+\end{longtabu}
+\hypertarget{group___d_i_a_g_n_o_s_t_i_c___v_e_r_s_i_o_n_s_DIAG_VERSION_9}{}\subsection{D\+I\+A\+G\+\_\+\+V\+E\+R\+S\+I\+O\+N\+\_\+9}\label{group___d_i_a_g_n_o_s_t_i_c___v_e_r_s_i_o_n_s_DIAG_VERSION_9}
+\tabulinesep=1mm
+\begin{longtabu} spread 0pt [c]{*{3}{|X[-1]}|}
+\hline
+\rowcolor{\tableheadbgcolor}\textbf{ Name  }&\textbf{ Size  }&\textbf{ Description -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/---   }\\\cline{1-3}
+\endfirsthead
+\hline
+\endfoot
+\hline
+\rowcolor{\tableheadbgcolor}\textbf{ Name  }&\textbf{ Size  }&\textbf{ Description -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/---   }\\\cline{1-3}
+\endhead
+diag\+Version  &1  &Version of the diagnostic structure   \\\cline{1-3}
+mode  &1  &Current mode of the Tile   \\\cline{1-3}
+adv\+Int  &2  &The advertising interval   \\\cline{1-3}
+reset\+Count  &1  &Number of resets   \\\cline{1-3}
+reset\+Umb\+Count  &1  &Number of times U\+MB was lost at boot   \\\cline{1-3}
+piezo\+Milliseconds  &4  &Number of milliseconds the piezo has been active   \\\cline{1-3}
+reset\+Reason  &2  &Reason for last reset   \\\cline{1-3}
+reset\+Hf\+Count  &1  &Number of resets due to hard faults   \\\cline{1-3}
+reset\+Nmi\+Count  &1  &Number of resets due to Non Maskable Interrupts (like watchdog)   \\\cline{1-3}
+lr  &4  &The Link Register value at the last H\+F/\+N\+MI reboot   \\\cline{1-3}
+pc  &4  &The Program Counter register value at the last H\+F/\+N\+MI reboot   \\\cline{1-3}
+ipsr  &1  &The Interrupt Program Status Register (Exception Number) value at the last H\+F/\+N\+MI reboot   \\\cline{1-3}
+reset\+Wanted\+Count  &1  &Number of requested resets   \\\cline{1-3}
+con\+Evt\+Count  &4  &Number of connection events   \\\cline{1-3}
+adv\+Evt\+Count  &4  &Number of advertising events   \\\cline{1-3}
+conn\+Count  &2  &Number of connections   \\\cline{1-3}
+battery\+Level  &1  &Unloaded battery level taken at connection   \\\cline{1-3}
+advertising\+Time  &4  &Seconds spent advertising   \\\cline{1-3}
+reset\+Song\+Count  &1  &Number of resets that happened while playing a song   \\\cline{1-3}
+reset\+Flash\+Count  &1  &Counter of number of reboots during flash operations   \\\cline{1-3}
+auth\+Fail\+Count  &1  &Number of authentication failures   \\\cline{1-3}
+mic\+Fail\+Count  &1  &Number of M\+IC failures   \\\cline{1-3}
+double\+Tap\+Detect\+Count  &2  &Number of double taps detected   \\\cline{1-3}
+double\+Tap\+Notification\+Count  &2  &Number of double tap notifications sent   \\\cline{1-3}
+single\+Tap\+Count  &2  &Number of single taps   \\\cline{1-3}
+reset\+Button\+Count  &1  &Number of times a reset has occurred with the button pressed down   \\\cline{1-3}
+seconds\+Hdc  &4  &Seconds spent in high duty cycle   \\\cline{1-3}
+seconds\+Ldc  &4  &Seconds spent in low duty cycle   \\\cline{1-3}
+double\+Tap\+Failed\+Count2  &2  &Number of double tap failures   \\\cline{1-3}
+long\+Tap\+Count  &1  &Number of long taps detected   \\\cline{1-3}
+reset\+Assert\+Count  &1  &Number of times an assert triggered a reboot   \\\cline{1-3}
+cnx\+Evt\+Count\+P\+A\+Off  &4  &Number of connection events with the F\+EM disabled   \\\cline{1-3}
+seconds\+Hdc\+P\+A\+Off  &4  &Seconds spent connected in high duty cycle with the F\+EM disabled   \\\cline{1-3}
+seconds\+Ldc\+P\+A\+Off  &4  &Seconds spent connected in low duty cycle with the F\+EM disabled   \\\cline{1-3}
+packet\+Error\+Count  &3  &Number of packet errors   \\\cline{1-3}
+packet\+Error\+Count\+P\+A\+Off  &3  &Number of packet errors with the F\+EM disabled   \\\cline{1-3}
+disconnect\+Count  &2  &Number of disconnections   \\\cline{1-3}
+disconnect\+Count\+P\+A\+Off  &2  &Number of disconnections with the F\+EM disabled   \\\cline{1-3}
+loaded\+Battery\+Level  &1  &Loaded battery level taken during the find song   \\\cline{1-3}
+low\+Volt\+Skip\+Write\+Count  &1  &Number of times flash write was skipped due to low voltage   \\\cline{1-3}
+\end{longtabu}
+\hypertarget{group___d_i_a_g_n_o_s_t_i_c___v_e_r_s_i_o_n_s_DIAG_VERSION_8}{}\subsection{D\+I\+A\+G\+\_\+\+V\+E\+R\+S\+I\+O\+N\+\_\+8}\label{group___d_i_a_g_n_o_s_t_i_c___v_e_r_s_i_o_n_s_DIAG_VERSION_8}
+\tabulinesep=1mm
+\begin{longtabu} spread 0pt [c]{*{3}{|X[-1]}|}
+\hline
+\rowcolor{\tableheadbgcolor}\textbf{ Name  }&\textbf{ Size  }&\textbf{ Description -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/---   }\\\cline{1-3}
+\endfirsthead
+\hline
+\endfoot
+\hline
+\rowcolor{\tableheadbgcolor}\textbf{ Name  }&\textbf{ Size  }&\textbf{ Description -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/---   }\\\cline{1-3}
+\endhead
+diag\+Version  &1  &Version of the diagnostic structure   \\\cline{1-3}
+mode  &1  &Current mode of the Tile   \\\cline{1-3}
+adv\+Int  &2  &The advertising interval   \\\cline{1-3}
+reset\+Count  &1  &Number of resets   \\\cline{1-3}
+reset\+Umb\+Count  &1  &Number of times U\+MB was lost at boot   \\\cline{1-3}
+piezo\+Milliseconds  &4  &Number of milliseconds the piezo has been active   \\\cline{1-3}
+reset\+Reason  &2  &Reason for last reset   \\\cline{1-3}
+reset\+Hf\+Count  &1  &Number of resets due to hard faults   \\\cline{1-3}
+reset\+Nmi\+Count  &1  &Number of resets due to Non Maskable Interrupts (like watchdog)   \\\cline{1-3}
+lr  &4  &The Link Register value at the last H\+F/\+N\+MI reboot   \\\cline{1-3}
+pc  &4  &The Program Counter register value at the last H\+F/\+N\+MI reboot   \\\cline{1-3}
+ipsr  &1  &The Interrupt Program Status Register (Exception Number) value at the last H\+F/\+N\+MI reboot   \\\cline{1-3}
+reset\+Wanted\+Count  &1  &Number of requested resets   \\\cline{1-3}
+con\+Evt\+Count  &4  &Number of connection events   \\\cline{1-3}
+adv\+Evt\+Count  &4  &Number of advertising events   \\\cline{1-3}
+conn\+Count  &2  &Number of connections   \\\cline{1-3}
+battery\+Level  &1  &Unloaded battery level taken at connection   \\\cline{1-3}
+advertising\+Time  &4  &Seconds spent advertising   \\\cline{1-3}
+reset\+Song\+Count  &1  &Number of resets that happened while playing a song   \\\cline{1-3}
+reset\+Flash\+Count  &1  &Counter of number of reboots during flash operations   \\\cline{1-3}
+auth\+Fail\+Count  &1  &Number of authentication failures   \\\cline{1-3}
+mic\+Fail\+Count  &1  &Number of M\+IC failures   \\\cline{1-3}
+double\+Tap\+Detect\+Count  &2  &Number of double taps detected   \\\cline{1-3}
+double\+Tap\+Failed\+Count  &2  &Number of double tap failures   \\\cline{1-3}
+double\+Tap\+Notification\+Count  &2  &Number of double tap notifications sent   \\\cline{1-3}
+single\+Tap\+Count  &2  &Number of single taps   \\\cline{1-3}
+reset\+Button\+Count  &1  &Number of times a reset has occurred with the button pressed down   \\\cline{1-3}
+seconds\+Hdc  &4  &Seconds spent in high duty cycle   \\\cline{1-3}
+seconds\+Ldc  &4  &Seconds spent in low duty cycle   \\\cline{1-3}
+\end{longtabu}
+\hypertarget{group___d_i_a_g_n_o_s_t_i_c___v_e_r_s_i_o_n_s_DIAG_VERSION_7}{}\subsection{D\+I\+A\+G\+\_\+\+V\+E\+R\+S\+I\+O\+N\+\_\+7}\label{group___d_i_a_g_n_o_s_t_i_c___v_e_r_s_i_o_n_s_DIAG_VERSION_7}
+\tabulinesep=1mm
+\begin{longtabu} spread 0pt [c]{*{3}{|X[-1]}|}
+\hline
+\rowcolor{\tableheadbgcolor}\textbf{ Name  }&\textbf{ Size  }&\textbf{ Description -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/---   }\\\cline{1-3}
+\endfirsthead
+\hline
+\endfoot
+\hline
+\rowcolor{\tableheadbgcolor}\textbf{ Name  }&\textbf{ Size  }&\textbf{ Description -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/---   }\\\cline{1-3}
+\endhead
+diag\+Version  &1  &Version of the diagnostic structure   \\\cline{1-3}
+mode  &1  &Current mode of the Tile   \\\cline{1-3}
+adv\+Int  &2  &The advertising interval   \\\cline{1-3}
+reset\+Count  &1  &Number of resets   \\\cline{1-3}
+reset\+Umb\+Count  &1  &Number of times U\+MB was lost at boot   \\\cline{1-3}
+piezo\+Milliseconds  &4  &Number of milliseconds the piezo has been active   \\\cline{1-3}
+reset\+Reason  &2  &Reason for last reset   \\\cline{1-3}
+reset\+Hf\+Count  &1  &Number of resets due to hard faults   \\\cline{1-3}
+reset\+Nmi\+Count  &1  &Number of resets due to Non Maskable Interrupts (like watchdog)   \\\cline{1-3}
+lr  &4  &The Link Register value at the last H\+F/\+N\+MI reboot   \\\cline{1-3}
+pc  &4  &The Program Counter register value at the last H\+F/\+N\+MI reboot   \\\cline{1-3}
+ipsr  &1  &The Interrupt Program Status Register (Exception Number) value at the last H\+F/\+N\+MI reboot   \\\cline{1-3}
+reset\+Wanted\+Count  &1  &Number of requested resets   \\\cline{1-3}
+con\+Evt\+Count  &4  &Number of connection events   \\\cline{1-3}
+adv\+Evt\+Count  &4  &Number of advertising events   \\\cline{1-3}
+conn\+Count  &2  &Number of connections   \\\cline{1-3}
+battery\+Level  &1  &Unloaded battery level taken at connection   \\\cline{1-3}
+advertising\+Time  &4  &Seconds spent advertising   \\\cline{1-3}
+reset\+Song\+Count  &1  &Number of resets that happened while playing a song   \\\cline{1-3}
+reset\+Flash\+Count  &1  &Counter of number of reboots during flash operations   \\\cline{1-3}
+auth\+Fail\+Count  &1  &Number of authentication failures   \\\cline{1-3}
+mic\+Fail\+Count  &1  &Number of M\+IC failures   \\\cline{1-3}
+double\+Tap\+Detect\+Count  &2  &Number of double taps detected   \\\cline{1-3}
+double\+Tap\+Failed\+Count  &2  &Number of double tap failures   \\\cline{1-3}
+double\+Tap\+Notification\+Count  &2  &Number of double tap notifications sent   \\\cline{1-3}
+single\+Tap\+Count  &2  &Number of single taps   \\\cline{1-3}
+\end{longtabu}
+\hypertarget{group___d_i_a_g_n_o_s_t_i_c___v_e_r_s_i_o_n_s_DIAG_VERSION_6}{}\subsection{D\+I\+A\+G\+\_\+\+V\+E\+R\+S\+I\+O\+N\+\_\+6}\label{group___d_i_a_g_n_o_s_t_i_c___v_e_r_s_i_o_n_s_DIAG_VERSION_6}
+\tabulinesep=1mm
+\begin{longtabu} spread 0pt [c]{*{3}{|X[-1]}|}
+\hline
+\rowcolor{\tableheadbgcolor}\textbf{ Name  }&\textbf{ Size  }&\textbf{ Description -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/---   }\\\cline{1-3}
+\endfirsthead
+\hline
+\endfoot
+\hline
+\rowcolor{\tableheadbgcolor}\textbf{ Name  }&\textbf{ Size  }&\textbf{ Description -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/---   }\\\cline{1-3}
+\endhead
+diag\+Version  &1  &Version of the diagnostic structure   \\\cline{1-3}
+mode  &\mbox{[}0\+:2\mbox{]}  &Current mode of the Tile   \\\cline{1-3}
+ppm  &\mbox{[}2\+:6\mbox{]}  &P\+PM value   \\\cline{1-3}
+reset\+Reason  &1  &Reason for last reset   \\\cline{1-3}
+reset\+Count  &1  &Number of resets   \\\cline{1-3}
+adv\+Int  &2  &The advertising interval   \\\cline{1-3}
+battery\+Level  &1  &Unloaded battery level taken at connection   \\\cline{1-3}
+tile\+Time  &4  &Tile time in seconds since T\+I\+L\+E\+\_\+\+E\+P\+O\+CH (01/01/2016 00\+:00\+:00 U\+TC)   \\\cline{1-3}
+conn\+Count  &2  &Number of connections   \\\cline{1-3}
+reset\+Song\+Count  &1  &Number of resets that happened while playing a song   \\\cline{1-3}
+advertising\+Time  &4  &Seconds spent advertising   \\\cline{1-3}
+seconds\+Ldc  &4  &Seconds spent in low duty cycle   \\\cline{1-3}
+seconds\+Hdc  &4  &Seconds spent in high duty cycle   \\\cline{1-3}
+time\+Inaccuracy  &1  &Inaccuracy of the Tile time in 4 seconds increments. Will be 0x\+FF when inaccuracy exceeds range   \\\cline{1-3}
+reset\+Nmi\+Count  &1  &Number of resets due to Non Maskable Interrupts (like watchdog)   \\\cline{1-3}
+cnx\+Evt\+Time  &4  &Milliseconds spent within connection events   \\\cline{1-3}
+adv\+Evt\+Time  &4  &Milliseconds spent within advertising events   \\\cline{1-3}
+loaded\+Battery\+Level  &1  &Loaded battery level taken during the find song   \\\cline{1-3}
+loaded\+Battery\+Timestamp  &2  &Timestamp of the loaded battery measurement   \\\cline{1-3}
+loaded\+Battery\+Time\+Inaccuracy  &1  &Timestamp inaccuracy of the Tile timestamp when the loaded measurement was taken   \\\cline{1-3}
+reset\+Hf\+Count  &1  &Number of resets due to hard faults   \\\cline{1-3}
+reset\+Wanted\+Count  &1  &Number of requested resets   \\\cline{1-3}
+piezo\+Milliseconds  &3  &Number of milliseconds the piezo has been active   \\\cline{1-3}
+auth\+Fail\+Count  &1  &Number of authentication failures   \\\cline{1-3}
+auth\+Missing\+Count  &1  &Number of nonauthenticated access attempts   \\\cline{1-3}
+mic\+Fail\+Count  &1  &Number of M\+IC failures   \\\cline{1-3}
+adv\+Evt\+Count  &4  &Number of advertising events   \\\cline{1-3}
+con\+Evt\+Count  &4  &Number of connection events   \\\cline{1-3}
+reset\+Umb\+Count  &1  &Number of times U\+MB was lost at boot   \\\cline{1-3}
+reset\+Assert\+Count  &1  &Number of times an assert triggered a reboot   \\\cline{1-3}
+lr  &3  &The Link Register value at the last H\+F/\+N\+MI reboot   \\\cline{1-3}
+pc  &3  &The Program Counter value at the last H\+F/\+N\+MI reboot   \\\cline{1-3}
+double\+Tap\+Failed\+Count  &2  &Number of double tap failures   \\\cline{1-3}
+ipsr  &1  &The Interrupt Program Status Register (Exception Number) value at the last H\+F/\+N\+MI reboot   \\\cline{1-3}
+single\+Tap\+Count  &2  &Number of single taps   \\\cline{1-3}
+long\+Tap\+Count  &1  &Number of long taps detected   \\\cline{1-3}
+tile\+Temp  &2  &Value of get\+\_\+rc16m\+\_\+count(). This is expected to decrease as temperature increases   \\\cline{1-3}
+reset\+Flash\+Count  &1  &Counter of number of reboots during flash operations   \\\cline{1-3}
+reset\+Reason2  &1  &Seconds reset reason field   \\\cline{1-3}
+rf\+Cal\+Success\+Count  &2  &Number of successful RF calibrations   \\\cline{1-3}
+rf\+Cal\+Failure\+Count  &2  &Number of unsuccessful RF calibrations   \\\cline{1-3}
+rf\+Cal\+Low\+Volt\+Count  &2  &Number of times voltage was too low for RF calibration   \\\cline{1-3}
+double\+Tap\+Notification\+Count  &2  &Number of double tap notifications sent   \\\cline{1-3}
+double\+Tap\+Detect\+Count  &2  &Number of double taps detected   \\\cline{1-3}
+\end{longtabu}
+\hypertarget{group___d_i_a_g_n_o_s_t_i_c___v_e_r_s_i_o_n_s_DIAG_FORMAT_VERSION_5}{}\subsection{D\+I\+A\+G\+\_\+\+F\+O\+R\+M\+A\+T\+\_\+\+V\+E\+R\+S\+I\+O\+N\+\_\+5}\label{group___d_i_a_g_n_o_s_t_i_c___v_e_r_s_i_o_n_s_DIAG_FORMAT_VERSION_5}
+Here is the format of diagnostic data for Diag\+Version = 5.
+
+\tabulinesep=1mm
+\begin{longtabu} spread 0pt [c]{*{3}{|X[-1]}|}
+\hline
+\rowcolor{\tableheadbgcolor}\textbf{ Param  }&\textbf{ Size  }&\textbf{ Description   }\\\cline{1-3}
+\endfirsthead
+\hline
+\endfoot
+\hline
+\rowcolor{\tableheadbgcolor}\textbf{ Param  }&\textbf{ Size  }&\textbf{ Description   }\\\cline{1-3}
+\endhead
+Diag\+Version  &1 Byte  &Version of the Diagnostic.   \\\cline{1-3}
+P\+P\+M/\+Mode  &1 Byte  &Aggregation of P\+PM and Mode\+: Mode\mbox{[}0\+:1\mbox{]} / P\+PM\mbox{[}2\+:5\mbox{]} / R\+FU\mbox{[}6\+:7\mbox{]}   \\\cline{1-3}
+Reset\+Reason  &1 Byte  &Reason for Last Reset.   \\\cline{1-3}
+Reset\+Cpt  &1 Byte  &Counts the Resets.   \\\cline{1-3}
+Adv\+Int  &2 Bytes  &Advertising Interval in 0.\+625 ms increments   \\\cline{1-3}
+Battery  &1 Byte  &Unloaded Battery Level taken at connection   \\\cline{1-3}
+Tile\+Time  &4 Bytes  &Tile time in seconds since T\+I\+L\+E\+\_\+\+E\+P\+O\+CH (01/01/2016 00\+:00\+:00 U\+TC)   \\\cline{1-3}
+Con\+Cpt  &2 Bytes  &Number of connections   \\\cline{1-3}
+Reset\+Song\+Count  &1 Byte  &Number of resets that happened while playing a song   \\\cline{1-3}
+Advertising\+Time  &4 Bytes  &Seconds spent advertising   \\\cline{1-3}
+Seconds\+L\+DC  &4 Bytes  &Seconds in low duty cycle   \\\cline{1-3}
+Seconds\+H\+DC  &4 Bytes  &Seconds in high duty cycle   \\\cline{1-3}
+Time\+Inaccuracy  &1 Byte  &Inaccuracy of the Tile time in 4 second increments. Will be 0x\+FF when inaccuracy exceeds range.   \\\cline{1-3}
+Reset\+Nmi\+Count  &1 Byte  &Number of resets due to Non Maskable Interrupts (like watchdog)   \\\cline{1-3}
+Cnx\+Evt\+Time  &4 Bytes  &Milliseconds spent within connection events   \\\cline{1-3}
+Adv\+Evt\+Time  &4 Bytes  &Milliseconds spent within advertising events   \\\cline{1-3}
+Loaded\+Battery  &1 Byte  &Loaded Battery Level taken during the Find Song   \\\cline{1-3}
+Battery\+Meas\+Hours  &2 Bytes  &Timestamp of the loaded battery measurement (hours since T\+I\+L\+E\+\_\+\+E\+P\+O\+CH)   \\\cline{1-3}
+Battery\+Meas\+Hours\+Accuracy  &1 Byte  &Accuracy of the timestamp of the Loaded Battery measurement.   \\\cline{1-3}
+Reset\+Hf\+Count  &1 Byte  &Number of resets due to Hard Faults.   \\\cline{1-3}
+Reset\+Wanted\+Count  &1 Byte  &Number of Wanted resets.   \\\cline{1-3}
+Piezo10\+MS  &3 Bytes  &Piezo\+MS per 10 ms Increments.   \\\cline{1-3}
+Auth\+Fail\+Cpt  &1 Byte  &Counts the Authentication Failures.   \\\cline{1-3}
+Auth\+Miss\+Cpt  &1 Byte  &Counts the Nonauthenticated Access attempts.   \\\cline{1-3}
+Mic\+Fail\+Cpt  &1 Byte  &Counts the M\+IC failures.   \\\cline{1-3}
+Adv\+Evt\+Cpt  &4 Bytes  &Advertising event count   \\\cline{1-3}
+Con\+Evt\+Cpt  &4 Bytes  &Connection event count   \\\cline{1-3}
+reset\+U\+M\+Bcount  &1 Byte  &Counts the number of times U\+MB buffer was lost at boot.   \\\cline{1-3}
+reset\+Assert\+Count  &1 Byte  &Counts the number of times an Assert triggered a reboot.   \\\cline{1-3}
+LR  &4 Bytes  &Contains Link Register value at last H\+F/\+N\+MI reboot.   \\\cline{1-3}
+PC  &4 Bytes  &Contains Program Counter Register value at last H\+F/\+N\+MI reboot.   \\\cline{1-3}
+I\+P\+SR  &1 Byte  &Contains Interrupt Program Status Register (Exception Number) value at last H\+F/\+N\+MI reboot.   \\\cline{1-3}
+Single\+Tap\+Count  &1 Byte  &Counts the number of times a single tap was detected.   \\\cline{1-3}
+Double\+Tap\+Count  &1 Byte  &Counts the number of times a double tap was detected.   \\\cline{1-3}
+Long\+Tap\+Count  &1 Byte  &Counts the number of times a long tap was detected.   \\\cline{1-3}
+temperature\+Counter  &2 Bytes  &Counter returned by get\+\_\+rc16m\+\_\+count(). Can be used to detect temperature changes.   \\\cline{1-3}
+Reset\+Flash\+Count  &1 Byte  &Counter of number of reboots during flash operations.   \\\cline{1-3}
+Reset\+Reason2  &1 Byte  &Second Reset\+Reason field.   \\\cline{1-3}
+R\+F\+Cal\+Success\+Count  &2 Bytes  &Number of successful RF calibrations   \\\cline{1-3}
+R\+F\+Cal\+Failure\+Count  &2 Bytes  &Number of unsuccessful RF calibrations   \\\cline{1-3}
+R\+F\+Cal\+Low\+Volt\+Count  &2 Bytes  &Number of RF calibrations skipped due to low voltage   \\\cline{1-3}
+R\+F\+Cal\+Restore\+Count  &1 Byte  &Number of times RF calibration values were restored from flash at boot   \\\cline{1-3}
+\end{longtabu}
+\hypertarget{group___d_i_a_g_n_o_s_t_i_c___v_e_r_s_i_o_n_s_DIAG_FORMAT_VERSION_4}{}\subsection{D\+I\+A\+G\+\_\+\+F\+O\+R\+M\+A\+T\+\_\+\+V\+E\+R\+S\+I\+O\+N\+\_\+4}\label{group___d_i_a_g_n_o_s_t_i_c___v_e_r_s_i_o_n_s_DIAG_FORMAT_VERSION_4}
+Here is the format of diagnostic data for Diag\+Version = 4.
+
+\tabulinesep=1mm
+\begin{longtabu} spread 0pt [c]{*{3}{|X[-1]}|}
+\hline
+\rowcolor{\tableheadbgcolor}\textbf{ Param  }&\textbf{ Size  }&\textbf{ Description   }\\\cline{1-3}
+\endfirsthead
+\hline
+\endfoot
+\hline
+\rowcolor{\tableheadbgcolor}\textbf{ Param  }&\textbf{ Size  }&\textbf{ Description   }\\\cline{1-3}
+\endhead
+Diag\+Version  &1 Byte  &Version of the Diagnostic.   \\\cline{1-3}
+P\+P\+M/\+Mode  &1 Byte  &Aggregation of P\+PM and Mode\+: Mode\mbox{[}0\+:1\mbox{]} / P\+PM\mbox{[}2\+:5\mbox{]} / R\+FU\mbox{[}6\+:7\mbox{]}   \\\cline{1-3}
+Reset\+Reason  &1 Byte  &Reason for Last Reset.   \\\cline{1-3}
+Reset\+Cpt  &1 Byte  &Counts the Resets.   \\\cline{1-3}
+Adv\+Int  &2 Bytes  &Advertising Interval in 0.\+625 ms increments   \\\cline{1-3}
+Battery  &1 Byte  &Unloaded Battery Level taken at connection   \\\cline{1-3}
+Tile\+Time  &4 Bytes  &Tile time in seconds since T\+I\+L\+E\+\_\+\+E\+P\+O\+CH (01/01/2016 00\+:00\+:00 U\+TC)   \\\cline{1-3}
+Con\+Cpt  &2 Bytes  &Number of connections   \\\cline{1-3}
+Reset\+Song\+Count  &1 Byte  &Number of resets that happened while playing a song   \\\cline{1-3}
+Advertising\+Time  &4 Bytes  &Seconds spent advertising   \\\cline{1-3}
+Seconds\+L\+DC  &4 Bytes  &Seconds in low duty cycle   \\\cline{1-3}
+Seconds\+H\+DC  &4 Bytes  &Seconds in high duty cycle   \\\cline{1-3}
+Time\+Inaccuracy  &1 Byte  &Inaccuracy of the Tile time in 4 second increments. Will be 0x\+FF when inaccuracy exceeds range.   \\\cline{1-3}
+Reset\+Nmi\+Count  &1 Byte  &Number of resets due to Non Maskable Interrupts (like watchdog)   \\\cline{1-3}
+Cnx\+Evt\+Time  &4 Bytes  &Milliseconds spent within connection events   \\\cline{1-3}
+Adv\+Evt\+Time  &4 Bytes  &Milliseconds spent within advertising events   \\\cline{1-3}
+Loaded\+Battery  &1 Byte  &Loaded Battery Level taken during the Find Song   \\\cline{1-3}
+Battery\+Meas\+Hours  &2 Bytes  &Timestamp of the loaded battery measurement (hours since T\+I\+L\+E\+\_\+\+E\+P\+O\+CH)   \\\cline{1-3}
+Battery\+Meas\+Hours\+Accuracy  &1 Byte  &Accuracy of the timestamp of the Loaded Battery measurement.   \\\cline{1-3}
+Reset\+Hf\+Count  &1 Byte  &Number of resets due to Hard Faults.   \\\cline{1-3}
+Reset\+Wanted\+Count  &1 Byte  &Number of Wanted resets.   \\\cline{1-3}
+Piezo10\+MS  &3 Bytes  &Piezo\+MS per 10 ms Increments.   \\\cline{1-3}
+Auth\+Fail\+Cpt  &1 Byte  &Counts the Authentication Failures.   \\\cline{1-3}
+Auth\+Miss\+Cpt  &1 Byte  &Counts the Nonauthenticated Access attempts.   \\\cline{1-3}
+Mic\+Fail\+Cpt  &1 Byte  &Counts the M\+IC failures.   \\\cline{1-3}
+Adv\+Evt\+Cpt  &4 Bytes  &Advertising event count   \\\cline{1-3}
+Con\+Evt\+Cpt  &4 Bytes  &Connection event count   \\\cline{1-3}
+reset\+U\+M\+Bcount  &1 Byte  &Counts the number of times U\+MB buffer was lost at boot.   \\\cline{1-3}
+reset\+Assert\+Count  &1 Byte  &Counts the number of times an Assert triggered a reboot.   \\\cline{1-3}
+LR  &4 Bytes  &Contains Link Register value at last H\+F/\+N\+MI reboot.   \\\cline{1-3}
+PC  &4 Bytes  &Contains Program Counter Register value at last H\+F/\+N\+MI reboot.   \\\cline{1-3}
+I\+P\+SR  &1 Byte  &Contains Interrupt Program Status Register (Exception Number) value at last H\+F/\+N\+MI reboot.   \\\cline{1-3}
+Single\+Tap\+Count  &1 Byte  &Counts the number of times a single tap was detected.   \\\cline{1-3}
+Double\+Tap\+Count  &1 Byte  &Counts the number of times a double tap was detected.   \\\cline{1-3}
+Long\+Tap\+Count  &1 Byte  &Counts the number of times a long tap was detected.   \\\cline{1-3}
+temperature\+Counter  &2 Bytes  &Counter returned by get\+\_\+rc16m\+\_\+count(). Can be used to detect temperature changes.   \\\cline{1-3}
+Battery\+Meas\+Song\+Id  &2 Bytes  &Song ID when loaded measurement was taken   \\\cline{1-3}
+\end{longtabu}
+\hypertarget{group___d_i_a_g_n_o_s_t_i_c___v_e_r_s_i_o_n_s_DIAG_FORMAT_VERSION_3}{}\subsection{D\+I\+A\+G\+\_\+\+F\+O\+R\+M\+A\+T\+\_\+\+V\+E\+R\+S\+I\+O\+N\+\_\+3}\label{group___d_i_a_g_n_o_s_t_i_c___v_e_r_s_i_o_n_s_DIAG_FORMAT_VERSION_3}
+Here is the format of diagnostic data for Diag\+Version = 3.
+
+\tabulinesep=1mm
+\begin{longtabu} spread 0pt [c]{*{3}{|X[-1]}|}
+\hline
+\rowcolor{\tableheadbgcolor}\textbf{ Param  }&\textbf{ Size  }&\textbf{ Description   }\\\cline{1-3}
+\endfirsthead
+\hline
+\endfoot
+\hline
+\rowcolor{\tableheadbgcolor}\textbf{ Param  }&\textbf{ Size  }&\textbf{ Description   }\\\cline{1-3}
+\endhead
+Diag\+Version  &1 Byte  &Version of the Diagnostic.   \\\cline{1-3}
+P\+P\+M/\+Mode  &1 Byte  &Aggregation of P\+PM and Mode\+: Mode\mbox{[}0\+:1\mbox{]} / P\+PM\mbox{[}2\+:5\mbox{]} / R\+FU\mbox{[}6\+:7\mbox{]}   \\\cline{1-3}
+Reset\+Reason  &1 Byte  &Reason for Last Reset.   \\\cline{1-3}
+Reset\+Cpt  &1 Byte  &Counts the Resets.   \\\cline{1-3}
+Adv\+Int  &2 Bytes  &Advertising Interval in 0.\+625 ms increments   \\\cline{1-3}
+Battery  &1 Byte  &Unloaded Battery Level taken at connection   \\\cline{1-3}
+Tile\+Time  &4 Bytes  &Tile time in seconds since T\+I\+L\+E\+\_\+\+E\+P\+O\+CH (01/01/2016 00\+:00\+:00 U\+TC)   \\\cline{1-3}
+Con\+Cpt  &2 Bytes  &Number of connections   \\\cline{1-3}
+Reset\+Song\+Count  &1 Byte  &Number of resets that happened while playing a song   \\\cline{1-3}
+Advertising\+Time  &4 Bytes  &Seconds spent advertising   \\\cline{1-3}
+Seconds\+L\+DC  &4 Bytes  &Seconds in low duty cycle   \\\cline{1-3}
+Seconds\+H\+DC  &4 Bytes  &Seconds in high duty cycle   \\\cline{1-3}
+Time\+Inaccuracy  &1 Byte  &Inaccuracy of the Tile time in 4 second increments. Will be 0x\+FF when inaccuracy exceeds range.   \\\cline{1-3}
+Reset\+Nmi\+Count  &1 Byte  &Number of resets due to Non Maskable Interrupts (like watchdog)   \\\cline{1-3}
+Cnx\+Evt\+Time  &4 Bytes  &Milliseconds spent within connection events   \\\cline{1-3}
+Adv\+Evt\+Time  &4 Bytes  &Milliseconds spent within advertising events   \\\cline{1-3}
+Loaded\+Battery  &1 Byte  &Loaded Battery Level taken during the Find Song   \\\cline{1-3}
+Battery\+Meas\+Hours  &2 Bytes  &Timestamp of the loaded battery measurement (hours since T\+I\+L\+E\+\_\+\+E\+P\+O\+CH)   \\\cline{1-3}
+Battery\+Meas\+Hours\+Accuracy  &1 Byte  &Accuracy of the timestamp of the Loaded Battery measurement.   \\\cline{1-3}
+Reset\+Hf\+Count  &1 Byte  &Number of resets due to Hard Faults.   \\\cline{1-3}
+Reset\+Wanted\+Count  &1 Byte  &Number of Wanted resets.   \\\cline{1-3}
+Piezo10\+MS  &3 Bytes  &Piezo\+MS per 10 ms Increments.   \\\cline{1-3}
+Auth\+Fail\+Cpt  &1 Byte  &Counts the Authentication Failures.   \\\cline{1-3}
+Auth\+Miss\+Cpt  &1 Byte  &Counts the Nonauthenticated Access attempts.   \\\cline{1-3}
+Mic\+Fail\+Cpt  &1 Byte  &Counts the M\+IC failures.   \\\cline{1-3}
+Adv\+Evt\+Cpt  &4 Bytes  &Advertising event count   \\\cline{1-3}
+Con\+Evt\+Cpt  &4 Bytes  &Connection event count   \\\cline{1-3}
+reset\+U\+M\+Bcount  &1 Byte  &Counts the number of times U\+MB buffer was lost at boot.   \\\cline{1-3}
+reset\+Assert\+Count  &1 Byte  &Counts the number of times an Assert triggered a reboot.   \\\cline{1-3}
+LR  &4 Bytes  &Contains Link Register value at last H\+F/\+N\+MI reboot.   \\\cline{1-3}
+PC  &4 Bytes  &Contains Program Counter Register value at last H\+F/\+N\+MI reboot.   \\\cline{1-3}
+I\+P\+SR  &1 Byte  &Contains Interrupt Program Status Register (Exception Number) value at last H\+F/\+N\+MI reboot.   \\\cline{1-3}
+Single\+Tap\+Count  &1 Byte  &Counts the number of times a single tap was detected.   \\\cline{1-3}
+Double\+Tap\+Count  &1 Byte  &Counts the number of times a double tap was detected.   \\\cline{1-3}
+Long\+Tap\+Count  &1 Byte  &Counts the number of times a long tap was detected.   \\\cline{1-3}
+\end{longtabu}
+\hypertarget{group___d_i_a_g_n_o_s_t_i_c___v_e_r_s_i_o_n_s_DIAG_FORMAT_VERSION_2}{}\subsection{D\+I\+A\+G\+\_\+\+F\+O\+R\+M\+A\+T\+\_\+\+V\+E\+R\+S\+I\+O\+N\+\_\+2}\label{group___d_i_a_g_n_o_s_t_i_c___v_e_r_s_i_o_n_s_DIAG_FORMAT_VERSION_2}
+Here is the format of diagnostic data for Diag\+Version = 2.
+
+This version is supported on Dialog chip using firmware version 1.\+9
+
+\paragraph*{Packet Structure}
+
+\tabulinesep=1mm
+\begin{longtabu} spread 0pt [c]{*{12}{|X[-1]}|}
+\hline
+\rowcolor{\tableheadbgcolor}\textbf{ Batt\+Level  }&\textbf{ Adv\+Int  }&\textbf{ Auth\+F\+Cpt  }&\textbf{ Res\+Rea  }&\textbf{ P\+PM  }&\textbf{ Version  }&\textbf{ Mode  }&\textbf{ Reset\+Cnt  }&\textbf{ Connection\+Count  }&\textbf{ Piezo\+Milliseconds  }&\textbf{ Adv\+Evt\+Count  }&\textbf{ Cnx\+Evt\+Count   }\\\cline{1-12}
+\endfirsthead
+\hline
+\endfoot
+\hline
+\rowcolor{\tableheadbgcolor}\textbf{ Batt\+Level  }&\textbf{ Adv\+Int  }&\textbf{ Auth\+F\+Cpt  }&\textbf{ Res\+Rea  }&\textbf{ P\+PM  }&\textbf{ Version  }&\textbf{ Mode  }&\textbf{ Reset\+Cnt  }&\textbf{ Connection\+Count  }&\textbf{ Piezo\+Milliseconds  }&\textbf{ Adv\+Evt\+Count  }&\textbf{ Cnx\+Evt\+Count   }\\\cline{1-12}
+\endhead
+1 byte  &1 byte  &1 byte  &1 byte  &4 bits  &4 bits  &2 bit  &6 bits  &2 bytes  &4 bytes  &4 bytes  &4 bytes   \\\cline{1-12}
+\end{longtabu}
+
+
+\paragraph*{Field Descriptions}
+
+All fields are the same as in version 1, {\itshape except} the new field Reset\+Cnt was added.
+
+\tabulinesep=1mm
+\begin{longtabu} spread 0pt [c]{*{2}{|X[-1]}|}
+\hline
+\rowcolor{\tableheadbgcolor}\textbf{ Name  }&\textbf{ Description   }\\\cline{1-2}
+\endfirsthead
+\hline
+\endfoot
+\hline
+\rowcolor{\tableheadbgcolor}\textbf{ Name  }&\textbf{ Description   }\\\cline{1-2}
+\endhead
+Batt\+Level  &The value represents the reading of the Battery voltage from the A\+DC. The value is measured at connection. The value is averaged over 10 readings, except in Factory Mode where direct value is provided. {\bfseries The value is converted into mV}.   \\\cline{1-2}
+Adv\+Int  &The value represents the advertising Interval used in activated mode. The value is in {\bfseries hundreds of miliseconds}, i.\+e. the advertising interval is equal to Adv\+Int$\ast$100 ms.   \\\cline{1-2}
+Auth\+F\+Cpt  &The value represents the number of authentication failures since last reset.   \\\cline{1-2}
+Res\+Rea  &{\bfseries Not supported in version 1}. Will always report 0.   \\\cline{1-2}
+P\+PM  &Represents the P\+PM setting used for the 32\+K\+Hz crystal in Activated mode. See P\+PM for a table with possible values.   \\\cline{1-2}
+Version  &Version of the diagnostics.   \\\cline{1-2}
+Reset\+Cnt  &The number of resets that have occurred since the device was activated.   \\\cline{1-2}
+Connection\+Count  &Number of established Bluetooth connections since last reset.   \\\cline{1-2}
+Piezo\+Milliseconds  &Number of milliseconds the Piezo has been played since last reset, {\bfseries excluding the R\+E\+ST time}.   \\\cline{1-2}
+Adv\+Evt\+Count  &The number of advertising events since last reset.   \\\cline{1-2}
+Cnx\+Evt\+Count  &The number of connections since last reset.   \\\cline{1-2}
+\end{longtabu}
+\hypertarget{group___d_i_a_g_n_o_s_t_i_c___v_e_r_s_i_o_n_s_DIAG_FORMAT_VERSION_1}{}\subsection{D\+I\+A\+G\+\_\+\+F\+O\+R\+M\+A\+T\+\_\+\+V\+E\+R\+S\+I\+O\+N\+\_\+1}\label{group___d_i_a_g_n_o_s_t_i_c___v_e_r_s_i_o_n_s_DIAG_FORMAT_VERSION_1}
+Here is the format of diagnostic data for Diag\+Version = 1.
+
+This version is supported on Dialog chip using firmware version 1.\+7
+
+\paragraph*{Packet structure}
+
+This is the same as in version 0.
+
+\tabulinesep=1mm
+\begin{longtabu} spread 0pt [c]{*{12}{|X[-1]}|}
+\hline
+\rowcolor{\tableheadbgcolor}\textbf{ Batt\+Level  }&\textbf{ Adv\+Int  }&\textbf{ Auth\+F\+Cpt  }&\textbf{ Res\+Rea  }&\textbf{ P\+PM  }&\textbf{ Version  }&\textbf{ Mode  }&\textbf{ R\+FU  }&\textbf{ Connection\+Count  }&\textbf{ Piezo\+Milliseconds  }&\textbf{ Adv\+Evt\+Count  }&\textbf{ Cnx\+Evt\+Count   }\\\cline{1-12}
+\endfirsthead
+\hline
+\endfoot
+\hline
+\rowcolor{\tableheadbgcolor}\textbf{ Batt\+Level  }&\textbf{ Adv\+Int  }&\textbf{ Auth\+F\+Cpt  }&\textbf{ Res\+Rea  }&\textbf{ P\+PM  }&\textbf{ Version  }&\textbf{ Mode  }&\textbf{ R\+FU  }&\textbf{ Connection\+Count  }&\textbf{ Piezo\+Milliseconds  }&\textbf{ Adv\+Evt\+Count  }&\textbf{ Cnx\+Evt\+Count   }\\\cline{1-12}
+\endhead
+1 byte  &1 byte  &1 byte  &1 byte  &4 bits  &4 bits  &2 bit  &6 bits  &2 bytes  &4 bytes  &4 bytes  &4 bytes   \\\cline{1-12}
+\end{longtabu}
+
+
+\paragraph*{Field descriptions}
+
+All fields are the same as in version 0, {\itshape except} Batt\+Level, Res\+Rea, and Piezo\+Milliseconds.
+
+\tabulinesep=1mm
+\begin{longtabu} spread 0pt [c]{*{2}{|X[-1]}|}
+\hline
+\rowcolor{\tableheadbgcolor}\textbf{ Name  }&\textbf{ Description   }\\\cline{1-2}
+\endfirsthead
+\hline
+\endfoot
+\hline
+\rowcolor{\tableheadbgcolor}\textbf{ Name  }&\textbf{ Description   }\\\cline{1-2}
+\endhead
+Batt\+Level  &The value represents the reading of the Battery voltage from the A\+DC. The value is measured at connection. The value is averaged over 10 readings, except in Factory Mode where direct value is provided. {\bfseries The value is converted into mV}.   \\\cline{1-2}
+Adv\+Int  &The value represents the advertising Interval used in activated mode. The value is in {\bfseries hundreds of miliseconds}, i.\+e. the advertising interval is equal to Adv\+Int$\ast$100 ms.   \\\cline{1-2}
+Auth\+F\+Cpt  &The value represents the number of authentication failures since last reset.   \\\cline{1-2}
+Res\+Rea  &{\bfseries Not supported in version 1}. Will always report 0.   \\\cline{1-2}
+P\+PM  &Represents the P\+PM setting used for the 32\+K\+Hz crystal in Activated mode. See P\+PM for a table with possible values.   \\\cline{1-2}
+Version  &Version of the diagnostics.   \\\cline{1-2}
+R\+FU  &\char`\"{}\+Reserved for future use.\char`\"{} R\+FU bits are set to 0 and S\+H\+A\+LL be ignored by the AP.   \\\cline{1-2}
+Connection\+Count  &Number of established Bluetooth connections since last reset.   \\\cline{1-2}
+Piezo\+Milliseconds  &Number of milliseconds the Piezo has been played since last reset, {\bfseries excluding the R\+E\+ST time}.   \\\cline{1-2}
+Adv\+Evt\+Count  &The number of advertising events since last reset.   \\\cline{1-2}
+Cnx\+Evt\+Count  &The number of connections since last reset.   \\\cline{1-2}
+\end{longtabu}
+\hypertarget{group___d_i_a_g_n_o_s_t_i_c___v_e_r_s_i_o_n_s_DIAG_FORMAT_VERSION_0}{}\subsection{D\+I\+A\+G\+\_\+\+F\+O\+R\+M\+A\+T\+\_\+\+V\+E\+R\+S\+I\+O\+N\+\_\+0}\label{group___d_i_a_g_n_o_s_t_i_c___v_e_r_s_i_o_n_s_DIAG_FORMAT_VERSION_0}
+Here is the format of diagnostic data for Diag\+Version = 0.
+
+This version is supported on Nordic chip using firmware version 1.\+1
+
+\paragraph*{Packet structure}
+
+\tabulinesep=1mm
+\begin{longtabu} spread 0pt [c]{*{12}{|X[-1]}|}
+\hline
+\rowcolor{\tableheadbgcolor}\textbf{ Batt\+Level  }&\textbf{ Adv\+Int  }&\textbf{ Auth\+F\+Cpt  }&\textbf{ Res\+Rea  }&\textbf{ P\+PM  }&\textbf{ Version  }&\textbf{ Mode  }&\textbf{ R\+FU  }&\textbf{ Connection\+Count  }&\textbf{ Piezo\+Milliseconds  }&\textbf{ Adv\+Evt\+Count  }&\textbf{ Cnx\+Evt\+Count   }\\\cline{1-12}
+\endfirsthead
+\hline
+\endfoot
+\hline
+\rowcolor{\tableheadbgcolor}\textbf{ Batt\+Level  }&\textbf{ Adv\+Int  }&\textbf{ Auth\+F\+Cpt  }&\textbf{ Res\+Rea  }&\textbf{ P\+PM  }&\textbf{ Version  }&\textbf{ Mode  }&\textbf{ R\+FU  }&\textbf{ Connection\+Count  }&\textbf{ Piezo\+Milliseconds  }&\textbf{ Adv\+Evt\+Count  }&\textbf{ Cnx\+Evt\+Count   }\\\cline{1-12}
+\endhead
+1 byte  &1 byte  &1 byte  &1 byte  &4 bits  &4 bits  &2 bit  &6 bits  &2 bytes  &4 bytes  &4 bytes  &4 bytes   \\\cline{1-12}
+\end{longtabu}
+
+
+\paragraph*{Field descriptions}
+
+\tabulinesep=1mm
+\begin{longtabu} spread 0pt [c]{*{2}{|X[-1]}|}
+\hline
+\rowcolor{\tableheadbgcolor}\textbf{ Name  }&\textbf{ Description   }\\\cline{1-2}
+\endfirsthead
+\hline
+\endfoot
+\hline
+\rowcolor{\tableheadbgcolor}\textbf{ Name  }&\textbf{ Description   }\\\cline{1-2}
+\endhead
+Batt\+Level  &The value represents the reading of the Battery voltage from the A\+DC. The value is measured at connection. The value is averaged over 10 readings, except in Factory Mode where direct value is provided.   \\\cline{1-2}
+Adv\+Int  &The value represents the advertising Interval used in activated mode. The value is in {\bfseries hundreds of miliseconds}, i.\+e. the advertising interval is equal to Adv\+Int$\ast$100 ms.   \\\cline{1-2}
+Auth\+F\+Cpt  &The value represents the number of authentication failures since last reset.   \\\cline{1-2}
+Res\+Rea  &The value is a bitfield giving information about the last reset (or wakeup) reason. The meaning of each bit is defined in Nordic datasheet and is Nordic specific.   \\\cline{1-2}
+P\+PM  &Represents the P\+PM setting used for the 32\+K\+Hz crystal in Activated mode. See P\+PM for a table with possible values.   \\\cline{1-2}
+Version  &Version of the diagnostics.   \\\cline{1-2}
+R\+FU  &\char`\"{}\+Reserved for future use.\char`\"{} R\+FU bits are set to 0 and S\+H\+A\+LL be ignored by the AP.   \\\cline{1-2}
+Connection\+Count  &Number of established Bluetooth connections since last reset.   \\\cline{1-2}
+Piezo\+Milliseconds  &Number of milliseconds the Piezo has been played since last reset.   \\\cline{1-2}
+Adv\+Evt\+Count  &The number of advertising events since last reset.   \\\cline{1-2}
+Cnx\+Evt\+Count  &The number of connections since last reset.   \\\cline{1-2}
+\end{longtabu}

@@ -29,8 +29,39 @@
 APP_SRC += hello_sensor.c
 APP_SRC += wiced_bt_cfg.c
 
+APP_SRC += tile_features.c
+APP_SRC += tile_service.c
+APP_SRC += tile_storage.c
+
+APP_SRC += tile_lib/src/tileHash.c
+APP_SRC += tile_lib/src/toa/queue.c
+APP_SRC += tile_lib/src/toa/song.c
+APP_SRC += tile_lib/src/toa/tdg.c
+APP_SRC += tile_lib/src/toa/tdi.c
+APP_SRC += tile_lib/src/toa/tdt.c
+APP_SRC += tile_lib/src/toa/test.c
+APP_SRC += tile_lib/src/toa/tka.c
+APP_SRC += tile_lib/src/toa/tmd.c
+APP_SRC += tile_lib/src/toa/toa.c
+APP_SRC += tile_lib/src/toa/trm.c
+
+APP_SRC += tile_lib/src/toa/tofu.c
+APP_SRC += tile_lib/src/toa/tmf.c
+APP_SRC += tile_lib/src/toa/tcu.c
+APP_SRC += tile_lib/src/toa/tileTime.c
+APP_SRC += tile_lib/src/toa/tpc.c
+
+APP_SRC += tile_lib/src/drivers/tile_button.c
+APP_SRC += tile_lib/src/drivers/tile_gap.c
+APP_SRC += tile_lib/src/drivers/tile_random.c
+APP_SRC += tile_lib/src/drivers/tile_timer.c
+APP_SRC += tile_lib/src/crypto/hmac_sha256_ogay.c
+APP_SRC += tile_lib/src/crypto/sha256_ogay.c
+
 C_FLAGS += -DWICED_BT_TRACE_ENABLE
-#C_FLAGS += -DENABLE_HCI_TRACE
+C_FLAGS += -DENABLE_HCI_TRACE
+
+#BT_DEVICE_ADDRESS=20706A201234
 
 ########################################################################
 ################ DO NOT MODIFY FILE BELOW THIS LINE ####################

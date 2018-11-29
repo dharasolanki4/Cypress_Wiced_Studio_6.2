@@ -1,0 +1,6 @@
+Objects/
+*.lib
+*.htm
+*.uvoptx
+*.uvguix.*
+Listings/

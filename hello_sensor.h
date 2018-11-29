@@ -113,10 +113,30 @@ typedef enum
         HANDLE_HSENS_BATTERY_SERVICE_CHAR_LEVEL, // characteristic handl
         HANDLE_HSENS_BATTERY_SERVICE_CHAR_LEVEL_VAL, // char value andle
 
+    HANDLE_HSENS_TILE_SERVICE = 0x80, // service handle
+        HANDLE_HSENS_TILE_SERVICE_CHAR_MEP_TOA_CMD, // characteristic handle
+        HANDLE_HSENS_TILE_SERVICE_CHAR_MEP_TOA_CMD_VAL,// char value handle
+
+        HANDLE_HSENS_TILE_SERVICE_CHAR_MEP_TOA_RSP, // characteristic handl
+        HANDLE_HSENS_TILE_SERVICE_CHAR_MEP_TOA_RSP_VAL,// char value handle
+        HANDLE_HSENS_TILE_SERVICE_CHAR_MEP_TOA_RSP_CFG_DESC, // char desc handle
+
     // Client Configuration
     HDLD_CURRENT_TIME_SERVICE_CURRENT_TIME_CLIENT_CONFIGURATION,
 }hello_sensor_db_tags;
 
+typedef struct
+{
+    BD_ADDR   remote_addr;              // remote peer device address
+    uint32_t  timer_count;              // timer count
+    uint32_t  fine_timer_count;         // fine timer count
+    uint16_t  conn_id;                  // connection ID referenced by the stack
+    uint16_t  peer_mtu;                 // peer MTU
+    uint8_t   num_to_write;             // num msgs to send, incr on each button intr
+    uint8_t   flag_indication_sent;     // indicates waiting for ack/cfm
+    uint8_t   flag_stay_connected;      // stay connected or disconnect after all messages are sent
+    uint8_t   battery_level;            // dummy battery level
+} hello_sensor_state_t;
 
 #endif // _HELLO_SENSOR_H_
 

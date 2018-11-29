@@ -1,0 +1,73 @@
+\hypertarget{group___o_b_s_o_l_e_t_e___c_h_a_r_a_c_t_e_r_i_s_t_i_c_s}{}\section{O\+B\+S\+O\+L\+E\+T\+E\+\_\+\+C\+H\+A\+R\+A\+C\+T\+E\+R\+I\+S\+T\+I\+CS}
+\label{group___o_b_s_o_l_e_t_e___c_h_a_r_a_c_t_e_r_i_s_t_i_c_s}\index{O\+B\+S\+O\+L\+E\+T\+E\+\_\+\+C\+H\+A\+R\+A\+C\+T\+E\+R\+I\+S\+T\+I\+CS@{O\+B\+S\+O\+L\+E\+T\+E\+\_\+\+C\+H\+A\+R\+A\+C\+T\+E\+R\+I\+S\+T\+I\+CS}}
+A recommendation is that The\+Tile\+App keeps support for Obsolete Characteristics
+
+All characteristics used by firmware 1.\+9 and older. {\bfseries All U\+U\+I\+Ds specified have an implied base of 128b}
+
+Any field with a (?) means that Aaron does not know this value and needs to consult Josselin.
+
+\tabulinesep=1mm
+\begin{longtabu} spread 0pt [c]{*{7}{|X[-1]}|}
+\hline
+\rowcolor{\tableheadbgcolor}\textbf{ Name  }&\textbf{ U\+U\+ID  }&\textbf{ Write Value  }&\textbf{ Write Size  }&\textbf{ Read Value  }&\textbf{ Read Size  }&\textbf{ FW Versions   }\\\cline{1-7}
+\endfirsthead
+\hline
+\endfoot
+\hline
+\rowcolor{\tableheadbgcolor}\textbf{ Name  }&\textbf{ U\+U\+ID  }&\textbf{ Write Value  }&\textbf{ Write Size  }&\textbf{ Read Value  }&\textbf{ Read Size  }&\textbf{ FW Versions   }\\\cline{1-7}
+\endhead
+Audio  &0x2  &Song number\+: 0 to 19~\newline
+0x\+FF stops song  &1 byte  &NA  &NA  &1.\+0-\/1.\+9   \\\cline{1-7}
+Button State  &0x4  &NA  &NA  &NA  &NA  &Obsolete. Do not use.   \\\cline{1-7}
+R\+S\+SI  &0x5  &Connection params  &8 bytes  &R\+S\+SI and connection params  &8 bytes  &1.\+0-\/1.\+9   \\\cline{1-7}
+Serial \#  &0x6  &Serial Number  &20 byte max  &Serial Number  &20 byte max  &(?)   \\\cline{1-7}
+Tile\+ID  &0x7  &Tile\+ID  &8 bytes  &Tile\+ID  &8 bytes  &1.\+0+   \\\cline{1-7}
+Commit  &0x8  &0x01 to 0x66\+: Set A\+D\+V\+\_\+\+I\+NT~\newline
+0x\+A5\+: Commit  &1 bytes  &(?)  &(?)  &1.\+0-\/1.\+7   \\\cline{1-7}
+Mode  &0xD  &0x55 for Shipping Mode~\newline
+0x99 for Activated Mode  &1 byte  &Current mode  &1 byte  &1.\+0-\/1.\+9   \\\cline{1-7}
+Reset\+To\+Factory  &0xE  &0x\+AA resets to factory  &1 byte  &Returns last value written, defaults to 0x\+FE  &1 byte  &1.\+0   \\\cline{1-7}
+Rand  &0xF  &RandA  &16 bytes  &RandT  &16 bytes  &1.\+1+   \\\cline{1-7}
+Sres  &0x10  &SresA  &4 bytes  &SresT  &4 bytes  &1.\+1+   \\\cline{1-7}
+Diagnostic  &0x11  &0x1\+: battery reading and update Diagnostic characteristics~\newline
+0x2\+: reset Reset Reason~\newline
+0x10 to 0x1F\+: Configuration of Double\+Tap Songs  &1 byte  &See L\+E\+G\+A\+C\+Y\+\_\+\+D\+I\+A\+G\+N\+O\+S\+T\+I\+CS  &20 bytes  &1.\+1-\/1.\+9   \\\cline{1-7}
+Tile\+Key  &0x12  &Tile Key. Only writeable in Factory Mode  &16 bytes  &NA  &NA  &(?)   \\\cline{1-7}
+P\+PM  &0x13  &Set P\+PM  &1 byte  &Read P\+PM  &1 byte  &1.\+0-\/1.\+7   \\\cline{1-7}
+T\+O\+A\+\_\+\+C\+MD  &0x15  &See T\+OA  &See T\+OA  &See T\+OA  &See T\+OA  &1.\+9+   \\\cline{1-7}
+T\+O\+A\+\_\+\+R\+SP  &0x16  &See T\+OA  &See T\+OA  &See T\+OA  &See T\+OA  &1.\+9+   \\\cline{1-7}
+Double\+Tap  &0x14  &NA  &NA  &NA  &NA  &(?)   \\\cline{1-7}
+\end{longtabu}
+
+
+\subsubsection*{Programming Matrix}
+
+This table shows instructions and behavior when writing specific values.
+
+wwr = write with response, wwor = write without response
+
+reboot indicates that the Tile will reboot on its own at this point.
+
+\tabulinesep=1mm
+\begin{longtabu} spread 0pt [c]{*{6}{|X[-1]}|}
+\hline
+\rowcolor{\tableheadbgcolor}\textbf{ FW Version  }&\textbf{ P\+PM  }&\textbf{ A\+D\+V\+\_\+\+I\+NT  }&\textbf{ T\+C\+U/\+Connection Params  }&\textbf{ Mode  }&\textbf{ Song   }\\\cline{1-6}
+\endfirsthead
+\hline
+\endfoot
+\hline
+\rowcolor{\tableheadbgcolor}\textbf{ FW Version  }&\textbf{ P\+PM  }&\textbf{ A\+D\+V\+\_\+\+I\+NT  }&\textbf{ T\+C\+U/\+Connection Params  }&\textbf{ Mode  }&\textbf{ Song   }\\\cline{1-6}
+\endhead
+1.\+0  &-\/  &wwor commit(adv\+Int)~\newline
+reboot  &-\/  &wwor mode(0x99)~\newline
+reboot  &wwr audio(song\+Value)   \\\cline{1-6}
+1.\+1  &wwr ppm(ppm)~\newline
+wwr commit(0x\+A5)~\newline
+reboot  &wwr commit(adv\+Int)  &wwr rssi(conn\+Params)  &wwr mode(0x99)~\newline
+reboot  &wwr audio(song\+Value)   \\\cline{1-6}
+1.\+7  &wwr ppm(ppm)~\newline
+wwr commit(0x\+A5)  &wwr commit(adv\+Int)  &wwr rssi(conn\+Params)  &wwr mode(0x99)  &wwr audio(song\+Value)   \\\cline{1-6}
+1.\+9  &T\+OA  &T\+OA  &T\+OA  &wwr mode(0x99)  &wwr audio(song\+Value)~\newline
+or T\+OA   \\\cline{1-6}
+1.\+11  &T\+OA  &T\+OA  &T\+OA  &T\+OA  &T\+OA   \\\cline{1-6}
+\end{longtabu}

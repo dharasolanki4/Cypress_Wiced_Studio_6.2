@@ -1,0 +1,73 @@
+/*!
+
+\defgroup TILE_COMMISSIONING
+
+Commissioning a Tile Node is the process of assigning it a [TileID, TileAuthKey] pair.
+There are 2 ways to commission a Tile Node:
+- At Manufacturing: here the [TileID, TileAuthKey] pair is burnt during Manufacturing of the Tile Node.
+- Over The Air: here the [TileID, TileAuthKey] pair is generated during activation of the Tile Node.
+
+
+# Manufacturing Commissioning #
+
+Tile provides a list of [TileID, TileAuthKey] pairs which are unique for each Tile Node.
+The pair is burnt into the Tile Node persistent memory during manufacturing.
+
+
+# OTA Commissioning #
+
+This feature is needed for Tile Nodes that don't support burning of a [TileID, TileAuthKey] pair during manufacturing.
+For instance, it can be used when Tile functionnality is added to a product through an OTA FW upgrade.
+It adds no vulnerability to activated Tiles and provides very decent protection against fake Tile Nodes
+by using a Model Specific Interim [TileID, TileAuthKey] pair.
+
+
+## Interim TileID, TileAuthKey Pair ##
+
+These are assigned by Tile and are specific to a Model Number.
+
+
+## Commissioning Process ##
+
+For Tile Nodes supporting OTA_COMMISSIONING, the [TileID, TileAuthKey] pair is assigned during activation.
+Here is the MSC:
+
+ @msc
+  # The entities
+  TILE_NODE, TILE_APP, TILE_SERVER;
+
+  TILE_APP box TILE_APP [label="Activation State", textbgcolour="#7fff7f"];
+  TILE_NODE box TILE_NODE [label="Shipping Mode", textbgcolour="#7fff7f"];
+
+  TILE_NODE box TILE_APP [label="Established BLE Connection", textbgcolour="#7fff7f"];
+
+  TILE_NODE<-TILE_APP[label="Read TileID"];
+  TILE_NODE->TILE_APP[label="Interim TileID"];
+
+  TILE_NODE<-TILE_APP[label="CMD_ASSOCIATE (RandA)"];
+  TILE_NODE box TILE_NODE [label="Generate RandT", textbgcolour="#7fff7f"];
+  TILE_NODE box TILE_NODE [label="Generate SresT = AuthFun(Interim TileID, Interim TileAuthKey, RandA, RandT)", textbgcolour="#7fff7f"];
+  TILE_NODE box TILE_NODE [label="Generate [TileID, TileAuthKey] = CommissionFun(Interim TileID, Interim TileAuthKey, RandA, RandT)", textbgcolour="#7fff7f"];
+  TILE_NODE->TILE_APP[label="RSP_ASSOCIATE (RandT, SresT)"];
+
+  TILE_APP->TILE_SERVER[label="ACTIVATE REQUEST (Interim TileID, Interim TileAuthKey, RandA, RandT, SresT)"];
+  TILE_SERVER box TILE_SERVER [label="Verify SresT", textbgcolour="#7fff7f"];
+  TILE_SERVER box TILE_SERVER [label="Generate [TileID, TileAuthKey] = CommissionFun(Interim TileID, Interim TileAuthKey, RandA, RandT)", textbgcolour="#7fff7f"];
+  TILE_APP<-TILE_SERVER[label="ACTIVATE RESPONSE (SresA, TileID, TileAuthKey)"];
+  TILE_APP box TILE_APP [label="Cache TileID, TileAuthKey", textbgcolour="#7fff7f"];
+
+  TILE_NODE<-TILE_APP[label="CMD_OPEN_CHANNEL (RandA2)"];
+  TILE_NODE box TILE_NODE [label="Generate RandT2", textbgcolour="#7fff7f"];
+  TILE_NODE box TILE_NODE [label="Generate SessionKey = SessionFun(TileID, TileAuthKey, RandA2, RandT2)", textbgcolour="#7fff7f"];
+  TILE_NODE->TILE_APP[label="RSP_OPEN_CHANNEL (RandT2)"];
+
+  TILE_NODE<-TILE_APP[label="CMD_READY"];
+  TILE_NODE->TILE_APP[label="RSP_READY"];
+  TILE_NODE<-TILE_APP[label="CMD_ACTIVATE"];
+  TILE_NODE box TILE_NODE [label="Persist (TileID, TileAuthKey)", textbgcolour="#7fff7f"];
+  TILE_NODE box TILE_NODE [label="Activated Mode", textbgcolour="#7fff7f"];
+  TILE_NODE->TILE_APP[label="RSP_ACTIVATE"];
+  TILE_APP->TILE_SERVER[label="ACTIVATE COMPLETE"];
+ @endmsc
+
+*/

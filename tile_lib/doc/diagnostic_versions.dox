@@ -1,0 +1,768 @@
+/*!
+\defgroup DIAGNOSTIC_VERSIONS
+
+@section DIAG_FORMAT_VERSION_16
+Name                       | Size  | Description
+-------------------------- | ----- | ----------------------------------------------------------------------------------------
+diagVersion                | 1     | Version of the diagnostic structure
+mode                       | 1     | Current mode of the Tile
+advInt                     | 2     | The advertising interval, in milliseconds
+resetCount                 | 1     | Number of resets
+resetUmbCount              | 1     | Number of times UMB was lost at boot
+piezoMilliseconds          | 4     | Number of milliseconds the piezo has been active
+resetReason                | 2     | Reason for last reset
+resetHfCount               | 1     | Number of resets due to hard faults
+resetNmiCount              | 1     | Number of resets due to Non Maskable Interrupts (like watchdog)
+lr                         | 4     | The Link Register value at the last HF/NMI reboot
+pc                         | 4     | The Program Counter register value at the last HF/NMI reboot
+ipsr                       | 1     | The Interrupt Program Status Register (Exception Number) value at the last HF/NMI reboot
+resetWantedCount           | 1     | Number of requested resets
+conEvtCount                | 4     | Number of connection events
+advEvtCount                | 4     | Number of advertising events
+connCount                  | 3     | Number of connections
+batteryLevel               | 1     | Unloaded battery level taken at connection
+advertisingTime            | 4     | Seconds spent advertising
+resetSongCount             | 1     | Number of resets that happened while playing a song
+resetFlashCount            | 1     | Counter of number of reboots during flash operations
+authFailCount              | 1     | Number of authentication failures
+micFailCount               | 1     | Number of MIC failures
+doubleTapDetectCount       | 2     | Number of double taps detected
+doubleTapNotificationCount | 2     | Number of double tap notifications sent
+singleTapCount             | 2     | Number of single taps
+resetButtonCount           | 1     | Number of times a reset has occurred with the button pressed down
+secondsHdc                 | 4     | Seconds spent in high duty cycle
+secondsLdc                 | 4     | Seconds spent in low duty cycle
+doubleTapFailedCount2      | 2     | Number of double tap failures
+longTapCount               | 1     | Number of long taps detected
+resetAssertCount           | 1     | Number of times an assert triggered a reboot
+cnxEvtCountPAOff           | 4     | Number of connection events with the FEM disabled
+secondsHdcPAOff            | 4     | Seconds spent connected in high duty cycle with the FEM disabled
+secondsLdcPAOff            | 4     | Seconds spent connected in low duty cycle with the FEM disabled
+packetErrorCount           | 3     | Number of packet errors
+packetErrorCountPAOff      | 3     | Number of packet errors with the FEM disabled
+disconnectCount            | 3     | Number of disconnections
+disconnectCountPAOff       | 2     | Number of disconnections with the FEM disabled
+loadedBatteryLevel         | 1     | Loaded battery level taken during the find song
+lowVoltSkipWriteCount      | 1     | Number of times flash write was skipped due to low voltage
+ampOnADC                   | 2     | Battery ADC reading while audio amplifier is on, but no sound
+noteOnADC                  | 2     | Battery ADC reading while playing a note
+piezoTestHour              | 2     | Time of piezo test (ampOnADC and noteOnADC readings) in hours since the Tile epoch
+packetErrorCountHdc        | 3     | Number of packet errors while in HDC
+packetErrorCountHdcPAOff   | 3     | Number of packets errors while in HDC with PA off
+toa_channel_open_count     | 3     | Number of times toa_channel_open cmd was received
+toa_authenticate_count     | 3     | Number of times toa_authenticate cmd was received
+tka_closed_channel_count   | 2     | Number of times a channel was closed due to app not sending tka
+auth_disconnect_count      | 2     | Number of auth timer triggered disconnections
+tcu_disconnect_count       | 2     | Number of disconnects caused by central not implementing requested connection parameters
+daa_final_duty_cycle       | 1     | The discrete audio amplifier's final duty cycle after playing the last song
+daa_peak_duty_cycle        | 1     | The discrete audio amplifier's peak duty cycle during the last song
+
+
+@section DIAG_FORMAT_VERSION_15
+Name                       | Size  | Description
+-------------------------- | ----- | ----------------------------------------------------------------------------------------
+diagVersion                | 1     | Version of the diagnostic structure
+mode                       | 1     | Current mode of the Tile
+advInt                     | 2     | The advertising interval, in milliseconds
+resetCount                 | 1     | Number of resets
+resetUmbCount              | 1     | Number of times UMB was lost at boot
+piezoMilliseconds          | 4     | Number of milliseconds the piezo has been active
+resetReason                | 2     | Reason for last reset
+resetHfCount               | 1     | Number of resets due to hard faults
+resetNmiCount              | 1     | Number of resets due to Non Maskable Interrupts (like watchdog)
+lr                         | 4     | The Link Register value at the last HF/NMI reboot
+pc                         | 4     | The Program Counter register value at the last HF/NMI reboot
+ipsr                       | 1     | The Interrupt Program Status Register (Exception Number) value at the last HF/NMI reboot
+resetWantedCount           | 1     | Number of requested resets
+conEvtCount                | 4     | Number of connection events
+advEvtCount                | 4     | Number of advertising events
+connCount                  | 3     | Number of connections
+batteryLevel               | 1     | Unloaded battery level taken at connection
+advertisingTime            | 4     | Seconds spent advertising
+resetSongCount             | 1     | Number of resets that happened while playing a song
+resetFlashCount            | 1     | Counter of number of reboots during flash operations
+authFailCount              | 1     | Number of authentication failures
+micFailCount               | 1     | Number of MIC failures
+doubleTapDetectCount       | 2     | Number of double taps detected
+doubleTapNotificationCount | 2     | Number of double tap notifications sent
+singleTapCount             | 2     | Number of single taps
+resetButtonCount           | 1     | Number of times a reset has occurred with the button pressed down
+secondsHdc                 | 4     | Seconds spent in high duty cycle
+secondsLdc                 | 4     | Seconds spent in low duty cycle
+doubleTapFailedCount2      | 2     | Number of double tap failures
+longTapCount               | 1     | Number of long taps detected
+resetAssertCount           | 1     | Number of times an assert triggered a reboot
+cnxEvtCountPAOff           | 4     | Number of connection events with the FEM disabled
+secondsHdcPAOff            | 4     | Seconds spent connected in high duty cycle with the FEM disabled
+secondsLdcPAOff            | 4     | Seconds spent connected in low duty cycle with the FEM disabled
+packetErrorCount           | 3     | Number of packet errors
+packetErrorCountPAOff      | 3     | Number of packet errors with the FEM disabled
+disconnectCount            | 3     | Number of disconnections
+disconnectCountPAOff       | 2     | Number of disconnections with the FEM disabled
+loadedBatteryLevel         | 1     | Loaded battery level taken during the find song
+lowVoltSkipWriteCount      | 1     | Number of times flash write was skipped due to low voltage
+ampOnADC                   | 2     | Battery ADC reading while audio amplifier is on, but no sound
+noteOnADC                  | 2     | Battery ADC reading while playing a note
+piezoTestHour              | 2     | Time of piezo test (ampOnADC and noteOnADC readings) in hours since the Tile epoch
+packetErrorCountHdc        | 3     | Number of packet errors while in HDC
+packetErrorCountHdcPAOff   | 3     | Number of packets errors while in HDC with PA off
+toa_channel_open_count     | 3     | Number of times toa_channel_open cmd was received
+toa_authenticate_count     | 3     | Number of times toa_authenticate cmd was received
+tka_closed_channel_count   | 2     | Number of times a channel was closed due to app not sending tka
+auth_disconnect_count      | 2     | Number of auth timer triggered disconnections
+tcu_disconnect_count       | 2     | Number of disconnects caused by central not implementing requested connection parameters
+
+
+@section DIAG_FORMAT_VERSION_14
+Name                       | Size  | Description
+-------------------------- | ----- | ----------------------------------------------------------------------------------------
+diagVersion                | 1     | Version of the diagnostic structure
+mode                       | 1     | Current mode of the Tile
+advInt                     | 2     | The advertising interval, in milliseconds
+resetCount                 | 1     | Number of resets
+resetUmbCount              | 1     | Number of times UMB was lost at boot
+piezoMilliseconds          | 4     | Number of milliseconds the piezo has been active
+resetReason                | 2     | Reason for last reset
+resetHfCount               | 1     | Number of resets due to hard faults
+resetNmiCount              | 1     | Number of resets due to Non Maskable Interrupts (like watchdog)
+lr                         | 4     | The Link Register value at the last HF/NMI reboot
+pc                         | 4     | The Program Counter register value at the last HF/NMI reboot
+ipsr                       | 1     | The Interrupt Program Status Register (Exception Number) value at the last HF/NMI reboot
+resetWantedCount           | 1     | Number of requested resets
+conEvtCount                | 4     | Number of connection events
+advEvtCount                | 4     | Number of advertising events
+connCount                  | 3     | Number of connections
+batteryLevel               | 1     | Unloaded battery level taken at connection
+advertisingTime            | 4     | Seconds spent advertising
+resetSongCount             | 1     | Number of resets that happened while playing a song
+resetFlashCount            | 1     | Counter of number of reboots during flash operations
+authFailCount              | 1     | Number of authentication failures
+micFailCount               | 1     | Number of MIC failures
+doubleTapDetectCount       | 2     | Number of double taps detected
+doubleTapNotificationCount | 2     | Number of double tap notifications sent
+singleTapCount             | 2     | Number of single taps
+resetButtonCount           | 1     | Number of times a reset has occurred with the button pressed down
+secondsHdc                 | 4     | Seconds spent in high duty cycle
+secondsLdc                 | 4     | Seconds spent in low duty cycle
+doubleTapFailedCount2      | 2     | Number of double tap failures
+longTapCount               | 1     | Number of long taps detected
+resetAssertCount           | 1     | Number of times an assert triggered a reboot
+packetErrorCount           | 3     | Number of packet errors
+disconnectCount            | 3     | Number of disconnections
+loadedBatteryLevel         | 1     | Loaded battery level taken during the find song
+lowVoltSkipWriteCount      | 1     | Number of times flash write was skipped due to low voltage
+ampOnADC                   | 2     | Battery ADC reading while audio amplifier is on, but no sound
+noteOnADC                  | 2     | Battery ADC reading while playing a note
+packetErrorCountHdc        | 3     | Number of packet errors while in HDC
+SecondsSinceLastAppSave    | 3     | Seconds since the last time statistics in RAM were committed to flash
+LoadedBatteryHeavyLoad     | 1     | Average battery level during flash erase
+LoadedBatteryMin           | 1     | Lowest battery level during flash erase
+LoadedBatteryMax           | 1     | Highest battery level during flash erase
+LoadedBatteryCnt           | 2     | Number of battery level measurements taken during a flash erase
+LoadedBatteryWindow0       | 1     | The average battery level of the first 50 samples
+LoadedBatteryWindow1       | 1     | The average battery level of the samples from [50, 100)
+LoadedBatteryWindow2       | 1     | The average battery level of the samples from [100, 150)
+LoadedBatteryWindow3       | 1     | The average battery level of the samples from [150, 200)
+LoadedBatteryWindow4       | 1     | The average battery level of the samples from [200, 250)
+LoadedBatteryWindow5       | 1     | The average battery level of the samples from [250, 300)
+toa_channel_open_count     | 3     | Number of times toa_channel_open cmd was received
+toa_authenticate_count     | 3     | Number of times toa_authenticate cmd was received
+tka_closed_channel_count   | 2     | Number of times a channel was closed due to app not sending tka
+auth_disconnect_count      | 2     | Number of auth timer triggered disconnections
+tcu_disconnect_count       | 2     | Number of disconnects caused by central not implementing requested connection parameters
+
+
+@section DIAG_FORMAT_VERSION_13
+Param                      | Size  | Description
+-------------------------- | ----- | ----------------------------------------------------------------------------------------
+version                    | 1     | Version of the diagnostic structure
+mode                       | 1     | Current mode of the Tile
+adv_int                    | 2     | The advertising interval, in units of 625 us
+reset_count                | 1     | Number of resets
+reset_umb_count            | 1     | Number of times UMB was lost at boot
+piezo_milliseconds         | 4     | Number of milliseconds the piezo has been active
+last_reset_reason          | 2     | Reason for last reset
+reset_hf_count             | 1     | Number of resets due to hard faults
+reset_nmi_count            | 1     | Number of resets due to Non Maskable Interrupts (like watchdog)
+stacked_lr                 | 4     | The Link Register value at the last HF/NMI reboot
+stacked_pc                 | 4     | The Program Counter register value at the last HF/NMI reboot
+stacked_psr                | 1     | The Interrupt Program Status Register (Exception Number) value at the last HF/NMI reboot
+reset_wanted_count         | 1     | Number of Wanted resets
+conevtcount                | 4     | Number of connection events
+advevtcount                | 4     | Number of advertising events
+connection_count           | 3     | Number of connections
+battery_level              | 1     | Unloaded battery level taken before the delivery of this diagnostic
+time_adv_s                 | 4     | Seconds spent advertising
+reset_song_count           | 1     | Number of resets that happened while playing a song
+reset_flash_count          | 1     | Number of resets that happened during a flash operation
+auth_fail_count            | 1     | Number of authentication failures
+micFailures                | 1     | Number of MIC failures
+double_tap_detect          | 2     | Number of double taps detected
+double_tap_notify          | 2     | Number of double tap notifications sent
+single_tap_count           | 2     | Number of single taps
+reset_button_count         | 1     | Number of times a reset has occurred with the button pressed down
+time_hdc_s                 | 4     | Seconds spent in high duty cycle
+time_ldc_s                 | 4     | Seconds spent in low duty cycle
+double_tap_failure2        | 2     | Number of double tap failures
+long_tap_count             | 1     | Number of long taps detected
+reset_assert_count         | 1     | Number of resets due to TILE_ASSERTS
+packet_error_count         | 3     | Number of packet errors
+disconnect_count           | 3     | Number of disconnections
+loaded_battery_level       | 1     | Loaded battery level taken during a flash operation
+low_volt_skipped_writes    | 1     | Number of times flash write was skipped due to low voltage
+amp_on_adc                 | 2     | Battery ADC reading while audio amplifier is on, but no sound
+note_on_adc                | 2     | Battery ADC reading while playing a note
+pt_timestamp_hours         | 2     | Time of piezo test (ampOnADC and noteOnADC readings) in hours since the Tile epoch
+packet_error_count_hdc     | 3     | Number of packet errors while in HDC
+seconds_since_last_app_save| 3     | Seconds since app data has been saved to flash
+
+@section DIAG_FORMAT_VERSION_12
+
+Param                      | Size  | Description
+-------------------------- | ----- | ----------------------------------------------------------------------------------------
+diagVersion                | 1     | Version of the diagnostic structure
+mode                       | 1     | Current mode of the Tile
+advInt                     | 2     | The advertising interval, in milliseconds
+resetCount                 | 1     | Number of resets
+resetUmbCount              | 1     | Number of times UMB was lost at boot
+piezoMilliseconds          | 4     | Number of milliseconds the piezo has been active
+resetReason                | 2     | Reason for last reset
+resetHfCount               | 1     | Number of resets due to hard faults
+resetNmiCount              | 1     | Number of resets due to Non Maskable Interrupts (like watchdog)
+lr                         | 4     | The Link Register value at the last HF/NMI reboot
+pc                         | 4     | The Program Counter register value at the last HF/NMI reboot
+ipsr                       | 1     | The Interrupt Program Status Register (Exception Number) value at the last HF/NMI reboot
+resetWantedCount           | 1     | Number of requested resets
+conEvtCount                | 4     | Number of connection events
+advEvtCount                | 4     | Number of advertising events
+connCount                  | 3     | Number of connections
+batteryLevel               | 1     | Unloaded battery level taken at connection
+advertisingTime            | 4     | Seconds spent advertising
+resetSongCount             | 1     | Number of resets that happened while playing a song
+resetFlashCount            | 1     | Counter of number of reboots during flash operations
+authFailCount              | 1     | Number of authentication failures
+micFailCount               | 1     | Number of MIC failures
+doubleTapDetectCount       | 2     | Number of double taps detected
+doubleTapNotificationCount | 2     | Number of double tap notifications sent
+singleTapCount             | 2     | Number of single taps
+resetButtonCount           | 1     | Number of times a reset has occurred with the button pressed down
+secondsHdc                 | 4     | Seconds spent in high duty cycle
+secondsLdc                 | 4     | Seconds spent in low duty cycle
+doubleTapFailedCount2      | 2     | Number of double tap failures
+longTapCount               | 1     | Number of long taps detected
+resetAssertCount           | 1     | Number of times an assert triggered a reboot
+cnxEvtCountPAOff           | 4     | Number of connection events with the FEM disabled
+secondsHdcPAOff            | 4     | Seconds spent connected in high duty cycle with the FEM disabled
+secondsLdcPAOff            | 4     | Seconds spent connected in low duty cycle with the FEM disabled
+packetErrorCount           | 3     | Number of packet errors
+packetErrorCountPAOff      | 3     | Number of packet errors with the FEM disabled
+disconnectCount            | 3     | Number of disconnections
+disconnectCountPAOff       | 2     | Number of disconnections with the FEM disabled
+loadedBatteryLevel         | 1     | Loaded battery level taken during the find song
+lowVoltSkipWriteCount      | 1     | Number of times flash write was skipped due to low voltage
+ampOnADC                   | 2     | Battery ADC reading while audio amplifier is on, but no sound
+noteOnADC                  | 2     | Battery ADC reading while playing a note
+piezoTestHour              | 2     | Time of piezo test (ampOnADC and noteOnADC readings) in hours since the Tile epoch
+packetErrorCountHdc        | 3     | Number of packet errors while in HDC
+packetErrorCountHdcPAOff   | 3     | Number of packets errors while in HDC with PA off
+
+
+@section DIAG_FORMAT_VERSION_11
+
+Param       | Size      | Description
+----------- | --------- | -----------
+DiagVersion | 1 Byte    | Version of the Diagnostic.
+PPM/Mode    | 1 Byte    | Aggregation of PPM and Mode: Mode[0:1] / PPM[2:5] / RFU[6:7]
+ResetReason | 1 Byte    | Reason for Last Reset.
+ResetCpt    | 1 Byte    | Counts the Resets.
+AdvInt      | 2 Bytes   | Advertising Interval in 0.625 ms increments
+Battery     | 1 Byte    | Unloaded Battery Level taken at connection
+TileTime    | 4 Bytes   | Tile time in seconds since TILE_EPOCH (01/01/2016 00:00:00 UTC)
+ConCpt      | 2 Bytes   | Number of connections
+ResetSongCount  | 1 Byte  | Number of resets that happened while playing a song
+AdvertisingTime | 4 Bytes   | Seconds spent advertising
+SecondsLDC      | 4 Bytes   | Seconds in low duty cycle
+SecondsHDC      | 4 Bytes   | Seconds in high duty cycle
+TimeInaccuracy  | 1 Byte    | Inaccuracy of the Tile time in 4 second increments. Will be 0xFF when inaccuracy exceeds range.
+ResetNmiCount   | 1 Byte    | Number of resets due to Non Maskable Interrupts (like watchdog)
+CnxEvtTime      | 4 Bytes   | Milliseconds spent within connection events
+AdvEvtTime      | 4 Bytes   | Milliseconds spent within advertising events
+LoadedBattery   | 1 Byte    | Loaded Battery Level taken during the Find Song
+BatteryMeasHours  | 2 Bytes | Timestamp of the loaded battery measurement (hours since TILE_EPOCH)
+BatteryMeasHoursAccuracy | 1 Byte | Accuracy of the timestamp of the Loaded Battery measurement.
+ResetHfCount      | 1 Byte    | Number of resets due to Hard Faults.
+ResetWantedCount  | 1 Byte    | Number of Wanted resets.
+Piezo10MS   | 3 Bytes   | PiezoMS per 10 ms Increments.
+AuthFailCpt | 1 Byte    | Counts the Authentication Failures.
+AuthMissCpt | 1 Byte    | Counts the Nonauthenticated Access attempts.
+MicFailCpt  | 1 Byte    | Counts the MIC failures.
+AdvEvtCpt   | 4 Bytes   | Advertising event count
+ConEvtCpt   | 4 Bytes   | Connection event count
+resetUMBcount | 1 Byte    | Counts the number of times UMB buffer was lost at boot.
+resetAssertCount  | 1 Byte    | Counts the number of times an Assert triggered a reboot.
+LR_24          | 3 Bytes   | Contains Link Register value at last HF/NMI reboot.
+PC_24          | 3 Bytes   | Contains Program Counter Register value at last HF/NMI reboot.
+DoubleTapFailedCount2 | 2 Bytes  | Number of times a DoubleTap failure happened
+IPSR        | 1 Byte    | Contains Interrupt Program Status Register (Exception Number) value at last HF/NMI reboot.
+SingleTapCount16 | 2 Bytes    | Counts the number of times a double tap was detected, using 2 Bytes.
+LongTapCount   | 1 Byte    | Counts the number of times a long tap was detected.
+temperatureCounter | 2 Bytes | Counter returned by get_rc16m_count(). Can be used to detect temperature changes.
+ResetFlashCount | 1 Byte | Counter of number of reboots during flash operations.
+ResetReason2    | 1 Byte | Second ResetReason field.
+RFCalSuccessCount | 2 Bytes | Number of successful RF calibrations
+RFCalFailureCount | 2 Bytes | Number of unsuccessful RF calibrations
+RFCalLowVoltCount | 2 Bytes | Number of RF calibrations skipped due to low voltage
+DoubleTapNotificationCount | 2 Bytes  | Number of times a DoubleTap notification was sent
+DoubleTapDetectCount | 2 Bytes  | Number of times a DoubleTap was detected
+PT_amp_on_ADC | 2 Bytes  | Piezo Test: ADC reading with amp on and NO note playing.
+PT_note_on_ADC | 2 Bytes  | Piezo Test: ADC reading with amp on and note playing.
+PT_hour | 2 Bytes  | Piezo Test timestamp (hours since TILE_EPOCH).
+connection_count_carry | 1 Bytes  | Counter that increments when ConnectionCount rolls over.
+tka_count | 2 Bytes  | Number of TKA disconnections since last reboot.
+
+
+@section DIAG_FORMAT_VERSION_10
+
+Param       | Size      | Description
+----------- | --------- | -----------
+DiagVersion | 1 Byte    | Version of the Diagnostic.
+PPM/Mode    | 1 Byte    | Aggregation of PPM and Mode: Mode[0:1] / PPM[2:5] / RFU[6:7]
+ResetReason | 1 Byte    | Reason for Last Reset.
+ResetCpt    | 1 Byte    | Counts the Resets.
+AdvInt      | 2 Bytes   | Advertising Interval in 0.625 ms increments
+Battery     | 1 Byte    | Unloaded Battery Level taken at connection
+TileTime    | 4 Bytes   | Tile time in seconds since TILE_EPOCH (01/01/2016 00:00:00 UTC)
+ConCpt      | 2 Bytes   | Number of connections
+ResetSongCount  | 1 Byte  | Number of resets that happened while playing a song
+AdvertisingTime | 4 Bytes   | Seconds spent advertising
+SecondsLDC      | 4 Bytes   | Seconds in low duty cycle
+SecondsHDC      | 4 Bytes   | Seconds in high duty cycle
+TimeInaccuracy  | 1 Byte    | Inaccuracy of the Tile time in 4 second increments. Will be 0xFF when inaccuracy exceeds range.
+ResetNmiCount   | 1 Byte    | Number of resets due to Non Maskable Interrupts (like watchdog)
+CnxEvtTime      | 4 Bytes   | Milliseconds spent within connection events
+AdvEvtTime      | 4 Bytes   | Milliseconds spent within advertising events
+LoadedBattery   | 1 Byte    | Loaded Battery Level taken during the Find Song
+BatteryMeasHours  | 2 Bytes | Timestamp of the loaded battery measurement (hours since TILE_EPOCH)
+BatteryMeasHoursAccuracy | 1 Byte | Accuracy of the timestamp of the Loaded Battery measurement.
+ResetHfCount      | 1 Byte    | Number of resets due to Hard Faults.
+ResetWantedCount  | 1 Byte    | Number of Wanted resets.
+Piezo10MS   | 3 Bytes   | PiezoMS per 10 ms Increments.
+AuthFailCpt | 1 Byte    | Counts the Authentication Failures.
+AuthMissCpt | 1 Byte    | Counts the Nonauthenticated Access attempts.
+MicFailCpt  | 1 Byte    | Counts the MIC failures.
+AdvEvtCpt   | 4 Bytes   | Advertising event count
+ConEvtCpt   | 4 Bytes   | Connection event count
+resetUMBcount | 1 Byte    | Counts the number of times UMB buffer was lost at boot.
+resetAssertCount  | 1 Byte    | Counts the number of times an Assert triggered a reboot.
+LR_24          | 3 Bytes   | Contains Link Register value at last HF/NMI reboot.
+PC_24          | 3 Bytes   | Contains Program Counter Register value at last HF/NMI reboot.
+DoubleTapFailedCount2 | 2 Bytes  | Number of times a DoubleTap failure happened
+IPSR        | 1 Byte    | Contains Interrupt Program Status Register (Exception Number) value at last HF/NMI reboot.
+SingleTapCount16 | 2 Bytes    | Counts the number of times a double tap was detected, using 2 Bytes.
+LongTapCount   | 1 Byte    | Counts the number of times a long tap was detected.
+temperatureCounter | 2 Bytes | Counter returned by get_rc16m_count(). Can be used to detect temperature changes.
+ResetFlashCount | 1 Byte | Counter of number of reboots during flash operations.
+ResetReason2    | 1 Byte | Second ResetReason field.
+RFCalSuccessCount | 2 Bytes | Number of successful RF calibrations
+RFCalFailureCount | 2 Bytes | Number of unsuccessful RF calibrations
+RFCalLowVoltCount | 2 Bytes | Number of RF calibrations skipped due to low voltage
+DoubleTapNotificationCount | 2 Bytes  | Number of times a DoubleTap notification was sent
+DoubleTapDetectCount | 2 Bytes  | Number of times a DoubleTap was detected
+
+
+@section DIAG_VERSION_9
+
+Name                       | Size  | Description
+-------------------------- | ----- | ----------------------------------------------------------------------------------------
+diagVersion                | 1     | Version of the diagnostic structure
+mode                       | 1     | Current mode of the Tile
+advInt                     | 2     | The advertising interval
+resetCount                 | 1     | Number of resets
+resetUmbCount              | 1     | Number of times UMB was lost at boot
+piezoMilliseconds          | 4     | Number of milliseconds the piezo has been active
+resetReason                | 2     | Reason for last reset
+resetHfCount               | 1     | Number of resets due to hard faults
+resetNmiCount              | 1     | Number of resets due to Non Maskable Interrupts (like watchdog)
+lr                         | 4     | The Link Register value at the last HF/NMI reboot
+pc                         | 4     | The Program Counter register value at the last HF/NMI reboot
+ipsr                       | 1     | The Interrupt Program Status Register (Exception Number) value at the last HF/NMI reboot
+resetWantedCount           | 1     | Number of requested resets
+conEvtCount                | 4     | Number of connection events
+advEvtCount                | 4     | Number of advertising events
+connCount                  | 2     | Number of connections
+batteryLevel               | 1     | Unloaded battery level taken at connection
+advertisingTime            | 4     | Seconds spent advertising
+resetSongCount             | 1     | Number of resets that happened while playing a song
+resetFlashCount            | 1     | Counter of number of reboots during flash operations
+authFailCount              | 1     | Number of authentication failures
+micFailCount               | 1     | Number of MIC failures
+doubleTapDetectCount       | 2     | Number of double taps detected
+doubleTapNotificationCount | 2     | Number of double tap notifications sent
+singleTapCount             | 2     | Number of single taps
+resetButtonCount           | 1     | Number of times a reset has occurred with the button pressed down
+secondsHdc                 | 4     | Seconds spent in high duty cycle
+secondsLdc                 | 4     | Seconds spent in low duty cycle
+doubleTapFailedCount2      | 2     | Number of double tap failures
+longTapCount               | 1     | Number of long taps detected
+resetAssertCount           | 1     | Number of times an assert triggered a reboot
+cnxEvtCountPAOff           | 4     | Number of connection events with the FEM disabled
+secondsHdcPAOff            | 4     | Seconds spent connected in high duty cycle with the FEM disabled
+secondsLdcPAOff            | 4     | Seconds spent connected in low duty cycle with the FEM disabled
+packetErrorCount           | 3     | Number of packet errors
+packetErrorCountPAOff      | 3     | Number of packet errors with the FEM disabled
+disconnectCount            | 2     | Number of disconnections
+disconnectCountPAOff       | 2     | Number of disconnections with the FEM disabled
+loadedBatteryLevel         | 1     | Loaded battery level taken during the find song
+lowVoltSkipWriteCount      | 1     | Number of times flash write was skipped due to low voltage
+
+
+@section DIAG_VERSION_8
+
+Name                       | Size  | Description
+-------------------------- | ----- | ----------------------------------------------------------------------------------------
+diagVersion                | 1     | Version of the diagnostic structure
+mode                       | 1     | Current mode of the Tile
+advInt                     | 2     | The advertising interval
+resetCount                 | 1     | Number of resets
+resetUmbCount              | 1     | Number of times UMB was lost at boot
+piezoMilliseconds          | 4     | Number of milliseconds the piezo has been active
+resetReason                | 2     | Reason for last reset
+resetHfCount               | 1     | Number of resets due to hard faults
+resetNmiCount              | 1     | Number of resets due to Non Maskable Interrupts (like watchdog)
+lr                         | 4     | The Link Register value at the last HF/NMI reboot
+pc                         | 4     | The Program Counter register value at the last HF/NMI reboot
+ipsr                       | 1     | The Interrupt Program Status Register (Exception Number) value at the last HF/NMI reboot
+resetWantedCount           | 1     | Number of requested resets
+conEvtCount                | 4     | Number of connection events
+advEvtCount                | 4     | Number of advertising events
+connCount                  | 2     | Number of connections
+batteryLevel               | 1     | Unloaded battery level taken at connection
+advertisingTime            | 4     | Seconds spent advertising
+resetSongCount             | 1     | Number of resets that happened while playing a song
+resetFlashCount            | 1     | Counter of number of reboots during flash operations
+authFailCount              | 1     | Number of authentication failures
+micFailCount               | 1     | Number of MIC failures
+doubleTapDetectCount       | 2     | Number of double taps detected
+doubleTapFailedCount       | 2     | Number of double tap failures
+doubleTapNotificationCount | 2     | Number of double tap notifications sent
+singleTapCount             | 2     | Number of single taps
+resetButtonCount           | 1     | Number of times a reset has occurred with the button pressed down
+secondsHdc                 | 4     | Seconds spent in high duty cycle
+secondsLdc                 | 4     | Seconds spent in low duty cycle
+
+
+@section DIAG_VERSION_7
+
+Name                       | Size  | Description
+-------------------------- | ----- | ----------------------------------------------------------------------------------------
+diagVersion                | 1     | Version of the diagnostic structure
+mode                       | 1     | Current mode of the Tile
+advInt                     | 2     | The advertising interval
+resetCount                 | 1     | Number of resets
+resetUmbCount              | 1     | Number of times UMB was lost at boot
+piezoMilliseconds          | 4     | Number of milliseconds the piezo has been active
+resetReason                | 2     | Reason for last reset
+resetHfCount               | 1     | Number of resets due to hard faults
+resetNmiCount              | 1     | Number of resets due to Non Maskable Interrupts (like watchdog)
+lr                         | 4     | The Link Register value at the last HF/NMI reboot
+pc                         | 4     | The Program Counter register value at the last HF/NMI reboot
+ipsr                       | 1     | The Interrupt Program Status Register (Exception Number) value at the last HF/NMI reboot
+resetWantedCount           | 1     | Number of requested resets
+conEvtCount                | 4     | Number of connection events
+advEvtCount                | 4     | Number of advertising events
+connCount                  | 2     | Number of connections
+batteryLevel               | 1     | Unloaded battery level taken at connection
+advertisingTime            | 4     | Seconds spent advertising
+resetSongCount             | 1     | Number of resets that happened while playing a song
+resetFlashCount            | 1     | Counter of number of reboots during flash operations
+authFailCount              | 1     | Number of authentication failures
+micFailCount               | 1     | Number of MIC failures
+doubleTapDetectCount       | 2     | Number of double taps detected
+doubleTapFailedCount       | 2     | Number of double tap failures
+doubleTapNotificationCount | 2     | Number of double tap notifications sent
+singleTapCount             | 2     | Number of single taps
+
+
+@section DIAG_VERSION_6
+
+Name                        | Size  | Description
+--------------------------- | ----- | -----------------------------------------------------------------------------------------------
+diagVersion                 | 1     | Version of the diagnostic structure
+mode                        | [0:2] | Current mode of the Tile
+ppm                         | [2:6] | PPM value
+resetReason                 | 1     | Reason for last reset
+resetCount                  | 1     | Number of resets
+advInt                      | 2     | The advertising interval
+batteryLevel                | 1     | Unloaded battery level taken at connection
+tileTime                    | 4     | Tile time in seconds since TILE_EPOCH (01/01/2016 00:00:00 UTC)
+connCount                   | 2     | Number of connections
+resetSongCount              | 1     | Number of resets that happened while playing a song
+advertisingTime             | 4     | Seconds spent advertising
+secondsLdc                  | 4     | Seconds spent in low duty cycle
+secondsHdc                  | 4     | Seconds spent in high duty cycle
+timeInaccuracy              | 1     | Inaccuracy of the Tile time in 4 seconds increments. Will be 0xFF when inaccuracy exceeds range
+resetNmiCount               | 1     | Number of resets due to Non Maskable Interrupts (like watchdog)
+cnxEvtTime                  | 4     | Milliseconds spent within connection events
+advEvtTime                  | 4     | Milliseconds spent within advertising events
+loadedBatteryLevel          | 1     | Loaded battery level taken during the find song
+loadedBatteryTimestamp      | 2     | Timestamp of the loaded battery measurement
+loadedBatteryTimeInaccuracy | 1     | Timestamp inaccuracy of the Tile timestamp when the loaded measurement was taken
+resetHfCount                | 1     | Number of resets due to hard faults
+resetWantedCount            | 1     | Number of requested resets
+piezoMilliseconds           | 3     | Number of milliseconds the piezo has been active
+authFailCount               | 1     | Number of authentication failures
+authMissingCount            | 1     | Number of nonauthenticated access attempts
+micFailCount                | 1     | Number of MIC failures
+advEvtCount                 | 4     | Number of advertising events
+conEvtCount                 | 4     | Number of connection events
+resetUmbCount               | 1     | Number of times UMB was lost at boot
+resetAssertCount            | 1     | Number of times an assert triggered a reboot
+lr                          | 3     | The Link Register value at the last HF/NMI reboot
+pc                          | 3     | The Program Counter value at the last HF/NMI reboot
+doubleTapFailedCount        | 2     | Number of double tap failures
+ipsr                        | 1     | The Interrupt Program Status Register (Exception Number) value at the last HF/NMI reboot
+singleTapCount              | 2     | Number of single taps
+longTapCount                | 1     | Number of long taps detected
+tileTemp                    | 2     | Value of get_rc16m_count(). This is expected to decrease as temperature increases
+resetFlashCount             | 1     | Counter of number of reboots during flash operations
+resetReason2                | 1     | Seconds reset reason field
+rfCalSuccessCount           | 2     | Number of successful RF calibrations
+rfCalFailureCount           | 2     | Number of unsuccessful RF calibrations
+rfCalLowVoltCount           | 2     | Number of times voltage was too low for RF calibration
+doubleTapNotificationCount  | 2     | Number of double tap notifications sent
+doubleTapDetectCount        | 2     | Number of double taps detected
+
+
+@section DIAG_FORMAT_VERSION_5
+
+Here is the format of diagnostic data for DiagVersion = 5.
+
+Param       | Size      | Description
+----------- | --------- | -----------
+DiagVersion | 1 Byte    | Version of the Diagnostic.
+PPM/Mode    | 1 Byte    | Aggregation of PPM and Mode: Mode[0:1] / PPM[2:5] / RFU[6:7]
+ResetReason | 1 Byte    | Reason for Last Reset.
+ResetCpt    | 1 Byte    | Counts the Resets.
+AdvInt      | 2 Bytes   | Advertising Interval in 0.625 ms increments
+Battery     | 1 Byte    | Unloaded Battery Level taken at connection
+TileTime    | 4 Bytes   | Tile time in seconds since TILE_EPOCH (01/01/2016 00:00:00 UTC)
+ConCpt      | 2 Bytes   | Number of connections
+ResetSongCount  | 1 Byte  | Number of resets that happened while playing a song
+AdvertisingTime | 4 Bytes   | Seconds spent advertising
+SecondsLDC      | 4 Bytes   | Seconds in low duty cycle
+SecondsHDC      | 4 Bytes   | Seconds in high duty cycle
+TimeInaccuracy  | 1 Byte    | Inaccuracy of the Tile time in 4 second increments. Will be 0xFF when inaccuracy exceeds range.
+ResetNmiCount   | 1 Byte    | Number of resets due to Non Maskable Interrupts (like watchdog)
+CnxEvtTime      | 4 Bytes   | Milliseconds spent within connection events
+AdvEvtTime      | 4 Bytes   | Milliseconds spent within advertising events
+LoadedBattery   | 1 Byte    | Loaded Battery Level taken during the Find Song
+BatteryMeasHours  | 2 Bytes | Timestamp of the loaded battery measurement (hours since TILE_EPOCH)
+BatteryMeasHoursAccuracy | 1 Byte | Accuracy of the timestamp of the Loaded Battery measurement.
+ResetHfCount      | 1 Byte    | Number of resets due to Hard Faults.
+ResetWantedCount  | 1 Byte    | Number of Wanted resets.
+Piezo10MS   | 3 Bytes   | PiezoMS per 10 ms Increments.
+AuthFailCpt | 1 Byte    | Counts the Authentication Failures.
+AuthMissCpt | 1 Byte    | Counts the Nonauthenticated Access attempts.
+MicFailCpt  | 1 Byte    | Counts the MIC failures.
+AdvEvtCpt   | 4 Bytes   | Advertising event count
+ConEvtCpt   | 4 Bytes   | Connection event count
+resetUMBcount | 1 Byte    | Counts the number of times UMB buffer was lost at boot.
+resetAssertCount  | 1 Byte    | Counts the number of times an Assert triggered a reboot.
+LR          | 4 Bytes   | Contains Link Register value at last HF/NMI reboot.
+PC          | 4 Bytes   | Contains Program Counter Register value at last HF/NMI reboot.
+IPSR        | 1 Byte    | Contains Interrupt Program Status Register (Exception Number) value at last HF/NMI reboot.
+SingleTapCount | 1 Byte    | Counts the number of times a single tap was detected.
+DoubleTapCount | 1 Byte    | Counts the number of times a double tap was detected.
+LongTapCount   | 1 Byte    | Counts the number of times a long tap was detected.
+temperatureCounter | 2 Bytes | Counter returned by get_rc16m_count(). Can be used to detect temperature changes.
+ResetFlashCount | 1 Byte | Counter of number of reboots during flash operations.
+ResetReason2    | 1 Byte | Second ResetReason field.
+RFCalSuccessCount | 2 Bytes | Number of successful RF calibrations
+RFCalFailureCount | 2 Bytes | Number of unsuccessful RF calibrations
+RFCalLowVoltCount | 2 Bytes | Number of RF calibrations skipped due to low voltage
+RFCalRestoreCount | 1 Byte  | Number of times RF calibration values were restored from flash at boot
+
+
+
+@section DIAG_FORMAT_VERSION_4
+
+Here is the format of diagnostic data for DiagVersion = 4.
+
+Param       | Size      | Description
+----------- | --------- | -----------
+DiagVersion | 1 Byte    | Version of the Diagnostic.
+PPM/Mode    | 1 Byte    | Aggregation of PPM and Mode: Mode[0:1] / PPM[2:5] / RFU[6:7]
+ResetReason | 1 Byte    | Reason for Last Reset.
+ResetCpt    | 1 Byte    | Counts the Resets.
+AdvInt      | 2 Bytes   | Advertising Interval in 0.625 ms increments
+Battery     | 1 Byte    | Unloaded Battery Level taken at connection
+TileTime    | 4 Bytes   | Tile time in seconds since TILE_EPOCH (01/01/2016 00:00:00 UTC)
+ConCpt      | 2 Bytes   | Number of connections
+ResetSongCount  | 1 Byte  | Number of resets that happened while playing a song
+AdvertisingTime | 4 Bytes   | Seconds spent advertising
+SecondsLDC      | 4 Bytes   | Seconds in low duty cycle
+SecondsHDC      | 4 Bytes   | Seconds in high duty cycle
+TimeInaccuracy  | 1 Byte    | Inaccuracy of the Tile time in 4 second increments. Will be 0xFF when inaccuracy exceeds range.
+ResetNmiCount   | 1 Byte    | Number of resets due to Non Maskable Interrupts (like watchdog)
+CnxEvtTime      | 4 Bytes   | Milliseconds spent within connection events
+AdvEvtTime      | 4 Bytes   | Milliseconds spent within advertising events
+LoadedBattery   | 1 Byte    | Loaded Battery Level taken during the Find Song
+BatteryMeasHours  | 2 Bytes | Timestamp of the loaded battery measurement (hours since TILE_EPOCH)
+BatteryMeasHoursAccuracy | 1 Byte | Accuracy of the timestamp of the Loaded Battery measurement.
+ResetHfCount      | 1 Byte    | Number of resets due to Hard Faults.
+ResetWantedCount  | 1 Byte    | Number of Wanted resets.
+Piezo10MS   | 3 Bytes   | PiezoMS per 10 ms Increments.
+AuthFailCpt | 1 Byte    | Counts the Authentication Failures.
+AuthMissCpt | 1 Byte    | Counts the Nonauthenticated Access attempts.
+MicFailCpt  | 1 Byte    | Counts the MIC failures.
+AdvEvtCpt   | 4 Bytes   | Advertising event count
+ConEvtCpt   | 4 Bytes   | Connection event count
+resetUMBcount | 1 Byte    | Counts the number of times UMB buffer was lost at boot.
+resetAssertCount  | 1 Byte    | Counts the number of times an Assert triggered a reboot.
+LR          | 4 Bytes   | Contains Link Register value at last HF/NMI reboot.
+PC          | 4 Bytes   | Contains Program Counter Register value at last HF/NMI reboot.
+IPSR        | 1 Byte    | Contains Interrupt Program Status Register (Exception Number) value at last HF/NMI reboot.
+SingleTapCount | 1 Byte    | Counts the number of times a single tap was detected.
+DoubleTapCount | 1 Byte    | Counts the number of times a double tap was detected.
+LongTapCount   | 1 Byte    | Counts the number of times a long tap was detected.
+temperatureCounter | 2 Bytes | Counter returned by get_rc16m_count(). Can be used to detect temperature changes.
+BatteryMeasSongId | 2 Bytes | Song ID when loaded measurement was taken
+
+
+@section DIAG_FORMAT_VERSION_3
+
+Here is the format of diagnostic data for DiagVersion = 3.
+
+Param       | Size      | Description
+----------- | --------- | -----------
+DiagVersion | 1 Byte    | Version of the Diagnostic.
+PPM/Mode    | 1 Byte    | Aggregation of PPM and Mode: Mode[0:1] / PPM[2:5] / RFU[6:7]
+ResetReason | 1 Byte    | Reason for Last Reset.
+ResetCpt    | 1 Byte    | Counts the Resets.
+AdvInt      | 2 Bytes   | Advertising Interval in 0.625 ms increments
+Battery     | 1 Byte    | Unloaded Battery Level taken at connection
+TileTime    | 4 Bytes   | Tile time in seconds since TILE_EPOCH (01/01/2016 00:00:00 UTC)
+ConCpt      | 2 Bytes   | Number of connections
+ResetSongCount  | 1 Byte  | Number of resets that happened while playing a song
+AdvertisingTime | 4 Bytes   | Seconds spent advertising
+SecondsLDC      | 4 Bytes   | Seconds in low duty cycle
+SecondsHDC      | 4 Bytes   | Seconds in high duty cycle
+TimeInaccuracy  | 1 Byte    | Inaccuracy of the Tile time in 4 second increments. Will be 0xFF when inaccuracy exceeds range.
+ResetNmiCount   | 1 Byte    | Number of resets due to Non Maskable Interrupts (like watchdog)
+CnxEvtTime      | 4 Bytes   | Milliseconds spent within connection events
+AdvEvtTime      | 4 Bytes   | Milliseconds spent within advertising events
+LoadedBattery   | 1 Byte    | Loaded Battery Level taken during the Find Song
+BatteryMeasHours  | 2 Bytes | Timestamp of the loaded battery measurement (hours since TILE_EPOCH)
+BatteryMeasHoursAccuracy | 1 Byte | Accuracy of the timestamp of the Loaded Battery measurement.
+ResetHfCount      | 1 Byte    | Number of resets due to Hard Faults.
+ResetWantedCount  | 1 Byte    | Number of Wanted resets.
+Piezo10MS   | 3 Bytes   | PiezoMS per 10 ms Increments.
+AuthFailCpt | 1 Byte    | Counts the Authentication Failures.
+AuthMissCpt | 1 Byte    | Counts the Nonauthenticated Access attempts.
+MicFailCpt  | 1 Byte    | Counts the MIC failures.
+AdvEvtCpt   | 4 Bytes   | Advertising event count
+ConEvtCpt   | 4 Bytes   | Connection event count
+resetUMBcount | 1 Byte    | Counts the number of times UMB buffer was lost at boot.
+resetAssertCount  | 1 Byte    | Counts the number of times an Assert triggered a reboot.
+LR          | 4 Bytes   | Contains Link Register value at last HF/NMI reboot.
+PC          | 4 Bytes   | Contains Program Counter Register value at last HF/NMI reboot.
+IPSR        | 1 Byte    | Contains Interrupt Program Status Register (Exception Number) value at last HF/NMI reboot.
+SingleTapCount | 1 Byte    | Counts the number of times a single tap was detected.
+DoubleTapCount | 1 Byte    | Counts the number of times a double tap was detected.
+LongTapCount   | 1 Byte    | Counts the number of times a long tap was detected.
+
+
+
+@section DIAG_FORMAT_VERSION_2
+
+Here is the format of diagnostic data for DiagVersion = 2.
+
+This version is supported on Dialog chip using firmware version 1.9
+
+### Packet Structure ###
+
+BattLevel | AdvInt | AuthFCpt | ResRea | PPM    | Version | Mode  | ResetCnt | ConnectionCount | PiezoMilliseconds | AdvEvtCount | CnxEvtCount
+----------|--------|----------|--------|--------|---------|-------|----------|-----------------|-------------------|-------------|------------
+1 byte    | 1 byte | 1 byte   | 1 byte | 4 bits | 4 bits  | 2 bit | 6 bits   | 2 bytes         | 4 bytes           | 4 bytes     | 4 bytes
+
+### Field Descriptions ###
+
+All fields are the same as in version 1, _except_ the new field ResetCnt was added.
+
+Name      | Description
+----------|------------
+BattLevel | The value represents the reading of the Battery voltage from the ADC. The value is measured at connection. The value is averaged over 10 readings, except in Factory Mode where direct value is provided. **The value is converted into mV**.
+AdvInt    | The value represents the advertising Interval used in activated mode. The value is in <b>hundreds of miliseconds</b>, i.e. the advertising interval is equal to AdvInt*100 ms.
+AuthFCpt  | The value represents the number of authentication failures since last reset.
+ResRea    | **Not supported in version 1**. Will always report 0.
+PPM       | Represents the PPM setting used for the 32KHz crystal in Activated mode. See \ref PPM for a table with possible values.
+Version   | Version of the diagnostics.
+ResetCnt  | The number of resets that have occurred since the device was activated.
+ConnectionCount | Number of established Bluetooth connections since last reset.
+PiezoMilliseconds | Number of milliseconds the Piezo has been played since last reset, **excluding the REST time**.
+AdvEvtCount | The number of advertising events since last reset.
+CnxEvtCount | The number of connections since last reset.
+
+
+@section DIAG_FORMAT_VERSION_1
+
+Here is the format of diagnostic data for DiagVersion = 1.
+
+This version is supported on Dialog chip using firmware version 1.7
+
+### Packet structure ###
+
+This is the same as in version 0.
+
+BattLevel | AdvInt | AuthFCpt | ResRea | PPM    | Version | Mode  | RFU    | ConnectionCount | PiezoMilliseconds | AdvEvtCount | CnxEvtCount
+----------|--------|----------|--------|--------|---------|-------|--------|-----------------|-------------------|-------------|------------
+1 byte    | 1 byte | 1 byte   | 1 byte | 4 bits | 4 bits  | 2 bit | 6 bits | 2 bytes         | 4 bytes           | 4 bytes     | 4 bytes
+
+### Field descriptions ###
+
+All fields are the same as in version 0, _except_ BattLevel, ResRea, and PiezoMilliseconds.
+
+Name      | Description
+----------|------------
+BattLevel | The value represents the reading of the Battery voltage from the ADC. The value is measured at connection. The value is averaged over 10 readings, except in Factory Mode where direct value is provided. **The value is converted into mV**.
+AdvInt    | The value represents the advertising Interval used in activated mode. The value is in <b>hundreds of miliseconds</b>, i.e. the advertising interval is equal to AdvInt*100 ms.
+AuthFCpt  | The value represents the number of authentication failures since last reset.
+ResRea    | **Not supported in version 1**. Will always report 0.
+PPM       | Represents the PPM setting used for the 32KHz crystal in Activated mode. See \ref PPM for a table with possible values.
+Version   | Version of the diagnostics.
+RFU       | "Reserved for future use." RFU bits are set to 0 and SHALL be ignored by the AP.
+ConnectionCount | Number of established Bluetooth connections since last reset.
+PiezoMilliseconds | Number of milliseconds the Piezo has been played since last reset, **excluding the REST time**.
+AdvEvtCount | The number of advertising events since last reset.
+CnxEvtCount | The number of connections since last reset.
+
+
+@section DIAG_FORMAT_VERSION_0
+
+Here is the format of diagnostic data for DiagVersion = 0.
+
+This version is supported on Nordic chip using firmware version 1.1
+
+### Packet structure ###
+
+BattLevel | AdvInt | AuthFCpt | ResRea | PPM    | Version | Mode | RFU     | ConnectionCount | PiezoMilliseconds | AdvEvtCount | CnxEvtCount
+----------|--------|----------|--------|--------|---------|------|---------|-----------------|-------------------|-------------|------------
+1 byte    | 1 byte | 1 byte   | 1 byte | 4 bits | 4 bits  | 2 bit | 6 bits | 2 bytes         | 4 bytes           | 4 bytes     | 4 bytes
+
+### Field descriptions ###
+
+Name      | Description
+----------|------------
+BattLevel | The value represents the reading of the Battery voltage from the ADC. The value is measured at connection. The value is averaged over 10 readings, except in Factory Mode where direct value is provided.
+AdvInt    | The value represents the advertising Interval used in activated mode. The value is in <b>hundreds of miliseconds</b>, i.e. the advertising interval is equal to AdvInt*100 ms.
+AuthFCpt  | The value represents the number of authentication failures since last reset.
+ResRea    | The value is a bitfield giving information about the last reset (or wakeup) reason. The meaning of each bit is defined in Nordic datasheet and is Nordic specific.
+PPM       | Represents the PPM setting used for the 32KHz crystal in Activated mode. See \ref PPM for a table with possible values.
+Version   | Version of the diagnostics.
+RFU       | "Reserved for future use." RFU bits are set to 0 and SHALL be ignored by the AP.
+ConnectionCount | Number of established Bluetooth connections since last reset.
+PiezoMilliseconds | Number of milliseconds the Piezo has been played since last reset.
+AdvEvtCount | The number of advertising events since last reset.
+CnxEvtCount | The number of connections since last reset.
+
+*/

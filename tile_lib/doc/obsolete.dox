@@ -1,0 +1,48 @@
+/*!
+
+\defgroup OBSOLETE_CHARACTERISTICS
+
+A recommendation is that TheTileApp keeps support for Obsolete Characteristics
+
+All characteristics used by firmware 1.9 and older. **All UUIDs specified have an implied base of 128b**
+
+Any field with a (?) means that Aaron does not know this value and needs to consult Josselin.
+
+Name   | UUID     | Write Value    | Write Size    | Read Value  | Read Size   | FW Versions
+-------|----------|----------------|---------------|-------------|-------------|------------
+Audio  | 0x2      | Song number: 0 to 19<br>0xFF stops song | 1 byte | NA | NA | 1.0-1.9
+Button State | 0x4 | NA            | NA            | NA          | NA          | Obsolete. Do not use.
+RSSI   | 0x5      | Connection params | 8 bytes    | RSSI and connection params | 8 bytes | 1.0-1.9
+Serial # | 0x6    | Serial Number  | 20 byte max   | Serial Number | 20 byte max | (?)
+TileID | 0x7      | TileID         | 8 bytes       | TileID      | 8 bytes     | 1.0+
+Commit | 0x8      | 0x01 to 0x66: Set ADV_INT<br>0xA5: Commit|1 bytes| (?) | (?) | 1.0-1.7
+Mode   | 0xD      | 0x55 for Shipping Mode<br>0x99 for Activated Mode | 1 byte | Current mode | 1 byte | 1.0-1.9
+ResetToFactory|0xE| 0xAA resets to factory | 1 byte| Returns last value written, defaults to 0xFE|1 byte| 1.0
+Rand   | 0xF      | RandA          | 16 bytes      | RandT       | 16 bytes    | 1.1+
+Sres   | 0x10     | SresA          | 4 bytes       | SresT       | 4 bytes     | 1.1+
+Diagnostic|0x11   | 0x1: battery reading and update Diagnostic characteristics<br>0x2: reset Reset Reason<br>0x10 to 0x1F: Configuration of DoubleTap Songs|1 byte| See \ref LEGACY_DIAGNOSTICS |20 bytes| 1.1-1.9
+TileKey| 0x12     | Tile Key. Only writeable in Factory Mode | 16 bytes | NA | NA | (?)
+PPM    | 0x13     | Set PPM        | 1 byte        | Read PPM    | 1 byte      | 1.0-1.7
+TOA_CMD| 0x15     | See \ref TOA   | See \ref TOA  | See \ref TOA | See \ref TOA | 1.9+
+TOA_RSP| 0x16     | See \ref TOA   | See \ref TOA  | See \ref TOA | See \ref TOA | 1.9+
+DoubleTap|0x14    | NA             | NA            | NA          | NA          | (?)
+
+
+
+## Programming Matrix ##
+
+This table shows instructions and behavior when writing specific values.
+
+wwr = write with response,  wwor = write without response
+
+reboot indicates that the Tile will reboot on its own at this point.
+
+FW Version | PPM  | ADV_INT | TCU/Connection Params | Mode | Song
+-----------|------|---------|-----------------------|------|-----
+1.0        | -    | wwor commit(advInt)<br>reboot | - | wwor mode(0x99)<br>reboot | wwr audio(songValue)
+1.1        | wwr ppm(ppm)<br>wwr commit(0xA5)<br>reboot | wwr commit(advInt) | wwr rssi(connParams) | wwr mode(0x99)<br>reboot | wwr audio(songValue)
+1.7        | wwr ppm(ppm)<br>wwr commit(0xA5) | wwr commit(advInt) | wwr rssi(connParams) | wwr mode(0x99) | wwr audio(songValue)
+1.9        | TOA  | TOA     | TOA                   | wwr mode(0x99) | wwr audio(songValue)<br>or TOA
+1.11       | TOA  | TOA     | TOA                   | TOA  | TOA
+
+*/

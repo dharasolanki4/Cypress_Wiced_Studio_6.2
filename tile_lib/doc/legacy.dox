@@ -1,0 +1,60 @@
+/*!
+
+\defgroup LEGACY_CHARACTERISTICS
+
+**All UUIDs specified have an implied base of 128b**
+
+## Legacy TOA Characteristics ##
+
+Before @ref MEP_TOA was designed, Tiles were using Legacy TOA.
+FW Versions starting 1.9 support Legacy TOA.
+Starting FW Version 2.0, Legacy TOA support was removed from Tiles and replaced with MEP_TOA.
+
+- TOA CMD Characteristic UUID: 0xC0, 0x91, 0xC4, 0x8D, 0xBD, 0xE7, 0x60, 0xBA, 0xDD, 0xF4, 0xD6, 0x35, 0x15, 0x00, 0x41, 0x9D
+- TOA RSP Characteristic UUID: 0xC0, 0x91, 0xC4, 0x8D, 0xBD, 0xE7, 0x60, 0xBA, 0xDD, 0xF4, 0xD6, 0x35, 0x16, 0x00, 0x41, 0x9D
+
+## Legacy Authentication Characteristics ##
+
+Before @ref MEP_TOA was designed, Tiles used to support Legacy Authentication.
+FW Versions starting 1.1 support Legacy Authentication.
+Starting FW Version 2.0, Legacy Authentication support was removed from Tiles and replaced with Authentication over MEP_TOA.
+
+- RAND Characteristic UUID: 0xC0, 0x91, 0xC4, 0x8D, 0xBD, 0xE7, 0x60, 0xBA, 0xDD, 0xF4, 0xD6, 0x35, 0x0F, 0x00, 0x41, 0x9D
+- SRES Characteristic UUID: 0xC0, 0x91, 0xC4, 0x8D, 0xBD, 0xE7, 0x60, 0xBA, 0xDD, 0xF4, 0xD6, 0x35, 0x10, 0x00, 0x41, 0x9D
+
+
+Tile Authentication Process (including Session Key Generation):<br>
+The following characteristics are involved:
+  - @ref Tile_RandChar_char (for Reading RAND_T and Writing RAND_A)
+  - @ref Tile_SresChar_char (for Reading SRES_T and Writing SRES_A)
+
+ @msc
+  # The entities
+  APP, TILE;
+
+  APP box APP [label="Generate Rand_A", textbgcolour="#7fff7f"];
+
+  APP->TILE [label="Write RAND_A"];
+
+  TILE box TILE [label="Generate Rand_T", textbgcolour="#7fff7f"];
+
+  APP->TILE [label="Read RAND_T"];
+  APP<-TILE [label="RAND_T"];
+
+  APP box APP [label="Calculate Auth Hash", textbgcolour="#7fff7f"],
+  TILE box TILE [label="Calculate Auth Hash", textbgcolour="#7fff7f"];
+
+  APP->TILE [label="Write SRES_A"];
+
+  TILE box TILE [label="Verify Authentication OK", textbgcolour="#7fff7f"];
+  TILE box TILE [label="Session Key Generation", textbgcolour="#7fff7f"];
+
+  APP->TILE [label="Read SRES_T"];
+  APP<-TILE [label="SRES_T"];
+
+  APP box APP [label="Verify Authentication OK", textbgcolour="#7fff7f"];
+  APP box APP [label="Session Key Generation", textbgcolour="#7fff7f"];
+ @endmsc
+
+
+*/

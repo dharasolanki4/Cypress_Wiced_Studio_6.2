@@ -1,0 +1,36 @@
+\hypertarget{group___l_e_g_a_c_y___c_h_a_r_a_c_t_e_r_i_s_t_i_c_s}{}\section{L\+E\+G\+A\+C\+Y\+\_\+\+C\+H\+A\+R\+A\+C\+T\+E\+R\+I\+S\+T\+I\+CS}
+\label{group___l_e_g_a_c_y___c_h_a_r_a_c_t_e_r_i_s_t_i_c_s}\index{L\+E\+G\+A\+C\+Y\+\_\+\+C\+H\+A\+R\+A\+C\+T\+E\+R\+I\+S\+T\+I\+CS@{L\+E\+G\+A\+C\+Y\+\_\+\+C\+H\+A\+R\+A\+C\+T\+E\+R\+I\+S\+T\+I\+CS}}
+All U\+U\+I\+Ds specified have an implied base of 128b$\ast$$\ast$
+
+\subsubsection*{Legacy T\+OA Characteristics}
+
+Before M\+E\+P\+\_\+\+T\+OA was designed, Tiles were using Legacy T\+OA. FW Versions starting 1.\+9 support Legacy T\+OA. Starting FW Version 2.\+0, Legacy T\+OA support was removed from Tiles and replaced with M\+E\+P\+\_\+\+T\+OA.
+
+
+\begin{DoxyItemize}
+\item T\+OA C\+MD Characteristic U\+U\+ID\+: 0x\+C0, 0x91, 0x\+C4, 0x8D, 0x\+BD, 0x\+E7, 0x60, 0x\+BA, 0x\+DD, 0x\+F4, 0x\+D6, 0x35, 0x15, 0x00, 0x41, 0x9D
+\item T\+OA R\+SP Characteristic U\+U\+ID\+: 0x\+C0, 0x91, 0x\+C4, 0x8D, 0x\+BD, 0x\+E7, 0x60, 0x\+BA, 0x\+DD, 0x\+F4, 0x\+D6, 0x35, 0x16, 0x00, 0x41, 0x9D
+\end{DoxyItemize}
+
+\subsubsection*{Legacy Authentication Characteristics}
+
+Before M\+E\+P\+\_\+\+T\+OA was designed, Tiles used to support Legacy Authentication. FW Versions starting 1.\+1 support Legacy Authentication. Starting FW Version 2.\+0, Legacy Authentication support was removed from Tiles and replaced with Authentication over M\+E\+P\+\_\+\+T\+OA.
+
+
+\begin{DoxyItemize}
+\item R\+A\+ND Characteristic U\+U\+ID\+: 0x\+C0, 0x91, 0x\+C4, 0x8D, 0x\+BD, 0x\+E7, 0x60, 0x\+BA, 0x\+DD, 0x\+F4, 0x\+D6, 0x35, 0x0F, 0x00, 0x41, 0x9D
+\item S\+R\+ES Characteristic U\+U\+ID\+: 0x\+C0, 0x91, 0x\+C4, 0x8D, 0x\+BD, 0x\+E7, 0x60, 0x\+BA, 0x\+DD, 0x\+F4, 0x\+D6, 0x35, 0x10, 0x00, 0x41, 0x9D
+\end{DoxyItemize}
+
+Tile Authentication Process (including Session Key Generation)\+:~\newline
+ The following characteristics are involved\+:
+\begin{DoxyItemize}
+\item Tile\+\_\+\+Rand\+Char\+\_\+char (for Reading R\+A\+N\+D\+\_\+T and Writing R\+A\+N\+D\+\_\+A)
+\item Tile\+\_\+\+Sres\+Char\+\_\+char (for Reading S\+R\+E\+S\+\_\+T and Writing S\+R\+E\+S\+\_\+A)
+\end{DoxyItemize}
+
+
+\begin{DoxyImageNoCaption}
+  \mbox{\includegraphics[width=\textwidth,height=\textheight/2,keepaspectratio=true]{inline_mscgraph_2}}
+\end{DoxyImageNoCaption}
+ 

@@ -1,0 +1,29 @@
+\hypertarget{group___t_i_l_e___c_o_m_m_i_s_s_i_o_n_i_n_g}{}\section{T\+I\+L\+E\+\_\+\+C\+O\+M\+M\+I\+S\+S\+I\+O\+N\+I\+NG}
+\label{group___t_i_l_e___c_o_m_m_i_s_s_i_o_n_i_n_g}\index{T\+I\+L\+E\+\_\+\+C\+O\+M\+M\+I\+S\+S\+I\+O\+N\+I\+NG@{T\+I\+L\+E\+\_\+\+C\+O\+M\+M\+I\+S\+S\+I\+O\+N\+I\+NG}}
+Commissioning a Tile Node is the process of assigning it a \mbox{[}Tile\+ID, Tile\+Auth\+Key\mbox{]} pair. There are 2 ways to commission a Tile Node\+:
+\begin{DoxyItemize}
+\item At Manufacturing\+: here the \mbox{[}Tile\+ID, Tile\+Auth\+Key\mbox{]} pair is burnt during Manufacturing of the Tile Node.
+\item Over The Air\+: here the \mbox{[}Tile\+ID, Tile\+Auth\+Key\mbox{]} pair is generated during activation of the Tile Node.
+\end{DoxyItemize}
+
+\subsection*{Manufacturing Commissioning}
+
+Tile provides a list of \mbox{[}Tile\+ID, Tile\+Auth\+Key\mbox{]} pairs which are unique for each Tile Node. The pair is burnt into the Tile Node persistent memory during manufacturing.
+
+\subsection*{O\+TA Commissioning}
+
+This feature is needed for Tile Nodes that don\textquotesingle{}t support burning of a \mbox{[}Tile\+ID, Tile\+Auth\+Key\mbox{]} pair during manufacturing. For instance, it can be used when Tile functionnality is added to a product through an O\+TA FW upgrade. It adds no vulnerability to activated Tiles and provides very decent protection against fake Tile Nodes by using a Model Specific Interim \mbox{[}Tile\+ID, Tile\+Auth\+Key\mbox{]} pair.
+
+\subsubsection*{Interim Tile\+ID, Tile\+Auth\+Key Pair}
+
+These are assigned by Tile and are specific to a Model Number.
+
+\subsubsection*{Commissioning Process}
+
+For Tile Nodes supporting O\+T\+A\+\_\+\+C\+O\+M\+M\+I\+S\+S\+I\+O\+N\+I\+NG, the \mbox{[}Tile\+ID, Tile\+Auth\+Key\mbox{]} pair is assigned during activation. Here is the M\+SC\+:
+
+
+\begin{DoxyImageNoCaption}
+  \mbox{\includegraphics[width=\textwidth,height=\textheight/2,keepaspectratio=true]{inline_mscgraph_1}}
+\end{DoxyImageNoCaption}
+ 

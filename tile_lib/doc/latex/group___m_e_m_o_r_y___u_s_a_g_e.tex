@@ -1,0 +1,18 @@
+\hypertarget{group___m_e_m_o_r_y___u_s_a_g_e}{}\section{Memory Usage}
+\label{group___m_e_m_o_r_y___u_s_a_g_e}\index{Memory Usage@{Memory Usage}}
+\tabulinesep=1mm
+\begin{longtabu} spread 0pt [c]{*{7}{|X[-1]}|}
+\hline
+\rowcolor{\tableheadbgcolor}\textbf{ Feature  }&\textbf{ Total R\+OM  }&\textbf{ Code  }&\textbf{ RO Data  }&\textbf{ RW Data  }&\textbf{ ZI Data  }&\textbf{ Met   }\\\cline{1-7}
+\endfirsthead
+\hline
+\endfoot
+\hline
+\rowcolor{\tableheadbgcolor}\textbf{ Feature  }&\textbf{ Total R\+OM  }&\textbf{ Code  }&\textbf{ RO Data  }&\textbf{ RW Data  }&\textbf{ ZI Data  }&\textbf{ Met   }\\\cline{1-7}
+\endhead
+Cross-\/\+Module Optimization  &-\/2796  &-\/2766  &-\/60  &0  &0  &before vs after merge   \\\cline{1-7}
+Defensive Conn Params  &248  &240  &8  &0  &4  &before vs after merge   \\\cline{1-7}
+Asymetric FW Signature  &2992  &2768  &224  &0  &-\/340  &before vs after merge   \\\cline{1-7}
+Test  &424  &424  &0  &0  &168  &\#undef (w/ Cross-\/\+Module Opt)   \\\cline{1-7}
+T\+O\+FU  &2736  &2672  &64  &0  &584  &\#undef (w/ Cross-\/\+Module Opt)   \\\cline{1-7}
+\end{longtabu}

@@ -1,0 +1,45 @@
+/*!
+
+\defgroup TILELIB3_PLATFORMSUPPORT
+
+
+1: Implemented
+
+2: FW_SMOKE passed
+ 
+3: CI 
+
+X: Not Supported
+
+-: Unknown
+
+<BR>
+
+Tile Products
+
+Project Name    |    BLE Solution     | Project | gap | timer | rand | tdi | toa | tmd | persistent storage | interim_tile id | button | audio | tcu | tdg | tdt | tileTime | tka | tmf | tofu | tpc | trm
+----------------|---------------------|---------|-----|-------|------|-----|-----|-----|--------------------|-----------------|--------|-------|-----|-----|-----|----------|-----|-----|------|-----|----
+   Pismo        |   Dialog606         |    3    |  3  |   3   |  3   |  3  |  3  |  3  |         3          |        X        |   3    |   3   |  3  |  3  |  3  |    3     |  3  |  3  |  3   |  X  |  3  
+   Diablo       |   Toshiba_TC35678   |    3    |  3  |   3   |  3   |  3  |  3  |  3  |         3          |        X        |   3    |   3   |  3  |  3  |  3  |    3     |  3  |  3  |  3   |  3  |  3    
+
+
+
+
+Partner Products
+
+Product Name    |    BLE Solution     | Project | gap | timer | rand | tdi | toa | tmd | persistent storage | interim_tile id | button | audio | tcu | tdg | tdt | tileTime | tka | tmf | tofu | tpc | trm
+----------------|---------------------|---------|-----|-------|------|-----|-----|-----|--------------------|-----------------|--------|-------|-----|-----|-----|----------|-----|-----|------|-----|----
+  Upright Go    |   Nordic15_2        |    1    |  1  |   1   |  1   |  1  |  1  |  1  |         1          |       1         |   X    |   X   |  X  |  1  |  X  |    X     |  X  |  X  |  X   |  X  |  X  
+
+
+
+
+Tile Service Integration in SDKs of BLE Solution Providers
+
+Project Name    |    BLE Solution     | Project | gap | timer | rand | tdi | toa | tmd | persistent storage | interim_tile id | button | audio | tcu | tdg | tdt | tileTime | tka | tmf | tofu | tpc | trm
+----------------|---------------------|---------|-----|-------|------|-----|-----|-----|--------------------|-----------------|--------|-------|-----|-----|-----|----------|-----|-----|------|-----|----
+      -         |      Dialog606      |    -    |  -  |   -   |  -   |  -  |  -  |  -  |         -          |        -        |   -    |   -   |  -  |  -  |  -  |    -     |  -  |  -  |  -   |  -  |  -
+
+
+<BR>
+*/

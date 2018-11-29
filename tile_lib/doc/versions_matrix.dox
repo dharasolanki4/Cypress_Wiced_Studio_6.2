@@ -1,0 +1,26 @@
+/*!
+
+\defgroup VERSIONS_MATRIX 
+
+
+FW Version | TileID Characteristic | Legacy TOA | Legacy Authentication | MEP_TOA | Device Information Service
+-----------|-----------------------|------------|-----------------------|---------|----------------------------
+1.1x       | yes                   | yes        | yes                   | no      | yes
+2.x        | yes                   | no         | no                    | yes     | no
+3.x        | no                    | no         | no                    | yes     | no
+
+
+Older Version Matrix:
+
+Char means access is done through characteristics and TOA means access is done through TOA.
+
+FW Version | PPM  | ADV_INT | TCU/Connection Params | Mode | Song 
+-----------|------|---------|-----------------------|------|-----
+1.0        |  -   | char    | -                     | char | char
+1.1        | char | char    | char                  | char | char
+1.7        | char | char    | char                  | char | char
+1.9        | TOA  | TOA     | TOA                   | char | char/TOA
+1.11       | TOA  | TOA     | TOA                   | TOA  | TOA
+
+
+*/

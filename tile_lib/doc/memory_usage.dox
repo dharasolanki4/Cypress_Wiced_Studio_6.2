@@ -1,0 +1,12 @@
+/*!
+\defgroup MEMORY_USAGE Memory Usage
+
+Feature                   |   Total ROM   |  Code    |   RO Data    |  RW Data    |   ZI Data   |   Method
+---                       |   ---         |  ---     |   ---        |  ---        |   ---       |   ---
+Cross-Module Optimization |   -2796       |  -2766   |   -60        |  0          |  0          |   before vs after merge 
+Defensive Conn Params     |   248         |  240     |   8          |  0          |  4          |   before vs after merge 
+Asymetric FW Signature    |   2992        |  2768    |   224        |  0          |  -340       |   before vs after merge 
+Test                      |   424         |  424     |   0          |  0          |  168        |   #undef (w/ Cross-Module Opt)
+TOFU                      |   2736        |  2672    |   64         |  0          |  584        |   #undef (w/ Cross-Module Opt)
+
+*/

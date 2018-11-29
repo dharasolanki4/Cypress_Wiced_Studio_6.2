@@ -1,0 +1,111 @@
+\hypertarget{group___m_e_m_o_r_y___l_a_y_o_u_t}{}\section{Memory Layout}
+\label{group___m_e_m_o_r_y___l_a_y_o_u_t}\index{Memory Layout@{Memory Layout}}
+\subsubsection*{Current memory layout}
+
+\paragraph*{Sys\+R\+AM}
+
+\tabulinesep=1mm
+\begin{longtabu} spread 0pt [c]{*{5}{|X[-1]}|}
+\hline
+\rowcolor{\tableheadbgcolor}\textbf{ Start Address  }&\textbf{ End Address  }&\textbf{ Data at Location  }&\textbf{ Size (Hex, bytes)  }&\textbf{ Siz   }\\\cline{1-5}
+\endfirsthead
+\hline
+\endfoot
+\hline
+\rowcolor{\tableheadbgcolor}\textbf{ Start Address  }&\textbf{ End Address  }&\textbf{ Data at Location  }&\textbf{ Size (Hex, bytes)  }&\textbf{ Siz   }\\\cline{1-5}
+\endhead
+0x20000000  &0x2000015F  &Vector Table  &0x160  &352   \\\cline{1-5}
+0x20000160  &0x200002\+BF  &Jump Table  &0x160  &352   \\\cline{1-5}
+0x200002\+C0  &0x2000033F  &Timeout Table  &0x80  &128   \\\cline{1-5}
+0x20000340  &0x2000043F  &N\+V\+DS Table  &0x100  &256   \\\cline{1-5}
+0x20000440  &0x20007\+F\+FF  &Code + RW + RO  &0x7\+B\+C0  &31680   \\\cline{1-5}
+0x20008000  &0x20008\+B\+F3  &ZI + Ret Mem  &0x\+B\+F4  &3060   \\\cline{1-5}
+0x20008\+B\+F4  &0x20008\+F\+FF  &Non-\/retained Heap  &0x40C  &1036   \\\cline{1-5}
+0x20009000  &0x2000901F  &Reserved  &0x20  &32   \\\cline{1-5}
+0x20009020  &0x200091\+FF  &ZI  &0x1\+E0  &480   \\\cline{1-5}
+0x20009200  &0x200097\+FF  &Stack  &0x600  &1536   \\\cline{1-5}
+\end{longtabu}
+
+
+\paragraph*{Retention R\+AM}
+
+\tabulinesep=1mm
+\begin{longtabu} spread 0pt [c]{*{5}{|X[-1]}|}
+\hline
+\rowcolor{\tableheadbgcolor}\textbf{ Start Address  }&\textbf{ End Address  }&\textbf{ Data at Location  }&\textbf{ Size (Hex, bytes)  }&\textbf{ Siz   }\\\cline{1-5}
+\endfirsthead
+\hline
+\endfoot
+\hline
+\rowcolor{\tableheadbgcolor}\textbf{ Start Address  }&\textbf{ End Address  }&\textbf{ Data at Location  }&\textbf{ Size (Hex, bytes)  }&\textbf{ Siz   }\\\cline{1-5}
+\endhead
+0x80000  &0x800\+E7  &B\+LE Exchange Table  &0x\+E8  &232   \\\cline{1-5}
+0x800\+E8  &0x80253  &B\+LE Exchange Table  &0x16C  &364   \\\cline{1-5}
+0x80254  &0x80767  &R\+OM Code Retained Data  &0x514  &1300   \\\cline{1-5}
+0x80768  &0x81\+E\+FF  &E\+NV, DB, M\+SG Heaps + ZI + Ret Mem  &0x1798  &6040   \\\cline{1-5}
+0x81\+F00  &0x81\+F\+FF  &Z\+I\+\_\+\+U\+MB  &0x100  &256   \\\cline{1-5}
+0x82000  &0x82\+A20  &Undefined  &0x\+A21  &2593   \\\cline{1-5}
+\end{longtabu}
+
+
+\paragraph*{Sys\+R\+AM Pages 0 and 1}
+
+\tabulinesep=1mm
+\begin{longtabu} spread 0pt [c]{*{5}{|X[-1]}|}
+\hline
+\rowcolor{\tableheadbgcolor}\textbf{ Start Address  }&\textbf{ End Address  }&\textbf{ Data at Location  }&\textbf{ Size (Hex, bytes)  }&\textbf{ Siz   }\\\cline{1-5}
+\endfirsthead
+\hline
+\endfoot
+\hline
+\rowcolor{\tableheadbgcolor}\textbf{ Start Address  }&\textbf{ End Address  }&\textbf{ Data at Location  }&\textbf{ Size (Hex, bytes)  }&\textbf{ Siz   }\\\cline{1-5}
+\endhead
+0x82\+A20  &0x82\+F\+FF  &B\+LE Exchange Memory  &0x5\+E0  &1504   \\\cline{1-5}
+\end{longtabu}
+
+
+\subsubsection*{Future memory layout}
+
+\paragraph*{Sys\+R\+AM}
+
+\tabulinesep=1mm
+\begin{longtabu} spread 0pt [c]{*{5}{|X[-1]}|}
+\hline
+\rowcolor{\tableheadbgcolor}\textbf{ Start Address  }&\textbf{ End Address  }&\textbf{ Data at Location  }&\textbf{ Size (Hex, bytes)  }&\textbf{ Siz   }\\\cline{1-5}
+\endfirsthead
+\hline
+\endfoot
+\hline
+\rowcolor{\tableheadbgcolor}\textbf{ Start Address  }&\textbf{ End Address  }&\textbf{ Data at Location  }&\textbf{ Size (Hex, bytes)  }&\textbf{ Siz   }\\\cline{1-5}
+\endhead
+0x00000000  &0x0000015F  &Vector Table  &0x160  &352   \\\cline{1-5}
+0x00000160  &0x000002\+BF  &Jump Table  &0x160  &352   \\\cline{1-5}
+0x000002\+C0  &0x0000033F  &Timeout Table  &0x80  &128   \\\cline{1-5}
+0x00000340  &0x0000043F  &N\+V\+DS Table  &0x100  &256   \\\cline{1-5}
+0x00000440  &0x00008\+F\+FF  &Code + RW + RO + ZI  &0x8\+B\+C0  &35776   \\\cline{1-5}
+0x00009000  &0x0000901F  &Reserved  &0x20  &32   \\\cline{1-5}
+0x00009020  &0x00009\+D\+F3  &ZI + Ret Mem  &0x\+D\+D4  &3540   \\\cline{1-5}
+0x00009\+D\+F4  &0x0000\+A1\+FF  &Non-\/retained Heap  &0x40C  &1036   \\\cline{1-5}
+0x0000\+A200  &0x0000\+A7\+FF  &Stack  &0x600  &1536   \\\cline{1-5}
+\end{longtabu}
+
+
+\paragraph*{Retention R\+AM}
+
+\tabulinesep=1mm
+\begin{longtabu} spread 0pt [c]{*{5}{|X[-1]}|}
+\hline
+\rowcolor{\tableheadbgcolor}\textbf{ Start Address  }&\textbf{ End Address  }&\textbf{ Data at Location  }&\textbf{ Size (Hex, bytes)  }&\textbf{ Siz   }\\\cline{1-5}
+\endfirsthead
+\hline
+\endfoot
+\hline
+\rowcolor{\tableheadbgcolor}\textbf{ Start Address  }&\textbf{ End Address  }&\textbf{ Data at Location  }&\textbf{ Size (Hex, bytes)  }&\textbf{ Siz   }\\\cline{1-5}
+\endhead
+0x80000  &0x800\+E7  &B\+LE Exchange Table  &0x\+E8  &232   \\\cline{1-5}
+0x800\+E8  &0x80253  &B\+LE Exchange Table  &0x16C  &364   \\\cline{1-5}
+0x80254  &0x80767  &R\+OM Code Retained Data  &0x514  &1300   \\\cline{1-5}
+0x80768  &0x81\+E\+FF  &E\+NV, DB, M\+SG Heaps + ZI + Ret Mem  &0x1798  &6040   \\\cline{1-5}
+0x81920  &0x81\+E\+FF  &B\+LE Exchange Memory  &0x5\+E0  &1504   \\\cline{1-5}
+0x81\+F00  &0x81\+F\+FF  &Z\+I\+\_\+\+U\+MB  &0x100  &256   \\\cline{1-5}
+\end{longtabu}
