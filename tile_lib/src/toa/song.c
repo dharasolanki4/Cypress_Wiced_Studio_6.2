@@ -224,7 +224,7 @@ void song_prepare_program(uint8_t cid, uint8_t song_number, uint16_t song_file_s
   // configure
   song->tps_module->state.cached_cid  = cid;
   song->tps_module->state.file_size   = song_file_size;
-  sha256_init(&song->tps_module->state.hash_ctx);
+  sha256_init_tile(&song->tps_module->state.hash_ctx);
 
   /* Let the Application know */
   song->tps_module->begin();
@@ -331,18 +331,18 @@ static void song_process_block(void)
     }
 
     /* Include important information in hash */
-    sha256_update(&song->tps_module->state.hash_ctx,
+    sha256_update_tile(&song->tps_module->state.hash_ctx,
       (uint8_t*)&song->tps_module->state.info, SONG_INFO_SIZE);
 
     /* Sha the song data portion of the first block */
     uint8_t songDataSize = song->tps_module->state.block_dataSize - SONG_HEADER_SIZE;
-    sha256_update(&song->tps_module->state.hash_ctx,
+    sha256_update_tile(&song->tps_module->state.hash_ctx,
       &song->tps_module->tileSongBuffer[SONG_HEADER_SIZE], songDataSize);
   }
   else
   {
     /* Sha the whole buffer */
-    sha256_update(&song->tps_module->state.hash_ctx, song->tps_module->tileSongBuffer,
+    sha256_update_tile(&song->tps_module->state.hash_ctx, song->tps_module->tileSongBuffer,
       song->tps_module->state.block_dataSize);
   }
   /* Let Application save the block */
@@ -379,7 +379,7 @@ void song_block_done(uint8_t error)
   if(song->tps_module->state.pos == song->tps_module->state.file_size) /* We have a complete song */
   {
     uint8_t hash[SONG_HASH_SIZE];
-    sha256_final(&song->tps_module->state.hash_ctx, hash);
+    sha256_final_tile(&song->tps_module->state.hash_ctx, hash);
     if(0 != memcmp(hash, song->tps_module->state.sec.hash, SONG_HASH_SIZE))
     {
       /* Hash doesn't match */

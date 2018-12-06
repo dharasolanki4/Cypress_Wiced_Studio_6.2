@@ -230,7 +230,7 @@ void tile_features_init(void)
   /* Initialize test module */
   tile_test_register(&test_module);
 
-  WICED_BT_TRACE( "tile features init DONE Successfully\n");
+  WICED_BT_TRACE( "tile features init DONE Successfully\r\n");
 }
 
 
@@ -339,14 +339,17 @@ static int tile_random_bytes(uint8_t *dst, uint8_t len)
  */
 static int tile_send_toa_response(uint8_t *data, uint16_t len)
 {
-  WICED_BT_TRACE("Tile: tile_send_toa_response \n");
+  uint8_t *p_data  = data;
+  uint16_t datalen = len;
+  WICED_BT_TRACE("Tile: tile_send_toa_response \r\n");
+  WICED_BT_TRACE("TOA_RSP: ");
   while (len--)
   {
-    WICED_BT_TRACE("%x ",*data++);
+    WICED_BT_TRACE("%x ",*p_data++);
   }
-  WICED_BT_TRACE("\n");
-  wiced_bt_gatt_send_indication( hello_sensor_state.conn_id, HANDLE_HSENS_TILE_SERVICE_CHAR_MEP_TOA_RSP_VAL, len, data );
-  //tile_send_message(data, len);
+  WICED_BT_TRACE("\r\n");
+  //wiced_bt_gatt_send_indication( hello_sensor_state.conn_id, HANDLE_HSENS_TILE_SERVICE_CHAR_MEP_TOA_RSP_VAL, len, data );
+  tile_send_message(data, datalen);
   return TILE_SUCCESS;
 };
 
@@ -357,6 +360,16 @@ static int tile_associate(uint8_t* aco, uint8_t* authorization_type)
   {	
       memcpy(tile_checked->tile_id, aco,  sizeof(tile_checked->tile_id));
       memcpy(tile_checked->tile_auth_key, aco+8, sizeof(tile_checked->tile_auth_key));
+
+      WICED_BT_TRACE("tile_checked->tile_id[0] : %0x\r\n",tile_checked->tile_id[0]);
+      WICED_BT_TRACE("tile_checked->tile_id[1] : %0x\r\n",tile_checked->tile_id[1]);
+      WICED_BT_TRACE("tile_checked->tile_id[2] : %0x\r\n",tile_checked->tile_id[2]);
+      WICED_BT_TRACE("tile_checked->tile_id[3] : %0x\r\n",tile_checked->tile_id[3]);
+
+      WICED_BT_TRACE("tile_checked->tile_auth_key[0] : %0x\r\n",tile_checked->tile_auth_key[0]);
+      WICED_BT_TRACE("tile_checked->tile_auth_key[1] : %0x\r\n",tile_checked->tile_auth_key[1]);
+      WICED_BT_TRACE("tile_checked->tile_auth_key[2] : %0x\r\n",tile_checked->tile_auth_key[2]);
+      WICED_BT_TRACE("tile_checked->tile_auth_key[3] : %0x\r\n",tile_checked->tile_auth_key[3]);
   }
   else
   {

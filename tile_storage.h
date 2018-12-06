@@ -77,7 +77,7 @@ struct tile_checked_tag
   /*** THIS STRUCTURE IS SAVED TO FLASH AND RETRIEVED AFTER TOFU                                 ****/
   /*** THIS MEANS STUFF SHOULD NOT BE MODIFIED BUT ONLY AT THE END TO MAINTAIN COMPATIBILITY     ****/
   /**************************************************************************************************/
-  uint16_t        version;
+  uint16_t        tile_version;
   uint8_t         id;
   uint8_t         bank;
   uint8_t         mode;

@@ -210,7 +210,7 @@ static void tofu_process_command_resume(const uint8_t cid, const uint8_t* data, 
     memcpy(tofu->state.img_version, data, TILE_FIRMWARE_VERSION_LEN);
     tofu->state.img_len = img_len;
     /* init hash calculation */
-    sha256_init(&tofu->state.img_hash_ctx);
+    sha256_init_tile(&tofu->state.img_hash_ctx);
     uint8_t res = tofu->begin();
     
     if(TOA_ERROR_OK != res)
@@ -273,7 +273,7 @@ static void tofu_process_block(const uint8_t cid)
   else
   {
     /* Update Hash calculation with new data */
-    sha256_update(&tofu->state.img_hash_ctx, tofu->block, tofu->state.block_idx);
+    sha256_update_tile(&tofu->state.img_hash_ctx, tofu->block, tofu->state.block_idx);
   }
 
   tofu->block_ready();
@@ -342,11 +342,11 @@ static int tofu_process_first_block(uint8_t* data, uint32_t data_len)
   }
 
   /* Update Hash calculation with important header values */
-  sha256_update(&tofu->state.img_hash_ctx, (uint8_t*)&pReceivedFwHeader->code_size, 4);
-  sha256_update(&tofu->state.img_hash_ctx, &pReceivedFwHeader->version[0], TILE_FIRMWARE_VERSION_LEN);
+  sha256_update_tile(&tofu->state.img_hash_ctx, (uint8_t*)&pReceivedFwHeader->code_size, 4);
+  sha256_update_tile(&tofu->state.img_hash_ctx, &pReceivedFwHeader->version[0], TILE_FIRMWARE_VERSION_LEN);
 
   /* Add hash for the rest of the block */
-  sha256_update(&tofu->state.img_hash_ctx, &data[sizeof(image_header_t)], data_len - sizeof(image_header_t));
+  sha256_update_tile(&tofu->state.img_hash_ctx, &data[sizeof(image_header_t)], data_len - sizeof(image_header_t));
 
   return TOA_ERROR_OK;
 }
@@ -565,7 +565,7 @@ void tofu_block_done(uint8_t error)
     uint8_t hash[TOFU_HASH_LEN];
 
     // finalize the image Hash calculation
-    sha256_final(&tofu->state.img_hash_ctx, hash);
+    sha256_final_tile(&tofu->state.img_hash_ctx, hash);
 
     if(0 != memcmp(hash, tofu->state.img_hash, TOFU_HASH_LEN))
     {

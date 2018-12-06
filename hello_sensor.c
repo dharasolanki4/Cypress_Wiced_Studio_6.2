@@ -72,14 +72,20 @@
 #include "wiced_bt_stack.h"
 #include "wiced_hal_puart.h"
 
+// TileLib includes
 #include "tile_lib.h"
+#include "tile_lib/src/toa/toa.h"
+#include "drivers/tile_gap_driver.h"
+//#include "drivers/tile_timer_driver.h"
+#include "modules/tile_tmd_module.h"
 
 #ifdef  WICED_BT_TRACE_ENABLE
 #include "wiced_bt_trace.h"
 #endif
 
+//#include "tile_storage.h"
 #include "tile_service.h"
-#include "tile_lib/src/toa/toa.h"
+#include "tile_storage.h"
 
 /******************************************************************************
  *                                Constants
@@ -290,7 +296,7 @@ APPLICATION_START( )
     // wiced_set_debug_uart(WICED_ROUTE_DEBUG_TO_WICED_UART);
 #endif
 
-    WICED_BT_TRACE( "Hello Sensor Start\n" );
+    WICED_BT_TRACE( "Hello Sensor Start\r\r\n" );
 
     // Register call back and configuration with stack
     wiced_bt_stack_init( hello_sensor_management_cback ,
@@ -316,12 +322,12 @@ void hello_sensor_application_init( void )
     /* Register with stack to receive GATT callback */
     gatt_status = wiced_bt_gatt_register( hello_sensor_gatts_callback );
 
-    WICED_BT_TRACE( "wiced_bt_gatt_register: %d\n", gatt_status );
+    WICED_BT_TRACE( "wiced_bt_gatt_register: %d\r\r\n", gatt_status );
 
     /*  Tell stack to use our GATT databse */
     gatt_status =  wiced_bt_gatt_db_init( hello_sensor_gatt_database, sizeof(hello_sensor_gatt_database) );
 
-    WICED_BT_TRACE("wiced_bt_gatt_db_init %d\n", gatt_status);
+    WICED_BT_TRACE("wiced_bt_gatt_db_init %d\r\r\n", gatt_status);
 
     tile_service_init();
 
@@ -346,7 +352,7 @@ void hello_sensor_application_init( void )
 
     result =  wiced_bt_start_advertisements( BTM_BLE_ADVERT_UNDIRECTED_HIGH, 0, NULL );
 
-    WICED_BT_TRACE( "wiced_bt_start_advertisements %d\n", result );
+    WICED_BT_TRACE( "wiced_bt_start_advertisements %d\r\r\n", result );
 
     /*
      * Set flag_stay_connected to remain connected after all messages are sent
@@ -411,11 +417,11 @@ void hello_sensor_advertisement_stopped( void )
     if ( hello_sensor_state.flag_stay_connected && !hello_sensor_state.conn_id )
     {
         result =  wiced_bt_start_advertisements( BTM_BLE_ADVERT_UNDIRECTED_LOW, 0, NULL );
-        WICED_BT_TRACE( "wiced_bt_start_advertisements: %d\n", result );
+        WICED_BT_TRACE( "wiced_bt_start_advertisements: %d\r\n", result );
     }
     else
     {
-        WICED_BT_TRACE( "ADV stop\n");
+        WICED_BT_TRACE( "ADV stop\r\n");
     }
 }
 
@@ -428,7 +434,7 @@ void hello_sensor_timeout( uint32_t count )
     // print for first 10 seconds, then once every 10 seconds thereafter
     if ((hello_sensor_state.timer_count <= 10) || (hello_sensor_state.timer_count % 10 == 0))
     {
-      //  WICED_BT_TRACE("hello_sensor_timeout: %d\n", hello_sensor_state.timer_count);
+      //  WICED_BT_TRACE("hello_sensor_timeout: %d\r\n", hello_sensor_state.timer_count);
     }
 }
 
@@ -440,7 +446,7 @@ void hello_sensor_fine_timeout( uint32_t finecount )
     hello_sensor_state.fine_timer_count++;
     if(0 == (hello_sensor_state.fine_timer_count & 0x1f))
     {
-      //  WICED_BT_TRACE("hello_sensor_fine_timeout: %d\n", hello_sensor_state.fine_timer_count);
+      //  WICED_BT_TRACE("hello_sensor_fine_timeout: %d\r\n", hello_sensor_state.fine_timer_count);
     }
 }
 
@@ -454,7 +460,7 @@ void hello_sensor_smp_bond_result( uint8_t result )
 {
     wiced_result_t status;
     uint8_t written_byte = 0;
-    WICED_BT_TRACE( "hello_sensor, bond result: %d\n", result );
+    WICED_BT_TRACE( "hello_sensor, bond result: %d\r\n", result );
 
     /* Bonding success */
     if ( result == WICED_BT_SUCCESS )
@@ -464,7 +470,7 @@ void hello_sensor_smp_bond_result( uint8_t result )
 
         /* Write to NVRAM */
         written_byte = wiced_hal_write_nvram( HELLO_SENSOR_VS_ID, sizeof(hello_sensor_hostinfo), (uint8_t*)&hello_sensor_hostinfo, &status );
-        WICED_BT_TRACE("NVRAM write: %d\n", written_byte);
+        WICED_BT_TRACE("NVRAM write: %d\r\n", written_byte);
     }
 }
 
@@ -520,11 +526,11 @@ void hello_sensor_interrupt_handler(void* data, uint8_t pin )
     {
         wiced_result_t result;
 
-        WICED_BT_TRACE( "ADV start high\n");
+        WICED_BT_TRACE( "ADV start high\r\n");
 
         result = wiced_bt_start_advertisements( BTM_BLE_ADVERT_UNDIRECTED_HIGH, 0, NULL );
 
-        WICED_BT_TRACE( "wiced_bt_start_advertisements:%d\n", result );
+        WICED_BT_TRACE( "wiced_bt_start_advertisements:%d\r\n", result );
         return;
     }
 
@@ -552,7 +558,7 @@ void hello_sensor_interrupt_handler(void* data, uint8_t pin )
  */
 void hello_sensor_conn_idle_timeout ( uint32_t arg )
 {
-    WICED_BT_TRACE( "hello_sensor_conn_idle_timeout\n" );
+    WICED_BT_TRACE( "hello_sensor_conn_idle_timeout\r\n" );
 
     /* Stopping the app timers */
     wiced_bt_app_stop_timer();
@@ -560,7 +566,7 @@ void hello_sensor_conn_idle_timeout ( uint32_t arg )
     /* Initiating the gatt disconnect */
     wiced_bt_gatt_disconnect( hello_sensor_state.conn_id );
 
-    WICED_BT_TRACE( "hello_sensor DISCONNECT\n" );
+    WICED_BT_TRACE( "hello_sensor DISCONNECT\r\n" );
 }
 
 /*
@@ -574,13 +580,13 @@ wiced_result_t hello_sensor_management_cback( wiced_bt_management_evt_t event, w
     wiced_bt_ble_advert_mode_t       *p_mode;
     uint8_t                          *p_keys;
 
-    WICED_BT_TRACE("hello_sensor_management_cback: %x\n", event );
+    WICED_BT_TRACE("hello_sensor_management_cback: %x\r\n", event );
 
     switch( event )
     {
     /* Bluetooth  stack enabled */
     case BTM_ENABLED_EVT:
-        WICED_BT_TRACE("hello_sensor_application_init\n");
+        WICED_BT_TRACE("hello_sensor_application_init\r\n");
         hello_sensor_application_init();
         break;
 
@@ -588,12 +594,12 @@ wiced_result_t hello_sensor_management_cback( wiced_bt_management_evt_t event, w
         break;
 
     case BTM_USER_CONFIRMATION_REQUEST_EVT:
-        WICED_BT_TRACE("numeric_value: %d \n", p_event_data->user_confirmation_request.numeric_value);
+        WICED_BT_TRACE("numeric_value: %d \r\n", p_event_data->user_confirmation_request.numeric_value);
         wiced_bt_dev_confirm_req_reply( WICED_BT_SUCCESS , p_event_data->user_confirmation_request.bd_addr);
         break;
 
     case BTM_PASSKEY_NOTIFICATION_EVT:
-        WICED_BT_TRACE("PassKey Notification. BDA %B, Key %d \n", p_event_data->user_passkey_notification.bd_addr, p_event_data->user_passkey_notification.passkey );
+        WICED_BT_TRACE("PassKey Notification. BDA %B, Key %d \r\n", p_event_data->user_passkey_notification.bd_addr, p_event_data->user_passkey_notification.passkey );
         wiced_bt_dev_confirm_req_reply(WICED_BT_SUCCESS, p_event_data->user_passkey_notification.bd_addr );
         break;
 
@@ -616,21 +622,21 @@ wiced_result_t hello_sensor_management_cback( wiced_bt_management_evt_t event, w
             /* save keys to NVRAM */
             p_keys = (uint8_t*)&p_event_data->paired_device_link_keys_update;
             wiced_hal_write_nvram ( HELLO_SENSOR_PAIRED_KEYS_VS_ID, sizeof( wiced_bt_device_link_keys_t ), p_keys ,&result );
-            WICED_BT_TRACE("keys save to NVRAM %B result: %d \n", p_keys, result);
+            WICED_BT_TRACE("keys save to NVRAM %B result: %d \r\n", p_keys, result);
         break;
 
      case  BTM_PAIRED_DEVICE_LINK_KEYS_REQUEST_EVT:
             /* read keys from NVRAM */
             p_keys = (uint8_t *)&p_event_data->paired_device_link_keys_request;
             wiced_hal_read_nvram( HELLO_SENSOR_PAIRED_KEYS_VS_ID, sizeof(wiced_bt_device_link_keys_t), p_keys, &result );
-            WICED_BT_TRACE("keys read from NVRAM %B result: %d \n", p_keys, result);
+            WICED_BT_TRACE("keys read from NVRAM %B result: %d \r\n", p_keys, result);
         break;
 
     case BTM_LOCAL_IDENTITY_KEYS_UPDATE_EVT:
             /* save keys to NVRAM */
             p_keys = (uint8_t*)&p_event_data->local_identity_keys_update;
             wiced_hal_write_nvram ( HELLO_SENSOR_LOCAL_KEYS_VS_ID, sizeof( wiced_bt_local_identity_keys_t ), p_keys ,&result );
-            WICED_BT_TRACE("local keys save to NVRAM result: %d \n", result);
+            WICED_BT_TRACE("local keys save to NVRAM result: %d \r\n", result);
         break;
 
 
@@ -638,7 +644,7 @@ wiced_result_t hello_sensor_management_cback( wiced_bt_management_evt_t event, w
             /* read keys from NVRAM */
             p_keys = (uint8_t *)&p_event_data->local_identity_keys_request;
             wiced_hal_read_nvram( HELLO_SENSOR_LOCAL_KEYS_VS_ID, sizeof(wiced_bt_local_identity_keys_t), p_keys, &result );
-            WICED_BT_TRACE("local keys read from NVRAM result: %d \n",  result);
+            WICED_BT_TRACE("local keys read from NVRAM result: %d \r\n",  result);
         break;
 
         case BTM_ENCRYPTION_STATUS_EVT:
@@ -653,11 +659,11 @@ wiced_result_t hello_sensor_management_cback( wiced_bt_management_evt_t event, w
 
     case BTM_BLE_ADVERT_STATE_CHANGED_EVT:
         p_mode = &p_event_data->ble_advert_state_changed;
-        WICED_BT_TRACE( "Advertisement State Change: %d\n", *p_mode);
+        WICED_BT_TRACE( "Advertisement State Change: %d\r\n", *p_mode);
         if ( *p_mode == BTM_BLE_ADVERT_OFF )
         {
             hello_sensor_advertisement_stopped();
-            WICED_BT_TRACE( "hello_sensor_advertisement_stopped\n");
+            WICED_BT_TRACE( "hello_sensor_advertisement_stopped\r\n");
         }
         break;
 
@@ -675,7 +681,7 @@ wiced_result_t hello_sensor_management_cback( wiced_bt_management_evt_t event, w
  */
 void hello_sensor_send_message( void )
 {
-    WICED_BT_TRACE( "hello_sensor_send_message: CCC:%d\n", hello_sensor_hostinfo.characteristic_client_configuration );
+    WICED_BT_TRACE( "hello_sensor_send_message: CCC:%d\r\n", hello_sensor_hostinfo.characteristic_client_configuration );
 
     /* If client has not registered for indication or notification, no action */
     if ( hello_sensor_hostinfo.characteristic_client_configuration == 0 )
@@ -703,27 +709,27 @@ void hello_sensor_send_message( void )
 
 void tile_send_message( uint8_t *data, uint16_t datalen )
 {
-    WICED_BT_TRACE( "tile_send_message: CCC:%d\n", hello_sensor_hostinfo.characteristic_client_configuration );
+    WICED_BT_TRACE( "tile_send_message: CCC:%d\r\n", hello_sensor_hostinfo.characteristic_client_configuration );
 
     /* If client has not registered for indication or notification, no action */
     if ( hello_sensor_hostinfo.characteristic_client_configuration == 0 )
     {
-        WICED_BT_TRACE("is 0\n ");
+        WICED_BT_TRACE("is 0\r\n ");
         return;
     }
     else if ( hello_sensor_hostinfo.characteristic_client_configuration & GATT_CLIENT_CONFIG_NOTIFICATION )
     {
 
-        WICED_BT_TRACE("else if\n ");
+        WICED_BT_TRACE("else if\r\n ");
 
         wiced_bt_gatt_send_notification( hello_sensor_state.conn_id, HANDLE_HSENS_TILE_SERVICE_CHAR_MEP_TOA_RSP_VAL, datalen,data );
     }
     else
     {
-        WICED_BT_TRACE("els\n ");
+        WICED_BT_TRACE("els\r\n ");
         if ( !hello_sensor_state.flag_indication_sent )
         {
-            WICED_BT_TRACE("els2\n ");
+            WICED_BT_TRACE("els2: datalen:%d\r\n",datalen);
 
             hello_sensor_state.flag_indication_sent = TRUE;
 
@@ -745,7 +751,7 @@ attribute_t * hello_sensor_get_attribute( uint16_t handle )
             return ( &gauAttributes[i] );
         }
     }
-    WICED_BT_TRACE( "attr not found:%x\n", handle );
+    WICED_BT_TRACE( "attr not found:%x\r\n", handle );
     return NULL;
 }
 
@@ -760,7 +766,7 @@ wiced_bt_gatt_status_t hello_sensor_gatts_req_read_handler( uint16_t conn_id, wi
 
     if ( ( puAttribute = hello_sensor_get_attribute(p_read_data->handle) ) == NULL)
     {
-        WICED_BT_TRACE("read_hndlr attr not found hdl:%x\n", p_read_data->handle );
+        WICED_BT_TRACE("read_hndlr attr not found hdl:%x\r\n", p_read_data->handle );
         return WICED_BT_GATT_INVALID_HANDLE;
     }
 
@@ -776,7 +782,7 @@ wiced_bt_gatt_status_t hello_sensor_gatts_req_read_handler( uint16_t conn_id, wi
 
     attr_len_to_copy = puAttribute->attr_len;
 
-    WICED_BT_TRACE("read_hndlr conn_id:%d hdl:%x offset:%d len:%d\n", conn_id, p_read_data->handle, p_read_data->offset, attr_len_to_copy );
+    WICED_BT_TRACE("read_hndlr conn_id:%d hdl:%x offset:%d len:%d\r\n", conn_id, p_read_data->handle, p_read_data->offset, attr_len_to_copy );
 
     if ( p_read_data->offset >= puAttribute->attr_len )
     {
@@ -812,21 +818,30 @@ wiced_bt_gatt_status_t hello_sensor_gatts_req_write_handler( uint16_t conn_id, w
     uint8_t                *p_attr   = p_data->p_val;
     uint8_t                nv_update = WICED_FALSE;
 
-    WICED_BT_TRACE("write_handler: conn_id:%d hdl:0x%x prep:%d offset:%d len:%d\n ", conn_id, p_data->handle, p_data->is_prep, p_data->offset, p_data->val_len );
+    WICED_BT_TRACE("write_handler: conn_id:%d hdl:0x%x prep:%d offset:%d len:%d\r\n ", conn_id, p_data->handle, p_data->is_prep, p_data->offset, p_data->val_len );
 
     switch ( p_data->handle )
     {
     /* By writing into Characteristic Client Configuration descriptor
      * peer can enable or disable notification or indication */
-    case HANDLE_HSENS_SERVICE_CHAR_CFG_DESC:
+  /*  case HANDLE_HSENS_SERVICE_CHAR_CFG_DESC:
         if ( p_data->val_len != 2 )
         {
             return WICED_BT_GATT_INVALID_ATTR_LEN;
         }
         hello_sensor_hostinfo.characteristic_client_configuration = p_attr[0] | ( p_attr[1] << 8 );
         nv_update = WICED_TRUE;
+        break; */
+    case HANDLE_HSENS_TILE_SERVICE_CHAR_MEP_TOA_RSP_CFG_DESC:
+        if ( p_data->val_len != 2 )
+        {
+            return WICED_BT_GATT_INVALID_ATTR_LEN;
+        }
+        hello_sensor_hostinfo.characteristic_client_configuration = p_attr[0] | ( p_attr[1] << 8 );
+        nv_update = WICED_TRUE;
+        //tile_toa_transport_ready(p_data->p_val[0]);
+        tile_toa_transport_ready(1);
         break;
-
     case HANDLE_HSENS_SERVICE_CHAR_BLINK_VAL:
         if ( p_data->val_len != 1 )
         {
@@ -835,10 +850,13 @@ wiced_bt_gatt_status_t hello_sensor_gatts_req_write_handler( uint16_t conn_id, w
         hello_sensor_hostinfo.number_of_blinks = p_attr[0];
         if ( hello_sensor_hostinfo.number_of_blinks != 0 )
         {
-            WICED_BT_TRACE( "hello_sensor_write_handler:num blinks: %d\n", hello_sensor_hostinfo.number_of_blinks );
+            WICED_BT_TRACE( "hello_sensor_write_handler:num blinks: %d\r\n", hello_sensor_hostinfo.number_of_blinks );
             wiced_bt_app_hal_led_blink( WICED_PLATFORM_LED_1, 250, 250, hello_sensor_hostinfo.number_of_blinks );
             nv_update = WICED_TRUE;
         }
+        break;
+    case HANDLE_HSENS_TILE_SERVICE_CHAR_MEP_TOA_CMD_VAL:
+        tile_toa_command_received(p_data->p_val,p_data->val_len);
         break;
     default:
         result = WICED_BT_GATT_INVALID_HANDLE;
@@ -860,7 +878,7 @@ wiced_bt_gatt_status_t hello_sensor_gatts_req_write_handler( uint16_t conn_id, w
  */
 wiced_bt_gatt_status_t hello_sensor_gatts_req_write_exec_handler( uint16_t conn_id, wiced_bt_gatt_exec_flag_t exec_falg )
 {
-    WICED_BT_TRACE("write exec: flag:%d\n", exec_falg);
+    WICED_BT_TRACE("write exec: flag:%d\r\n", exec_falg);
     return WICED_BT_GATT_SUCCESS;
 }
 
@@ -869,7 +887,7 @@ wiced_bt_gatt_status_t hello_sensor_gatts_req_write_exec_handler( uint16_t conn_
  */
 wiced_bt_gatt_status_t hello_sensor_gatts_req_mtu_handler( uint16_t conn_id, uint16_t mtu)
 {
-    WICED_BT_TRACE("req_mtu: %d\n", mtu);
+    WICED_BT_TRACE("req_mtu: %d\r\n", mtu);
     return WICED_BT_GATT_SUCCESS;
 }
 
@@ -885,7 +903,7 @@ wiced_bt_gatt_status_t hello_sensor_gatts_req_mtu_handler( uint16_t conn_id, uin
  */
 wiced_bt_gatt_status_t hello_sensor_gatts_req_conf_handler( uint16_t conn_id, uint16_t handle )
 {
-    WICED_BT_TRACE( "hello_sensor_indication_cfm, conn %d hdl %d\n", conn_id, handle );
+    WICED_BT_TRACE( "hello_sensor_indication_cfm, conn %d hdl %d\r\n", conn_id, handle );
 
     if ( !hello_sensor_state.flag_indication_sent )
     {
@@ -919,7 +937,9 @@ wiced_bt_gatt_status_t hello_sensor_gatts_connection_up( wiced_bt_gatt_connectio
     wiced_result_t result;
     uint8_t        bytes_written = 0;
 
-    WICED_BT_TRACE( "hello_sensor_conn_up %B id:%d\n:", p_status->bd_addr, p_status->conn_id);
+    struct tile_conn_params params;
+
+    WICED_BT_TRACE( "hello_sensor_conn_up %B id:%d\r\n:", p_status->bd_addr, p_status->conn_id);
 
     /* Update the connection handler.  Save address of the connected device. */
     hello_sensor_state.conn_id = p_status->conn_id;
@@ -928,7 +948,7 @@ wiced_bt_gatt_status_t hello_sensor_gatts_connection_up( wiced_bt_gatt_connectio
     /* Stop advertising */
     result =  wiced_bt_start_advertisements( BTM_BLE_ADVERT_OFF, 0, NULL );
 
-    WICED_BT_TRACE( "Stopping Advertisements%d\n", result );
+    WICED_BT_TRACE( "Stopping Advertisements%d\r\n", result );
 
     /* Stop idle timer */
     wiced_bt_app_stop_conn_idle_timer();
@@ -941,7 +961,20 @@ wiced_bt_gatt_status_t hello_sensor_gatts_connection_up( wiced_bt_gatt_connectio
 
     /* Save the  host info in NVRAM  */
     bytes_written = wiced_hal_write_nvram( HELLO_SENSOR_VS_ID, sizeof(hello_sensor_hostinfo), (uint8_t*)&hello_sensor_hostinfo, &result );
-    WICED_BT_TRACE("NVRAM write %d\n", bytes_written);
+    WICED_BT_TRACE("NVRAM write %d\r\n", bytes_written);
+
+
+    if(TILE_MODE_ACTIVATED != tile_checked->mode)
+    {
+      //  when the Tile is not activated, the Interim TileID, Key is used.
+      memcpy(tile_checked->tile_id, interim_tile_id, 8);
+      memcpy(tile_checked->tile_auth_key, interim_tile_key, 16);
+    }
+    /* Tell Tile Lib about the connection */
+    params.conn_interval    = BTM_BLE_CONN_INTERVAL_MAX_DEF;  // 40: 40*1.25 = 50 ms
+    params.slave_latency    = BTM_BLE_CONN_SLAVE_LATENCY_DEF; // 0
+    params.conn_sup_timeout = BTM_BLE_CONN_TIMEOUT_DEF;       // 2000
+    tile_gap_connected(&params);
 
     return WICED_BT_GATT_SUCCESS;
 }
@@ -953,7 +986,7 @@ wiced_bt_gatt_status_t hello_sensor_gatts_connection_down( wiced_bt_gatt_connect
 {
     wiced_result_t result;
 
-    WICED_BT_TRACE( "connection_down %B conn_id:%d reason:%d\n", hello_sensor_state.remote_addr, p_status->conn_id, p_status->reason );
+    WICED_BT_TRACE( "connection_down %B conn_id:%d reason:%d\r\n", hello_sensor_state.remote_addr, p_status->conn_id, p_status->reason );
 
     /* Resetting the device info */
     memset( hello_sensor_state.remote_addr, 0, 6 );
@@ -967,8 +1000,9 @@ wiced_bt_gatt_status_t hello_sensor_gatts_connection_down( wiced_bt_gatt_connect
     if ( hello_sensor_state.flag_stay_connected )
     {
         result =  wiced_bt_start_advertisements( BTM_BLE_ADVERT_UNDIRECTED_LOW, 0, NULL );
-        WICED_BT_TRACE( "wiced_bt_start_advertisements %d\n", result );
+        WICED_BT_TRACE( "wiced_bt_start_advertisements %d\r\n", result );
     }
+    tile_gap_disconnected();
     return WICED_BT_SUCCESS;
 }
 
@@ -992,7 +1026,7 @@ wiced_bt_gatt_status_t hello_sensor_gatts_req_cb( wiced_bt_gatt_attribute_reques
 {
     wiced_result_t result = WICED_BT_GATT_INVALID_PDU;
 
-    WICED_BT_TRACE( "hello_sensor_gatts_req_cb. conn %d, type %d\n", p_data->conn_id, p_data->request_type );
+    WICED_BT_TRACE( "hello_sensor_gatts_req_cb. conn %d, type %d\r\n", p_data->conn_id, p_data->request_type );
 
     switch ( p_data->request_type )
     {
@@ -1033,12 +1067,12 @@ wiced_bt_gatt_status_t hello_sensor_gatts_callback( wiced_bt_gatt_evt_t event, w
     switch(event)
     {
     case GATT_CONNECTION_STATUS_EVT:
-        WICED_BT_TRACE("hello_sensor: GATT_CONNECTION_STATUS_EVT\n");
+        WICED_BT_TRACE("hello_sensor: GATT_CONNECTION_STATUS_EVT\r\n");
         result = hello_sensor_gatts_conn_status_cb( &p_data->connection_status );
         break;
 
     case GATT_ATTRIBUTE_REQUEST_EVT:
-        WICED_BT_TRACE("hello_sensor: GATT_ATTRIBUTE_REQUEST_EVT\n");
+        WICED_BT_TRACE("hello_sensor: GATT_ATTRIBUTE_REQUEST_EVT\r\n");
         result = hello_sensor_gatts_req_cb( &p_data->attribute_request );
         break;
 
@@ -1081,6 +1115,6 @@ static void hello_sensor_load_keys_for_address_resolution( void )
     {
         result = wiced_bt_dev_add_device_to_address_resolution_db ( &link_keys, link_keys.key_data.ble_addr_type );
     }
-    WICED_BT_TRACE("hello_sensor_load_keys_for_address_resolution %B result:%d \n", p, result );
+    WICED_BT_TRACE("hello_sensor_load_keys_for_address_resolution %B result:%d \r\n", p, result );
 }
 

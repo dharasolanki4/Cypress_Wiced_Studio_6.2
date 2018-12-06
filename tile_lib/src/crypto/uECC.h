@@ -166,19 +166,19 @@ typedef struct SHA256_HashContext {
 
 void init_SHA256(uECC_HashContext *base) {
     SHA256_HashContext *context = (SHA256_HashContext *)base;
-    SHA256_Init(&context->ctx);
+    SHA256_Init_tile(&context->ctx);
 }
 
 void update_SHA256(uECC_HashContext *base,
                    const uint8_t *message,
                    unsigned message_size) {
     SHA256_HashContext *context = (SHA256_HashContext *)base;
-    SHA256_Update(&context->ctx, message, message_size);
+    sha256_update_tile(&context->ctx, message, message_size);
 }
 
 void finish_SHA256(uECC_HashContext *base, uint8_t *hash_result) {
     SHA256_HashContext *context = (SHA256_HashContext *)base;
-    SHA256_Final(hash_result, &context->ctx);
+    sha256_final_tile(hash_result, &context->ctx);
 }
 
 ... when signing ...

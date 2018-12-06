@@ -100,9 +100,9 @@ void tile_service_init(void)
   //tile_gatt_db_init(&tile_ble_env.service);
   
   /* Register with stack to receive GATT callback for Tile service */
-  tile_gatt_status = wiced_bt_gatt_register( tile_gatts_callback );
+ // tile_gatt_status = wiced_bt_gatt_register( tile_gatts_callback );
 
-  WICED_BT_TRACE( "TILE wiced_bt_gatt_register: %d\n", tile_gatt_status );
+  WICED_BT_TRACE( "TILE wiced_bt_gatt_register: %d\r\n", tile_gatt_status );
 
 }
 
@@ -121,7 +121,7 @@ wiced_bt_gatt_status_t tile_gatts_callback( wiced_bt_gatt_evt_t event, wiced_bt_
     case GATT_CONNECTION_STATUS_EVT:
         if (p_data->connection_status.connected) // Connected
         {
-            WICED_BT_TRACE("Tile: CONNECTED\n");
+            WICED_BT_TRACE("Tile: CONNECTED\r\n");
             /* Save connection status */
             tile_ble_env.tile_gatt_connection_status = p_data->connection_status.connected;
             //tile_ble_env.conn_handle = p_evt->evt.gap_evt.conn_handle;
@@ -142,7 +142,7 @@ wiced_bt_gatt_status_t tile_gatts_callback( wiced_bt_gatt_evt_t event, wiced_bt_
         }
         else // Disconnected
         {
-            WICED_BT_TRACE("Tile: DISCONNECTED\n");
+            WICED_BT_TRACE("Tile: DISCONNECTED\r\n");
             //tile_unchecked->disconnect_count++;
             tile_gap_disconnected();
         }
@@ -151,7 +151,7 @@ wiced_bt_gatt_status_t tile_gatts_callback( wiced_bt_gatt_evt_t event, wiced_bt_
     case GATT_ATTRIBUTE_REQUEST_EVT:
         if (p_data->attribute_request.request_type == GATTS_REQ_TYPE_WRITE)
         {
-            WICED_BT_TRACE("Tile: ATTRIBUTE_REQUEST WRITE\n");
+            WICED_BT_TRACE("Tile: ATTRIBUTE_REQUEST WRITE\r\n");
             wiced_bt_gatt_write_t * p_gatt_data = &(p_data->attribute_request.data.write_req);
             // TO DO: Add queue mechanism
             if (p_gatt_data->handle == HANDLE_HSENS_TILE_SERVICE_CHAR_MEP_TOA_CMD_VAL)
@@ -165,7 +165,7 @@ wiced_bt_gatt_status_t tile_gatts_callback( wiced_bt_gatt_evt_t event, wiced_bt_
         }
         else if (p_data->attribute_request.request_type == GATTS_REQ_TYPE_CONF)
         {
-            WICED_BT_TRACE("Tile: ATTRIBUTE_REQUEST CONF\n");
+            WICED_BT_TRACE("Tile: ATTRIBUTE_REQUEST CONF\r\n");
             tile_toa_response_sent_ok();
         }
         break;
@@ -188,7 +188,7 @@ wiced_bt_gatt_status_t tile_gatts_callback( wiced_bt_gatt_evt_t event, wiced_bt_
 void tile_timer_timeout_handler(uint32_t timer_id)
 {
   tile_timer_expired(timer_id & 0xFF);
-  WICED_BT_TRACE( "tile_timer_expired: %d\n", timer_id);
+  WICED_BT_TRACE( "tile_timer_expired: %d\r\n", timer_id);
 }
 
 
@@ -200,11 +200,11 @@ uint16_t tile_get_adv_uuid(void)
   if(TILE_MODE_ACTIVATED == tile_checked->mode)
   {
     return TILE_ACTIVATED_UUID;
-    WICED_BT_TRACE( "tile return tile UUID ACTIVATED\n");
+    WICED_BT_TRACE( "tile return tile UUID ACTIVATED\r\n");
   }
   else
   {
     return TILE_SHIPPING_UUID;
-    WICED_BT_TRACE( "tile return tile UUID SHIPPING\n");
+    WICED_BT_TRACE( "tile return tile UUID SHIPPING\r\n");
   }
 }

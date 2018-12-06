@@ -42,18 +42,18 @@ extern "C" {
 
 typedef struct {
     sha256_ctx ctx;
-#if 0
+#if 1
     sha256_ctx ctx_inside;
     sha256_ctx ctx_outside;
 #endif
 
-#if 0
+#if 1
     /* for hmac_reinit */
     sha256_ctx ctx_inside_reinit;
     sha256_ctx ctx_outside_reinit;
 #endif
 
-#if 0
+#if 1
     unsigned char block_ipad[SHA256_BLOCK_SIZE];
     unsigned char block_opad[SHA256_BLOCK_SIZE];
 #endif

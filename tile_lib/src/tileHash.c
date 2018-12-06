@@ -27,7 +27,7 @@
 #include "tilehash.h"
 #include "crypto/uECC.h"
 #include "toa/toa.h"
-
+#include "wiced_bt_trace.h"
 
 /** \defgroup TILE_SECURITY
 
@@ -104,6 +104,26 @@ void tile_device_auth_hash(const uint8_t* auth_key, const uint8_t* randA, const 
 #else
 	hmac_sha256_ogay(auth_key, 16, msg, 32, mac, 32); /* OGay source */
 #endif
+    WICED_BT_TRACE("\r\n\r\n\r\nOGAY SHA256 TILELIB \r\n");
+    WICED_BT_TRACE("auth_key :");
+    for (int i=0;i<16;i++)
+    {
+      WICED_BT_TRACE("%02x",auth_key[i]);
+    }
+    WICED_BT_TRACE("\r\n");
+    WICED_BT_TRACE("msg :");
+    for (int i=0;i<32;i++)
+    {
+      WICED_BT_TRACE(" %02x",msg[i]);
+    }
+    WICED_BT_TRACE("\r\n");
+    WICED_BT_TRACE("mac :");
+
+    for (int i=0;i<32;i++)
+    {
+      WICED_BT_TRACE("%02x",mac[i]);
+    }
+    WICED_BT_TRACE("\r\n");
 
 	memcpy(sresT, mac+4, 4);
   memcpy(aco, mac+8, 24);
@@ -125,6 +145,7 @@ void tile_device_auth_hash(const uint8_t* auth_key, const uint8_t* randA, const 
 void tile_gen_session_key(const uint8_t *auth_key, const uint8_t *randA, const uint8_t *randT,
   const uint8_t cid, const uint8_t *token, uint8_t *session_key)
 {
+  WICED_BT_TRACE("\r\n\r\ntile_gen_session_key :");
   uint8_t msg[32];
   uint8_t *pMsg = &msg[0];
 
@@ -138,7 +159,27 @@ void tile_gen_session_key(const uint8_t *auth_key, const uint8_t *randA, const u
 #ifdef HMAC256_DOTTE
  hmac_sha256(mac, auth_key, 128, msg, 256); /* DOtte source */
 #else
+
+ WICED_BT_TRACE("\r\n\r\nauth_key :");
+ for (int i=0;i<16;i++)
+ {
+   WICED_BT_TRACE("%02x",auth_key[i]);
+ }
+ WICED_BT_TRACE("\r\n");
+ WICED_BT_TRACE("msg :");
+ for (int i=0;i<32;i++)
+ {
+   WICED_BT_TRACE(" %02x",msg[i]);
+ }
+ WICED_BT_TRACE("\r\n");
  hmac_sha256_ogay(auth_key, 16, msg, 32, session_key, 16); /* OGay source */
+ WICED_BT_TRACE("\r\n");
+ WICED_BT_TRACE("session_key :");
+ for (int i=0;i<16;i++)
+ {
+   WICED_BT_TRACE(" %02x",msg[i]);
+ }
+ WICED_BT_TRACE("\r\n");
 #endif
 }
 
@@ -181,6 +222,15 @@ void tile_session_key_gen_hash(const uint8_t* auth_key, const uint8_t* aco, cons
 	memcpy(msg, aco, 24);
 	memcpy(msg+24, tileID, 8);
 
+	WICED_BT_TRACE("auth_key[0]: %0x\r\n",auth_key[0]);
+	WICED_BT_TRACE("auth_key[1]: %0x\r\n",auth_key[1]);
+	WICED_BT_TRACE("auth_key[2]: %0x\r\n",auth_key[2]);
+	WICED_BT_TRACE("auth_key[3]: %0x\r\n",auth_key[3]);
+
+    WICED_BT_TRACE("auth_key[8]: %0x\r\n",auth_key[8]);
+    WICED_BT_TRACE("auth_key[9]: %0x\r\n",auth_key[9]);
+    WICED_BT_TRACE("auth_key[10]: %0x\r\n",auth_key[10]);
+    WICED_BT_TRACE("auth_key[11]: %0x\r\n",auth_key[11]);
 	/* process */
 #ifdef HMAC256_DOTTE
 	hmac_sha256(mac, auth_key, 128, msg, 256); /* DOtte source */
@@ -188,6 +238,10 @@ void tile_session_key_gen_hash(const uint8_t* auth_key, const uint8_t* aco, cons
 	hmac_sha256_ogay(auth_key, 16, msg, 32, session_key, 16); /* OGay source */
 #endif
 
+  WICED_BT_TRACE("session_key[0]: %0x\r\n",session_key[0]);
+  WICED_BT_TRACE("session_key[1]: %0x\r\n",session_key[1]);
+  WICED_BT_TRACE("session_key[2]: %0x\r\n",session_key[2]);
+  WICED_BT_TRACE("session_key[3]: %0x\r\n",session_key[3]);
 
   DBG_KEY_GEN_EXIT
 

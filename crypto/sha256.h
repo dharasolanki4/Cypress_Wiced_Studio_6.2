@@ -53,8 +53,8 @@ extern "C" {
 typedef struct {
     unsigned int tot_len;
     unsigned int len;
-    //unsigned char block[2 * SHA256_BLOCK_SIZE];
-    unsigned char block[SHA256_BLOCK_SIZE];
+    unsigned char block[2 * SHA256_BLOCK_SIZE];
+    //unsigned char block[SHA256_BLOCK_SIZE];
     uint32_t h[8];
 } sha256_ctx;
 
@@ -68,10 +68,10 @@ void sha224_final(sha224_ctx *ctx, unsigned char *digest);
 void sha224(const unsigned char *message, unsigned int len,
             unsigned char *digest);
 
-void sha256_init(sha256_ctx * ctx);
-void sha256_update(sha256_ctx *ctx, const unsigned char *message,
+void sha256_init_tile(sha256_ctx * ctx);
+void sha256_update_tile(sha256_ctx *ctx, const unsigned char *message,
                    unsigned int len);
-void sha256_final(sha256_ctx *ctx, unsigned char *digest);
+void sha256_final_tile(sha256_ctx *ctx, unsigned char *digest);
 void sha256(const unsigned char *message, unsigned int len,
             unsigned char *digest);
 

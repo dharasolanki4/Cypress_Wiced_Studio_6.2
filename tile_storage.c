@@ -185,7 +185,7 @@ void tile_store_app_data(void)
 	/* Update bank and ID */
   tile_checked->bank = !tile_checked->bank;
   tile_checked->id++;
-  tile_checked->version = CHECKED_STRUCTURE_VERSION;
+  tile_checked->tile_version = CHECKED_STRUCTURE_VERSION;
   tile_persist.signature = PERSIST_SIGNATURE;
   /* Recompute CRC, to account for bank switch */
   tile_persist.crc = crc16_compute(tile_persist.checked.d, sizeof(tile_persist.checked.d), NULL);
@@ -230,7 +230,7 @@ static void tile_app_on_flash_evt(nrf_fstorage_evt_t * evt)
   }
   if(NRF_FSTORAGE_EVT_WRITE_RESULT == evt->id)
   {		
-    NRF_LOG_INFO("Fstorage Write Event Callback\n"); 
+    NRF_LOG_INFO("Fstorage Write Event Callback\r\n");
 
     write_in_progress = false;
     if(write_one_more_time)
@@ -240,7 +240,7 @@ static void tile_app_on_flash_evt(nrf_fstorage_evt_t * evt)
   }
 	else if (NRF_FSTORAGE_EVT_ERASE_RESULT == evt->id)
   {
-    NRF_LOG_INFO("Fstorage Erase Event Callback\n"); 	
+    NRF_LOG_INFO("Fstorage Erase Event Callback\r\n");
   }
 }
 

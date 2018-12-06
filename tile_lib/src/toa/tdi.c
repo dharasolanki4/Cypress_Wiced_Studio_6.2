@@ -88,7 +88,7 @@ void tdi_process_command(const uint8_t *token, const uint8_t *data, uint8_t data
 
 static void tdi_send_response(const uint8_t *token, uint8_t response, uint8_t *data, uint8_t datalen)
 {
-  WICED_BT_TRACE("Tile: tdi_send_response\n");
+  WICED_BT_TRACE("Tile: tdi_send_response\r\n");
   uint8_t rsp[20];
 
   rsp[0] = response;
