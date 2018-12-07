@@ -49,7 +49,6 @@
 #include "tpc.h"
 #include "trm.h"
 
-#include "wiced_bt_trace.h"
 
 bool            toaRspPending;
 uint8_t         toaRspDropped;
@@ -230,7 +229,6 @@ void toa_clear_feature(uint16_t bit)
  */
 void tile_toa_response_sent_ok(void)
 {
-  WICED_BT_TRACE( "tile_toa_response_sent_ok\r\n");
   if(true == toaRspPending)
   {
     toaRspPending = false;
@@ -254,7 +252,6 @@ void tile_toa_response_sent_ok(void)
  */
 void tile_toa_transport_ready(bool ready)
 {
-  WICED_BT_TRACE( "tile_toa_transport_ready\r\n");
   /* Only react when transport is turned from OFF to ON */
   if((false == toaTransportReady) && (true == ready))
   {
@@ -291,17 +288,6 @@ void tile_toa_transport_ready(bool ready)
  */
 void tile_toa_command_received(const uint8_t* data, uint8_t datalen)
 {
-  WICED_BT_TRACE( "tile_toa_command_received\r\n");
-  const uint8_t* p_data = data;
-  uint8_t  len    = datalen;
-
-  WICED_BT_TRACE("TOA_CMD: ");
-  while (len--)
-  {
-    WICED_BT_TRACE("%x ",*p_data++);
-  }
-  WICED_BT_TRACE("\r\n");
-
   if(datalen > 0)
   {
     uint8_t cid = data[0];
@@ -336,10 +322,8 @@ void tile_toa_command_received(const uint8_t* data, uint8_t datalen)
  */
 static void toa_process_connectionless_command(const uint8_t *data, uint8_t datalen)
 {
-  WICED_BT_TRACE("Tile: toa_process_connectionless_command\r\n");
   if(datalen < TOA_TOKEN_LEN + 1)
   {
-    WICED_BT_TRACE("Tile: Invalid packet ignore\r\n");
     /* Invalid packet. Ignore. */
     return;
   }
@@ -354,32 +338,26 @@ static void toa_process_connectionless_command(const uint8_t *data, uint8_t data
   switch(command)
   {
     case TOA_CMD_OPEN_CHANNEL:
-      WICED_BT_TRACE("Tile: TOA_CMD_OPEN_CHANNEL\r\n");
       toa_process_open_channel_command(token, data, datalen);
       break;
 
     case TOA_CMD_TDI:
-      WICED_BT_TRACE("Tile: TOA_CMD_TDI\r\n");
       tdi_process_command(token, data, datalen);
       break;
 
     case TOA_CMD_AUTHENTICATE:
-      WICED_BT_TRACE("Tile: TOA_CMD_AUTHENTICATE\r\n");
       toa_process_authenticate_command(token, data, datalen);
       break;
 
     case TOA_CMD_TMF:
-      WICED_BT_TRACE("Tile: TOA_CMD_TMF\r\n");
       tmf_process_command(token, data, datalen);
       break;
 
     case TOA_CMD_ASSOCIATE:
-      WICED_BT_TRACE("Tile: TOA_CMD_ASSOCIATE\r\n");
       toa_process_associate_command(token, data, datalen);
       break;
 
     default:
-      WICED_BT_TRACE("Tile: default\r\n");
       toa_send_connectionless_response_error((uint8_t*)token, TOA_RSP_ERROR_UNSUPPORTED, command);
       break;
   }
@@ -416,14 +394,10 @@ static void toa_process_connectionless_command(const uint8_t *data, uint8_t data
  */
 static void toa_process_channel_command(const uint8_t cid, const uint8_t *data, uint8_t datalen)
 {
-  WICED_BT_TRACE("toa_process_channel_command\r\n");
   toa_channel_t *channel = &toa->channels[TOA_CHANNEL_IDX(cid)];
-
-  WICED_BT_TRACE("channel->state: %d\r\n", channel->state);
 
   if(!(TOA_CHANNEL_ASSIGNED & channel->state))
   {
-    WICED_BT_TRACE("TOA_CHANNEL_ASSIGNED\r\n");
     /* Ignore messages on unassigned channels */
     return;
   }
@@ -450,20 +424,7 @@ static void toa_process_channel_command(const uint8_t cid, const uint8_t *data, 
   else
   {
     channel->nonceA++;
-    WICED_BT_TRACE("channel->datalen-TILE_MIC_LEN: %0x\r\n\r\n", datalen-TILE_MIC_LEN);
-
-    WICED_BT_TRACE("channel->session_key[0]:       %0x\r\n", channel->session_key[0]);
-    WICED_BT_TRACE("channel->nonceA:               %0x\r\n", channel->nonceA);
-    WICED_BT_TRACE("channel->data[0]:              %0x\r\n", data[0]);
-
-
     tile_mic_hash(channel->session_key, channel->nonceA, 1, data, datalen-TILE_MIC_LEN, micA);
-
-    WICED_BT_TRACE("micA[0]:                       %0x\r\n", micA[0]);
-    WICED_BT_TRACE("micA[1]:                       %0x\r\n", micA[1]);
-    WICED_BT_TRACE("micA[2]:                       %0x\r\n", micA[2]);
-    WICED_BT_TRACE("micA[3]:                       %0x\r\n", micA[3]);
-
     if(0 != memcmp(micA, &data[datalen-TILE_MIC_LEN], TILE_MIC_LEN))
     {
       res = 1;
@@ -572,7 +533,6 @@ static void toa_process_channel_command(const uint8_t cid, const uint8_t *data, 
  */
 void toa_send_connectionless_response(uint8_t *token, uint8_t response, uint8_t *data, uint8_t datalen)
 {
-  WICED_BT_TRACE("Tile: toa_send_connectionless_response\r\n");
   uint8_t transaction[TOA_MPS+TOA_TOKEN_LEN+2];
 
   datalen = datalen < TOA_MPS ? datalen : TOA_MPS;
@@ -657,15 +617,12 @@ void toa_send_broadcast(uint8_t response, uint8_t *data, uint8_t datalen)
  */
 void toa_send_attempt(void)
 {
-  WICED_BT_TRACE("Tile: toa_send_attempt\r\n");
   uint8_t toaBuff[TOA_MPS + TILE_MIC_LEN + 2];
   uint8_t datalen = 0;
   if((true == toaTransportReady) && (false == toaRspPending))
   {
-    WICED_BT_TRACE("Tile: if 0\r\n");
     if(0 != toaRspDropped)
     {
-      WICED_BT_TRACE("Tile: if 1\r\n");
       /*
        * If some packet was dropped, broadcast the error to everybody. The MIC will
        * prevent any further activity on the channels which had packets dropped.
@@ -684,18 +641,15 @@ void toa_send_attempt(void)
     }
     else if (0 == getItem(toaQueue, toaBuff, &datalen))
     {
-      WICED_BT_TRACE("Tile: else if 0\r\n");
       toa_send_packet(toaBuff, datalen);
     }
     else
     {
-      WICED_BT_TRACE("Tile: else 0\r\n");
       // nothing to send
     }
   }
   else
   {
-    WICED_BT_TRACE("Tile: else 1\r\n");
     // wait for flow to be ON
   }
 }
@@ -712,61 +666,46 @@ void toa_send_attempt(void)
  */
 static void toa_send_packet(uint8_t* data, uint8_t datalen)
 {
-  WICED_BT_TRACE("Tile: toa_send_packet\r\n");
   uint8_t cid = data[0];
 
   if(TOA_CONNECTIONLESS_CID == cid)
   {
-    WICED_BT_TRACE("Tile: TOA_CONNECTIONLESS_CID\r\n");
     /* No MIC for connectionless channel */
   }
   else if(TOA_BROADCAST_CID == cid)
   {
-    WICED_BT_TRACE("Tile: TOA_BROADCAST_CID\r\n");
     broadcast.nonce++;
     tile_broadcast_mic_hash(broadcast.key, broadcast.nonce, &data[1], datalen-1, &data[datalen]);
     datalen += TILE_MIC_LEN;
   }
   else
   {
-    WICED_BT_TRACE("Tile: neither connectionless nor broadcast\r\n");
     toa_channel_t *channel = &toa->channels[TOA_CHANNEL_IDX(cid)];
 
-    WICED_BT_TRACE("Tile: channel->state: %d\r\n",channel->state);
-    //WICED_BT_TRACE("Tile: Continue even if channel state is NOT TOA_CHANNEL_AUTHENTICATED \r\n");
     if(TOA_CHANNEL_AUTHENTICATED & channel->state)
     {
       if(TOA_RSP_READY == data[1])
       {
-        WICED_BT_TRACE("Tile: channel->state: %d\r\n",channel->state);
         /* Copy in the most up-to-date nonce value */
         // TODO: remove Magic Numbers
         memcpy(&data[6], &broadcast.nonce, 4);
       }
       else if(TOA_RSP_CLOSE_CHANNEL == data[1])
       {
-        WICED_BT_TRACE("Tile: channel->state: %d\r\n",channel->state);
         toa_unassign_channel(cid);
       }
-      WICED_BT_TRACE("Tile: channel->session_key[0] = %d, channel->nonceT: %d\r\n",channel->session_key[0],channel->nonceT);
       channel->nonceT++;
       tile_mic_hash(channel->session_key, channel->nonceT, 0, &data[1], datalen-1, &data[datalen]);
-      WICED_BT_TRACE("MIC[0]: %d\r\n",data[datalen]);
-      WICED_BT_TRACE("MIC[0]: %d\r\n",data[datalen+1]);
-      WICED_BT_TRACE("MIC[0]: %d\r\n",data[datalen+2]);
-      WICED_BT_TRACE("MIC[0]: %d\r\n",data[datalen+3]);
-
       datalen += TILE_MIC_LEN;
     }
     else
     {
-      WICED_BT_TRACE("Tile: unassign channel\r\n");
       /* Unassign channel here */
       toa_unassign_channel(cid);
       /* We should not send responses on unauthenticated channels */
       return;
     }
-}
+  }
 
   toaRspPending = true;
 
@@ -1080,8 +1019,6 @@ static void toa_process_open_channel_command(const uint8_t *token, const uint8_t
  */
 static void toa_process_associate_command(const uint8_t *token, const uint8_t *data, uint8_t datalen)
 {
-  WICED_BT_TRACE("toa_process_associate_command\r\n");
-
   uint8_t aco[24];
   uint8_t retcode = TOA_ERROR_OK;
   uint8_t authorization_type = 0;
@@ -1092,37 +1029,12 @@ static void toa_process_associate_command(const uint8_t *token, const uint8_t *d
     toa_send_connectionless_response((uint8_t*)token, TOA_RSP_ERROR, rsp, sizeof(rsp));
     return;
   }
-  WICED_BT_TRACE("toa->auth_key[0] : %0x\r\n",toa->auth_key[0]);
-  WICED_BT_TRACE("toa->auth_key[1] : %0x\r\n",toa->auth_key[1]);
-  WICED_BT_TRACE("toa->auth_key[2] : %0x\r\n",toa->auth_key[2]);
-  WICED_BT_TRACE("toa->auth_key[3] : %0x\r\n",toa->auth_key[3]);
-
-  WICED_BT_TRACE("randA[0] : %0x\r\n",data[0]);
-  WICED_BT_TRACE("randA[1] : %0x\r\n",data[1]);
-  WICED_BT_TRACE("randA[2] : %0x\r\n",data[2]);
-  WICED_BT_TRACE("randA[3] : %0x\r\n",data[3]);
 
   uint8_t randT[TILE_AUTH_RAND_T_LEN];
   uint8_t sresT[TILE_SRES_LEN];
   random->random_bytes(randT, TILE_AUTH_RAND_T_LEN);
 
-  WICED_BT_TRACE("randT[0] : %0x\r\n",randT[0]);
-  WICED_BT_TRACE("randT[1] : %0x\r\n",randT[1]);
-  WICED_BT_TRACE("randT[2] : %0x\r\n",randT[2]);
-  WICED_BT_TRACE("randT[3] : %0x\r\n",randT[3]);
-
   tile_device_auth_hash(toa->auth_key, data, randT, sresT, aco);
-
-  WICED_BT_TRACE("sresT[0] : %0x\r\n",sresT[0]);
-  WICED_BT_TRACE("sresT[1] : %0x\r\n",sresT[1]);
-  WICED_BT_TRACE("sresT[2] : %0x\r\n",sresT[2]);
-  WICED_BT_TRACE("sresT[3] : %0x\r\n",sresT[3]);
-
-  WICED_BT_TRACE("aco[0]   : %0x\r\n",aco[0]);
-  WICED_BT_TRACE("aco[1]   : %0x\r\n",aco[1]);
-  WICED_BT_TRACE("aco[2]   : %0x\r\n",aco[2]);
-  WICED_BT_TRACE("aco[3]   : %0x\r\n",aco[3]);
-
   if(NULL != toa->associate)
   {
     retcode = toa->associate(aco, &authorization_type);

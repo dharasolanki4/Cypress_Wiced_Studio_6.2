@@ -23,8 +23,8 @@
 #include "tofu.h"
 #include "toa.h"
 
-#include "tile_lib/src/crc.h"
-#include "tile_lib/src/tileHash.h"
+#include "../crc.h"
+#include "../tileHash.h"
 #include "tile_lib.h"
 #include "modules/tile_tofu_module.h"
 #include "modules/tile_tdi_module.h"

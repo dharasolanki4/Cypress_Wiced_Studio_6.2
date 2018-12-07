@@ -166,7 +166,7 @@ typedef struct SHA256_HashContext {
 
 void init_SHA256(uECC_HashContext *base) {
     SHA256_HashContext *context = (SHA256_HashContext *)base;
-    SHA256_Init_tile(&context->ctx);
+    sha256_init_tile(&context->ctx);
 }
 
 void update_SHA256(uECC_HashContext *base,

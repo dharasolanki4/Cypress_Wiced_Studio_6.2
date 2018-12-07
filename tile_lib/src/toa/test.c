@@ -173,6 +173,7 @@ static void test_cmd_toa_rsp(const uint8_t cid, const uint8_t* data, uint8_t dat
   }
 }
 
+
 static void test_cmd_tofu(const uint8_t cid, const uint8_t* data, uint8_t datalen)
 {
   extern struct tile_tofu_module *tofu;

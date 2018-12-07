@@ -39,7 +39,6 @@
 #include <limits.h>
 
 #include "crypto/sha256.h"
-#include "wiced_bt_trace.h"
 
 #define SHFR(x, n)    (x >> n)
 #define ROTR(x, n)   ((x >> n) | (x << ((sizeof(x) * CHAR_BIT) - n)))
@@ -284,16 +283,12 @@ void sha256(const unsigned char *message, unsigned int len, unsigned char *diges
 
 void sha256_init_tile(sha256_ctx *ctx)
 {
-    WICED_BT_TRACE("\r\nsha256_init\r\n");
 #ifndef UNROLL_LOOPS
     int i;
     for (i = 0; i < 8; i++) {
         ctx->h[i] = sha256_h0[i];
-        WICED_BT_TRACE("sha256_h0[%u] : %08x \r\n",i,sha256_h0[i]);
-        WICED_BT_TRACE("ctx->h[%u]    : %08x \r\n",i,ctx->h[i]);
     }
 #else
-    WICED_BT_TRACE("UNROLL_LOOPS defined, WHY???\r\n");
     ctx->h[0] = sha256_h0[0]; ctx->h[1] = sha256_h0[1];
     ctx->h[2] = sha256_h0[2]; ctx->h[3] = sha256_h0[3];
     ctx->h[4] = sha256_h0[4]; ctx->h[5] = sha256_h0[5];
@@ -340,24 +335,19 @@ void sha256_update_tile(sha256_ctx *ctx, const unsigned char *message,
 
 void sha256_final_tile(sha256_ctx *ctx, unsigned char *digest)
 {
-    unsigned int block_nb;
-    unsigned int pm_len;
+    //unsigned int block_nb;
+    //unsigned int pm_len;
     unsigned int len_b;
 
 #ifndef UNROLL_LOOPS
     int i;
 #endif
 
-    block_nb = (1 + ((SHA256_BLOCK_SIZE - 9)
-                     < (ctx->len % SHA256_BLOCK_SIZE)));
-
     /* NEW STUFF HERE */
     len_b = (ctx->tot_len + ctx->len) << 3;
-    pm_len = block_nb << 6;
 
-    memset(ctx->block + ctx->len, 0, pm_len - ctx->len);
     ctx->block[ctx->len++] = 0x80;
-#if 0
+
     /* If we don't have enough space for the length, process block and start a new one */
     if(SHA256_BLOCK_SIZE - 8 < ctx->len) {
         memset(ctx->block + ctx->len, 0, SHA256_BLOCK_SIZE - ctx->len);
@@ -368,11 +358,9 @@ void sha256_final_tile(sha256_ctx *ctx, unsigned char *digest)
 
     memset(ctx->block + ctx->len, 0, SHA256_BLOCK_SIZE - ctx->len);
 
-
     UNPACK32(len_b, ctx->block + SHA256_BLOCK_SIZE - 4);
 
     sha256_transf(ctx, ctx->block, 1);
-#endif
     /* END OF NEW STUFF */
 
     //block_nb = (1 + ((SHA256_BLOCK_SIZE - 9)
@@ -383,9 +371,9 @@ void sha256_final_tile(sha256_ctx *ctx, unsigned char *digest)
 
     //memset(ctx->block + ctx->len, 0, pm_len - ctx->len);
     //ctx->block[ctx->len] = 0x80;
-    UNPACK32(len_b, ctx->block + pm_len - 4);
+    //UNPACK32(len_b, ctx->block + pm_len - 4);
     //
-    sha256_transf(ctx, ctx->block, block_nb);
+    //sha256_transf(ctx, ctx->block, block_nb);
 
 
 #ifndef UNROLL_LOOPS

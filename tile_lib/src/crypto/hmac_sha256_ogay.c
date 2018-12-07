@@ -34,12 +34,8 @@
 #include <string.h>
 
 #include "crypto/hmac_sha256.h"
-#include "wiced_bt_trace.h"
 
 /* HMAC-SHA-224 functions */
-const uint32_t sha256_h0[8] =
-            {0x6a09e667, 0xbb67ae85, 0x3c6ef372, 0xa54ff53a,
-             0x510e527f, 0x9b05688c, 0x1f83d9ab, 0x5be0cd19};
 
 
 /* HMAC-SHA-256 functions */
@@ -106,15 +102,12 @@ static void hmac_sha256_init_outside(hmac_sha256_ctx *ctx, const unsigned char *
     sha256_update_tile(&ctx->ctx, pad, SHA256_BLOCK_SIZE);
 }
 
-#if 1
+#if 0
 void hmac_sha256_init(hmac_sha256_ctx *ctx, const unsigned char *key,
                       unsigned int key_size)
 {
-    WICED_BT_TRACE("hmac_sha256_init \r\n");
-    WICED_BT_TRACE("key[0]  : %u \r\n",key[0]);
-    WICED_BT_TRACE("key_size: %u \r\n",key_size);
     unsigned int fill = 0;
-    unsigned int num = 0;
+    unsigned int num;
 
     const unsigned char *key_used;
     unsigned char key_temp[SHA256_DIGEST_SIZE];
@@ -124,79 +117,48 @@ void hmac_sha256_init(hmac_sha256_ctx *ctx, const unsigned char *key,
     if (key_size == SHA256_BLOCK_SIZE) {
         key_used = key;
         num = SHA256_BLOCK_SIZE;
-        WICED_BT_TRACE("if: key_used[0]: %u \r\n",key_used[0]);
     } else {
         if (key_size > SHA256_BLOCK_SIZE){
             num = SHA256_DIGEST_SIZE;
             sha256(key, key_size, key_temp);
             key_used = key_temp;
-            WICED_BT_TRACE("else: if: key_used[0]: %u \r\n",key_used[0]);
         } else { /* key_size > SHA256_BLOCK_SIZE */
             key_used = key;
             num = key_size;
-            WICED_BT_TRACE("else: else: key_used[0]: %u \r\n",key_used[0]);
         }
         fill = SHA256_BLOCK_SIZE - num;
-        WICED_BT_TRACE("if: fill: %u \r\n",fill);
-#if 1 /* removing pads */
+
+#if 0 /* removing pads */
         memset(ctx->block_ipad + num, 0x36, fill);
         memset(ctx->block_opad + num, 0x5c, fill);
 #endif
     }
 
 
-    //memset(pad + num, 0x36, fill);
+    memset(pad + num, 0x36, fill);
     for(i = 0; i < (int) num; i++) {
-        ctx->block_ipad[i] = key_used[i] ^ 0x36;
-        ctx->block_opad[i] = key_used[i] ^ 0x5c;
+        pad[i] = key_used[i] ^ 0x36;
     }
-    WICED_BT_TRACE("\r\nDEE 1\r\n");
-    sha256_init_tile(&ctx->ctx_inside); // This is not being called at all, why?
-/*********************/
-/*    sha256_ctx *p_ctx = &ctx->ctx_inside;
-    for (i = 0; i < 8; i++)
-    {
-        p_ctx->h[i] = sha256_h0[i];
-        WICED_BT_TRACE("sha256_h0[%u] : %08x \r\n",i,sha256_h0[i]);
-        WICED_BT_TRACE("p_ctx->h[%u]    : %08x \r\n",i,p_ctx->h[i]);
+
+    sha256_init_tile(&ctx->ctx_inside);
+    sha256_update_tile(&ctx->ctx_inside, pad, SHA256_BLOCK_SIZE);
+
+    memset(pad + num, 0x5c, fill);
+    for(i = 0; i < (int) num; i++) {
+        pad[i] = key_used[i] ^ 0x5c;
     }
-    p_ctx->len = 0;
-    p_ctx->tot_len = 0; */
-/***********************/
-    WICED_BT_TRACE("\r\nDEE 2\r\n");
-
-    WICED_BT_TRACE("inside init\r\n");
-    WICED_BT_TRACE("ctx->ctx_inside.block[0]: %08x \r\n",(ctx->ctx_inside).block[0]);
-    WICED_BT_TRACE("ctx->ctx_inside.h[0]    : %08x \r\n",(ctx->ctx_inside).h[0]);
-
-    sha256_update_tile(&ctx->ctx_inside, ctx->block_ipad, SHA256_BLOCK_SIZE);
-
-    WICED_BT_TRACE("inside update\r\n");
-    WICED_BT_TRACE("ctx->ctx_inside.block[0]: %08x \r\n",(ctx->ctx_inside).block[0]);
-    WICED_BT_TRACE("ctx->ctx_inside.h[0]    : %08x \r\n",(ctx->ctx_inside).h[0]);
 
     sha256_init_tile(&ctx->ctx_outside);
+    sha256_update_tile(&ctx->ctx_outside, pad,
+                  SHA256_BLOCK_SIZE);
 
-    WICED_BT_TRACE("outside init\r\n");
-    WICED_BT_TRACE("ctx->ctx_outside.block[0]: %08x \r\n",(ctx->ctx_outside).block[0]);
-    WICED_BT_TRACE("ctx->ctx_outside.h[0]    : %08x \r\n",(ctx->ctx_outside).h[0]);
-
-    sha256_update_tile(&ctx->ctx_outside, ctx->block_opad, SHA256_BLOCK_SIZE);
-
-    WICED_BT_TRACE("outside update\r\n");
-    WICED_BT_TRACE("ctx->ctx_outside.block[0]: %08x \r\n",(ctx->ctx_outside).block[0]);
-    WICED_BT_TRACE("ctx->ctx_outside.h[0]    : %08x \r\n",(ctx->ctx_outside).h[0]);
-
-
-#if 1
+#if 0
     /* for hmac_reinit */
     memcpy(&ctx->ctx_inside_reinit, &ctx->ctx_inside,
            sizeof(sha256_ctx));
     memcpy(&ctx->ctx_outside_reinit, &ctx->ctx_outside,
            sizeof(sha256_ctx));
 #endif
-
-    WICED_BT_TRACE("ctx_inside_reinit: %08x \r\n",(ctx->ctx_inside_reinit).block[0]);
 }
 #endif
 
@@ -213,10 +175,10 @@ void hmac_sha256_reinit(hmac_sha256_ctx *ctx)
 void hmac_sha256_update(hmac_sha256_ctx *ctx, const unsigned char *message,
                         unsigned int message_len)
 {
-    sha256_update_tile(&ctx->ctx_inside, message, message_len);
+    sha256_update_tile(&ctx->ctx, message, message_len);
 }
 
-#if 1
+#if 0
 void hmac_sha256_final(hmac_sha256_ctx *ctx, unsigned char *mac,
                        unsigned int mac_size)
 {
@@ -263,13 +225,11 @@ void hmac_sha256_ogay(const unsigned char *key, unsigned int key_size,
           const unsigned char *message, unsigned int message_len,
           unsigned char *mac, unsigned mac_size)
 {
-    hmac_sha256_ctx ctx;
+    static hmac_sha256_ctx ctx;
 
-    //hmac_sha256_init_inside(&ctx, key, key_size);
-    hmac_sha256_init(&ctx, key, key_size);
+    hmac_sha256_init_inside(&ctx, key, key_size);
     hmac_sha256_update(&ctx, message, message_len);
-    //hmac_sha256_final2(&ctx, mac, mac_size, key, key_size);
-    hmac_sha256_final(&ctx, mac, mac_size);
+    hmac_sha256_final2(&ctx, mac, mac_size, key, key_size);
 }
 
 

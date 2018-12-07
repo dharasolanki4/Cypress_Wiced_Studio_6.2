@@ -174,7 +174,7 @@ TOA_EXTERN_IMPL(void, trm_process_command, (const uint8_t cid, const uint8_t* da
       }
       else
       {
-        // Reset flag, cached_cid and rssi_index
+        // Reset flag, cached_cid and index
         flag_notify = 0;
         cached_cid = 0;
         rssi_index = 0;
