@@ -196,7 +196,7 @@ const uint8_t hello_sensor_gatt_database[]=
 
     // Declare Tile service
     //PRIMARY_SERVICE_UUID16( HANDLE_HSENS_TILE_SERVICE, TILE_SERVICE_UUID ),
-    PRIMARY_SERVICE_UUID16( HANDLE_HSENS_TILE_SERVICE, 0xFEED ),
+    PRIMARY_SERVICE_UUID16( HANDLE_HSENS_TILE_SERVICE, TILE_SERVICE_UUID ),
 
         CHARACTERISTIC_UUID128_WRITABLE( HANDLE_HSENS_TILE_SERVICE_CHAR_MEP_TOA_CMD, HANDLE_HSENS_TILE_SERVICE_CHAR_MEP_TOA_CMD_VAL,
             TILE_TOA_CMD_UUID,   LEGATTDB_CHAR_PROP_WRITE_NO_RESPONSE, LEGATTDB_PERM_WRITE_CMD),
@@ -384,22 +384,24 @@ void hello_sensor_set_advertisement_data(void)
      * hci_control_le_local_name - Advertising Complete Name
      * Note : Max Length is 8 bytes for the Advertisement Name, rest of 21 bytes are used for BTM_BLE_ADVERT_TYPE_FLAG,BTM_BLE_ADVERT_TYPE_128SRV_COMPLETE
      */
-    uint8_t  hci_control_le_local_name[]   = "CypressTile" ; //Alternate way to declare {'h', 'e', 'l', 'l', 'o', 0x00, 0x00};
-    uint8_t tile_service_uuid[LEN_UUID_16] = { 0xED, 0xFE };
+    uint8_t  hci_control_le_local_name[]    = "CypressTile" ; //Alternate way to declare "hello" is {'h', 'e', 'l', 'l', 'o', 0x00, 0x00};
 
-    adv_elem[num_elem].advert_type  = BTM_BLE_ADVERT_TYPE_FLAG;
-    adv_elem[num_elem].len          = sizeof(uint8_t);
-    adv_elem[num_elem].p_data       = &flag;
+    uint16_t tile_adv_uuid                  = tile_get_adv_uuid();
+    uint8_t  tile_service_uuid[LEN_UUID_16] = {tile_adv_uuid & 0xFF , (tile_adv_uuid>>8) & 0xFF};
+
+    adv_elem[num_elem].advert_type          = BTM_BLE_ADVERT_TYPE_FLAG;
+    adv_elem[num_elem].len                  = sizeof(uint8_t);
+    adv_elem[num_elem].p_data               = &flag;
     num_elem++;
 
-    adv_elem[num_elem].advert_type  = BTM_BLE_ADVERT_TYPE_16SRV_COMPLETE;
-    adv_elem[num_elem].len          = sizeof(tile_service_uuid);
-    adv_elem[num_elem].p_data       = ( uint8_t* )tile_service_uuid;
+    adv_elem[num_elem].advert_type          = BTM_BLE_ADVERT_TYPE_16SRV_COMPLETE;
+    adv_elem[num_elem].len                  = sizeof(tile_service_uuid);
+    adv_elem[num_elem].p_data               = ( uint8_t* )tile_service_uuid;
     num_elem++;
 
-    adv_elem[num_elem].advert_type  = BTM_BLE_ADVERT_TYPE_NAME_COMPLETE;
-    adv_elem[num_elem].len          = strlen(hci_control_le_local_name);
-    adv_elem[num_elem].p_data       = ( uint8_t* )hci_control_le_local_name;
+    adv_elem[num_elem].advert_type          = BTM_BLE_ADVERT_TYPE_NAME_COMPLETE;
+    adv_elem[num_elem].len                  = strlen(hci_control_le_local_name);
+    adv_elem[num_elem].p_data               = ( uint8_t* )hci_control_le_local_name;
     num_elem++;
 
     wiced_bt_ble_set_raw_advertisement_data(num_elem, adv_elem);
@@ -991,6 +993,7 @@ wiced_bt_gatt_status_t hello_sensor_gatts_connection_down( wiced_bt_gatt_connect
     /* Resetting the device info */
     memset( hello_sensor_state.remote_addr, 0, 6 );
     hello_sensor_state.conn_id = 0;
+    hello_sensor_set_advertisement_data(); // Reconfigure advertising data, so it updates before it starts advertising (0xFEEC->0xFEED)
 
     /*
      * If we are configured to stay connected, disconnection was
