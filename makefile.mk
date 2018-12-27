@@ -32,6 +32,7 @@ APP_SRC += wiced_bt_cfg.c
 APP_SRC += tile_features.c
 APP_SRC += tile_service.c
 APP_SRC += tile_storage.c
+APP_SRC += tile_led.c
 
 APP_SRC += tile_lib/src/tileHash.c
 APP_SRC += tile_lib/src/toa/queue.c

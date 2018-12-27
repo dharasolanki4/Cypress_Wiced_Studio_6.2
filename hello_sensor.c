@@ -83,9 +83,9 @@
 #include "wiced_bt_trace.h"
 #endif
 
-//#include "tile_storage.h"
 #include "tile_service.h"
 #include "tile_storage.h"
+#include "tile_led.h"
 
 /******************************************************************************
  *                                Constants
@@ -313,7 +313,7 @@ void hello_sensor_application_init( void )
 
     /* Initialize wiced app */
     wiced_bt_app_init();
-    wiced_bt_app_led_init();
+    tile_wiced_bt_app_led_init();
 
     /* Configure buttons available on the platform (pin should be configured before registering interrupt handler ) */
     wiced_hal_gpio_configure_pin( WICED_GPIO_BUTTON, WICED_GPIO_BUTTON_SETTINGS( GPIO_EN_INT_RISING_EDGE ), WICED_GPIO_BUTTON_DEFAULT_STATE );
@@ -353,6 +353,11 @@ void hello_sensor_application_init( void )
     result =  wiced_bt_start_advertisements( BTM_BLE_ADVERT_UNDIRECTED_HIGH, 0, NULL );
 
     WICED_BT_TRACE( "wiced_bt_start_advertisements %d\r\r\n", result );
+
+    /* Slow LED Blinking */
+    tile_wiced_bt_app_hal_led_on_ms  = 500;
+    tile_wiced_bt_app_hal_led_off_ms = 500;
+    LedBlinkOn();
 
     /*
      * Set flag_stay_connected to remain connected after all messages are sent
@@ -420,10 +425,18 @@ void hello_sensor_advertisement_stopped( void )
     {
         result =  wiced_bt_start_advertisements( BTM_BLE_ADVERT_UNDIRECTED_LOW, 0, NULL );
         WICED_BT_TRACE( "wiced_bt_start_advertisements: %d\r\n", result );
+
+        /* Slow LED Blinking*/
+        tile_wiced_bt_app_hal_led_on_ms  = 1000;
+        tile_wiced_bt_app_hal_led_off_ms = 1000;
+        LedBlinkOn();
+
     }
     else
     {
         WICED_BT_TRACE( "ADV stop\r\n");
+        /* Stop Blinking */
+        LedBlinkOff();
     }
 }
 
@@ -515,7 +528,7 @@ void hello_sensor_interrupt_handler(void* data, uint8_t pin )
 {
 
     // Blink as configured
-    wiced_bt_app_hal_led_blink( WICED_PLATFORM_LED_1, 250, 250, hello_sensor_hostinfo.number_of_blinks );
+  //  wiced_bt_app_hal_led_blink( WICED_PLATFORM_LED_1, 250, 250, hello_sensor_hostinfo.number_of_blinks );
 
     /* Increment the last byte of the hello sensor notify value */
     hello_sensor_gatts_increment_notify_value();
@@ -533,6 +546,12 @@ void hello_sensor_interrupt_handler(void* data, uint8_t pin )
         result = wiced_bt_start_advertisements( BTM_BLE_ADVERT_UNDIRECTED_HIGH, 0, NULL );
 
         WICED_BT_TRACE( "wiced_bt_start_advertisements:%d\r\n", result );
+
+        /* Slow LED Blinking*/
+        tile_wiced_bt_app_hal_led_on_ms  = 500;
+        tile_wiced_bt_app_hal_led_off_ms = 500;
+        LedBlinkOn();
+
         return;
     }
 
@@ -853,7 +872,7 @@ wiced_bt_gatt_status_t hello_sensor_gatts_req_write_handler( uint16_t conn_id, w
         if ( hello_sensor_hostinfo.number_of_blinks != 0 )
         {
             WICED_BT_TRACE( "hello_sensor_write_handler:num blinks: %d\r\n", hello_sensor_hostinfo.number_of_blinks );
-            wiced_bt_app_hal_led_blink( WICED_PLATFORM_LED_1, 250, 250, hello_sensor_hostinfo.number_of_blinks );
+        //    wiced_bt_app_hal_led_blink( WICED_PLATFORM_LED_1, 250, 250, hello_sensor_hostinfo.number_of_blinks );
             nv_update = WICED_TRUE;
         }
         break;
@@ -952,6 +971,8 @@ wiced_bt_gatt_status_t hello_sensor_gatts_connection_up( wiced_bt_gatt_connectio
 
     WICED_BT_TRACE( "Stopping Advertisements%d\r\n", result );
 
+    LedBlinkOff();
+
     /* Stop idle timer */
     wiced_bt_app_stop_conn_idle_timer();
 
@@ -1004,6 +1025,12 @@ wiced_bt_gatt_status_t hello_sensor_gatts_connection_down( wiced_bt_gatt_connect
     {
         result =  wiced_bt_start_advertisements( BTM_BLE_ADVERT_UNDIRECTED_LOW, 0, NULL );
         WICED_BT_TRACE( "wiced_bt_start_advertisements %d\r\n", result );
+
+        /* Slow LED Blinking*/
+        tile_wiced_bt_app_hal_led_on_ms  = 1000;
+        tile_wiced_bt_app_hal_led_off_ms = 1000;
+        LedBlinkOn();
+
     }
     tile_gap_disconnected();
     return WICED_BT_SUCCESS;

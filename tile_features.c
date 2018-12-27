@@ -36,6 +36,7 @@
 #include "tile_storage.h"
 //#include "tile_assert/tile_assert.h"
 #include "tile_version.h"
+#include "tile_led.h"
 
 #include "hello_sensor.h"
 #include "wiced_hal_rand.h"
@@ -370,6 +371,8 @@ static int tile_associate(uint8_t* aco, uint8_t* authorization_type)
       WICED_BT_TRACE("tile_checked->tile_auth_key[1] : %0x\r\n",tile_checked->tile_auth_key[1]);
       WICED_BT_TRACE("tile_checked->tile_auth_key[2] : %0x\r\n",tile_checked->tile_auth_key[2]);
       WICED_BT_TRACE("tile_checked->tile_auth_key[3] : %0x\r\n",tile_checked->tile_auth_key[3]);
+      activation_song_flag = 1;
+      wiced_bt_app_hal_led_on(tile_led_id);
   }
   else
   {
@@ -396,6 +399,7 @@ static int tile_mode_set(uint8_t mode)
     /* When the Tile is not activated, the Interim TileID, Key is used. */
     memcpy(tile_checked->tile_id, interim_tile_id, 8);
     memcpy(tile_checked->tile_auth_key, interim_tile_key, 16);
+    wiced_bt_app_hal_led_off(tile_led_id);
   }
   tile_checked->mode = mode;
   //tile_store_app_data(); // Without this, we cannot power cycle and expect tile to work
@@ -440,14 +444,20 @@ static int tile_get_diagnostics_cb(void)
 
 /***************************** song module ******************************/
 
+
 int PlaySong(uint8_t number, uint8_t strength)
 {
+  /* Fast LED Blinking*/
+  tile_wiced_bt_app_hal_led_on_ms  = 150;
+  tile_wiced_bt_app_hal_led_off_ms = 150;
+  LedBlinkOn();
   return TILE_SUCCESS;
 }
 
 int StopSong(void)
 {
-	return TILE_SUCCESS;
+  LedBlinkOff();
+  return TILE_SUCCESS;
 }
 /************************************************************************/
 
